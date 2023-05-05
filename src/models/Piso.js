@@ -1,7 +1,7 @@
-class Aula {
+class Piso {
     constructor(descripcion){
         this.descripcion = descripcion
     }
 }
 
-export default Aula
+export default Piso
