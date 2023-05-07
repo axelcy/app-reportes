@@ -5,7 +5,7 @@ class AulaService {
     getAll = async () => {
         let returnArray = null
         try {
-            let pool = sql.connect(config)
+            let pool = await sql.connect(config)
             let result = await pool.request().query("SELECT * from Aulas")
             returnArray = result.recordsets[0]
         }
