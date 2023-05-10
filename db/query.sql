@@ -9,13 +9,16 @@ where ep.Id_Edificio = 1
 -- get aulas from piso
 select a.* from Aulas a
 inner join Pisos_Aulas pa on pa.Id_Aula = a.Id
-where pa.Id_Aula = 1
+inner join Edificios_Pisos ep on ep.Id = pa.Id_Edificio_Piso
+inner join Pisos p on p.Id = ep.Id_Piso
+where p.Id = 1
 
 -- get incidentes from edificio 
-select i.id, i.Descripcion, i.Fecha, i.Nivel, e.Id as 'E_Id', e.Descripcion as 'E_Descripcion' from Incidentes i
+select i.id, i.Descripcion, i.Fecha, i.Nivel from Incidentes i
 inner join Pisos_Aulas pa on pa.Id = i.Id_Piso_Aula
-inner join Edificios_Pisos ep on ep.Id = pa.Id_Piso_Edificio -- (cambiar a: Id_Edificio_Piso)
+inner join Edificios_Pisos ep on ep.Id = pa.Id_Edificio_Piso -- (cambiar a: Id_Edificio_Piso)
 inner join Edificios e on e.Id = ep.Id_Edificio
+where e.Id = 1
 
 -- get user by id
 select * from Usuarios
