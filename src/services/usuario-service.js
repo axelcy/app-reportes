@@ -29,6 +29,21 @@ class UsuarioService {
         }
         return returnArray
     }
+    getByName = async name => {
+        let returnArray = null
+        let query = `
+        select * from Usuarios
+        where Nombre like '%${name}%'`
+        try {
+            const pool = await sql.connect(config)
+            const result = await pool.request().query(query)
+            returnArray = result.recordsets[0]
+        }
+        catch (error) {
+            console.log(error)
+        }
+        return returnArray
+    }
 }
 
 export default UsuarioService
