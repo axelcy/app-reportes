@@ -13,12 +13,6 @@
     "type": "git",
     "url": "git+https://github.com/DarkApple55/app-reportes.git"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/DarkApple55/app-reportes/issues"
-  },
-  "homepage": "https://github.com/DarkApple55/app-reportes#readme",
   "dependencies": {
     "dotenv": "^16.0.3",
     "mssql": "^9.1.1",
