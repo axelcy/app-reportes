@@ -3,13 +3,14 @@ import EdificioService from "./src/services/edificio-service.js"
 import IncidenteService from "./src/services/incidente-service.js"
 import PisoService from "./src/services/piso-service.js"
 import UsuarioService from "./src/services/usuario-service.js"
+// import DbService from "./src/services/db-service.ts"
 
 console.clear()
 
-const getEdificios = async(id) => await new EdificioService().getAll()
-const getUsuarios = async(id) => await new UsuarioService().getAll()
-const getPisos = async(id) => await new PisoService().getAll()
-const getIncidentes = async(id) => await new IncidenteService().getAll()
+const getEdificios = async() => await new EdificioService().getAll()
+const getUsuarios = async() => await new UsuarioService().getAll()
+const getPisos = async() => await new PisoService().getAll()
+const getIncidentes = async() => await new IncidenteService().getAll()
 
 console.log("\n **** getEdificios **** \n" + JSON.stringify(await getEdificios()))
 console.log("\n **** getUsuarios **** \n" + JSON.stringify(await getUsuarios()))
