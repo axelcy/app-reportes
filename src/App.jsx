@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import './App.css'
 
 function App() {
 
-  cosnt [data, setData] = useState([])
+  const [data, setData] = useState([])
   const useFetch = async(endpoint) => {
     try {
       const response = fetch(`https://localhost${endpoint}`)
@@ -14,11 +15,13 @@ function App() {
       throw new Error("No se pudo realizar el fetch a la api")
     }
   }
-  useEffect(async() => setData(await useFetch("/Edificios"), []))
+  // useEffect(async() => setData(await useFetch("/Edificios")), [])
+
   return (
     <>
       <h1>Hello World!</h1>
-      <p>{data ? JSON.stringify(data) : "..."}</p>
+      <Link to={"/test"}>Test</Link>
+      <p>{data && JSON.stringify(data)}</p>
     </>
   )
 }
