@@ -1,12 +1,12 @@
 import sql from 'mssql'
 import config from '../../dbconfig-env.js'
 
-class UsuarioService {
+class PisoService {
     getAll = async () => {
         let returnArray = null
         try {
             const pool = await sql.connect(config)
-            const result = await pool.request().query("SELECT * from Usuarios")
+            const result = await pool.request().query("SELECT * from Pisos")
             returnArray = result.recordsets[0]
         }
         catch (error) {
@@ -14,10 +14,10 @@ class UsuarioService {
         }
         return returnArray
     }
-    getById = async id => {
+    getById = async(id: number) => {
         let returnArray = null
         let query = `
-        select * from Usuarios
+        select * from Pisos
         where Id = @Id`
         try {
             const pool = await sql.connect(config)
@@ -29,14 +29,15 @@ class UsuarioService {
         }
         return returnArray
     }
-    getByName = async name => {
+    getByEdificio = async(id: number) => {
         let returnArray = null
         let query = `
-        select * from Usuarios
-        where Nombre like '%${name}%'`
+        select p.* from Pisos p
+        inner join Edificios_Pisos ep on ep.Id_Piso = p.Id
+        where ep.Id_Edificio = @Id`
         try {
             const pool = await sql.connect(config)
-            const result = await pool.request().query(query)
+            const result = await pool.request().input('Id', sql.Int, id).query(query)
             returnArray = result.recordsets[0]
         }
         catch (error) {
@@ -46,4 +47,5 @@ class UsuarioService {
     }
 }
 
-export default UsuarioService
+export default PisoService
+

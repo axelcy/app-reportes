@@ -1,5 +1,10 @@
 class Incidente {
-    constructor(descripcion, idUsuario, idPisoAula, fecha, nivel){
+    descripcion: string
+    idUsuario: number
+    idPisoAula: number
+    fecha: Date
+    nivel: number
+    constructor(descripcion: string, idUsuario: number, idPisoAula: number, fecha: Date, nivel: number){
         this.descripcion = descripcion
         this.idUsuario = idUsuario
         this.idPisoAula = idPisoAula

@@ -14,7 +14,7 @@ class AulaService {
         }
         return returnArray
     }
-    getById = async id => {
+    getById = async(id: number) => {
         let returnArray = null
         let query = `
         select * from Aulas
@@ -29,7 +29,7 @@ class AulaService {
         }
         return returnArray
     }
-    getByPiso = async id => {
+    getByPiso = async(id: number) => {
         let returnArray = null
         let query = `
         select a.* from Aulas a

@@ -11,6 +11,6 @@ const config = {
     }
 }
 
-process.env.DB_PORT ? config.port = parseInt(process.env.DB_PORT) : ""
+// process.env.DB_PORT ? config.port = parseInt(process.env.DB_PORT) : ""
 
 export default config

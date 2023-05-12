@@ -1,5 +1,6 @@
 class Edificio {
-    constructor(descripcion){
+    descripcion: string
+    constructor(descripcion: string){
         this.descripcion = descripcion
     }
 }

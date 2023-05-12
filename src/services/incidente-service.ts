@@ -14,7 +14,7 @@ class IncidenteService {
         }
         return returnArray
     }
-    getById = async id => {
+    getById = async(id: number) => {
         let returnArray = null
         let query = `
         select * from Incidentes
@@ -29,7 +29,7 @@ class IncidenteService {
         }
         return returnArray
     }
-    getByEdificio = async (id) => {
+    getByEdificio = async(id: number) => {
         let returnArray = null
         let query = `
         select i.id, i.Descripcion, i.Fecha, i.Nivel from Incidentes i
@@ -47,7 +47,7 @@ class IncidenteService {
         }
         return returnArray
     }
-    getByUsuario = async id => {
+    getByUsuario = async(id: number) => {
         let returnArray = null
         let query = `
         select * from Incidentes
