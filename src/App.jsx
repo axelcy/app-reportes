@@ -15,7 +15,9 @@ function App() {
       throw new Error("No se pudo realizar el fetch a la api")
     }
   }
-  // useEffect(async() => setData(await useFetch("/Edificios")), [])
+  useEffect(() => async() => {
+    setData(["Prueba", "test"])
+  }, [])
 
   return (
     <>
