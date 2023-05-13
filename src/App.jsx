@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './App.css'
+import Navbar from './Components/NavBar'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <>
+      <Navbar logo={async() => await useFetch("/img/logo-ort.png")}/>
       <Link to={"/test"}><h1>Hello World!</h1></Link>
       <button onClick={async() => setData(await useFetch("/edificios"))}>Traer datos</button>
       <p>{data && JSON.stringify(data)}</p>
