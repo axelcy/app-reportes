@@ -1,5 +1,5 @@
 import sql from 'mssql'
-import config from '../../dbconfig-env.js'
+import config from '../../dbconfig-env.ts'
 
 class IncidenteService {
     getAll = async () => {
