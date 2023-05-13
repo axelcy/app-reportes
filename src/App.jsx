@@ -7,22 +7,23 @@ function App() {
   const [data, setData] = useState([])
   const useFetch = async(endpoint) => {
     try {
-      const response = fetch(`https://localhost${endpoint}`)
+      const response = await fetch(`http://localhost:3001${endpoint}`, {
+        mode: 'no-cors'
+      })
+      console.log(response)
       return await response.json()
     }
     catch (err) {
       console.log(err)
-      throw new Error("No se pudo realizar el fetch a la api")
+      throw new Error("No se pudo realizar el fetch :(")
     }
   }
-  useEffect(() => async() => {
-    setData(["Prueba", "test"])
-  }, [])
+  useEffect(() => setData(["Prueba", "test"]), [])
 
   return (
     <>
-      <h1>Hello World!</h1>
-      <Link to={"/test"}>Test</Link>
+      <Link to={"/test"}><h1>Hello World!</h1></Link>
+      <button onClick={() => setData(useFetch("/edificios"))}>Traer datos</button>
       <p>{data && JSON.stringify(data)}</p>
     </>
   )
