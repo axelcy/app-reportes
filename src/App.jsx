@@ -1,29 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './App.css'
 import Navbar from './Components/NavBar'
+import useFetch from './Hooks/useFetch'
 
 function App() {
-
   const [data, setData] = useState()
-  const useFetch = async(endpoint) => {
-    try {
-      const response = await fetch(`http://localhost:3001${endpoint}`)
-      return await response.json()
-    }
-    catch (err) {
-      console.log(err)
-      throw new Error("No se pudo realizar el fetch :(")
-    }
-  }
-  // useEffect(() => setData(["Prueba", "test"]), [])
 
   return (
     <>
-      <Navbar logo={async() => await useFetch("/img/logo-ort.png")}/>
+      <Navbar setData={setData} />
       <Link to={"/test"}><h1>Hello World!</h1></Link>
-      <button onClick={async() => setData(await useFetch("/edificios"))}>Traer datos</button>
+      <button onClick={async() => setData(await useFetch("/edificios"))}>Traer edificios</button>
       <p>{data && JSON.stringify(data)}</p>
+      {typeof data == 'string' && data.split(import.meta.env.VITE_URL_API)[1].startsWith('/img/') && <img className='img' src={data}/>}
     </>
   )
 }
