@@ -4,13 +4,10 @@ import './App.css'
 
 function App() {
 
-  const [data, setData] = useState([])
+  const [data, setData] = useState()
   const useFetch = async(endpoint) => {
     try {
-      const response = await fetch(`http://localhost:3001${endpoint}`, {
-        mode: 'no-cors'
-      })
-      console.log(response)
+      const response = await fetch(`http://localhost:3001${endpoint}`)
       return await response.json()
     }
     catch (err) {
@@ -18,12 +15,12 @@ function App() {
       throw new Error("No se pudo realizar el fetch :(")
     }
   }
-  useEffect(() => setData(["Prueba", "test"]), [])
+  // useEffect(() => setData(["Prueba", "test"]), [])
 
   return (
     <>
       <Link to={"/test"}><h1>Hello World!</h1></Link>
-      <button onClick={() => setData(useFetch("/edificios"))}>Traer datos</button>
+      <button onClick={async() => setData(await useFetch("/edificios"))}>Traer datos</button>
       <p>{data && JSON.stringify(data)}</p>
     </>
   )
