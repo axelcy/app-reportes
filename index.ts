@@ -27,6 +27,9 @@ app.get('/', (_req: any, _res: any) => _res.send(`Reportes api!`))
 
 // Routes
 app.get(routes.edificios, async(_req: any, _res: any) => _res.send(await dbService.getEdificios()))
+app.get(routes.pisos, async(_req: any, _res: any) => _res.send(await dbService.getPisos()))
+app.get(routes.aulas, async(_req: any, _res: any) => _res.send(await dbService.getAulas()))
+app.get(routes.usuarios, async(_req: any, _res: any) => _res.send(await dbService.getUsuarios()))
 
 // Images
 app.get(`${routes.img}/:img`, async(_req: any, _res: any) => {
