@@ -7,7 +7,6 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import InputGroup from 'react-bootstrap/InputGroup';
 import { Button } from 'react-bootstrap';
 
 function NavBar({ setData }) {
@@ -31,7 +30,7 @@ function NavBar({ setData }) {
                     {/* <Nav.Link href="/test">Test</Nav.Link> */}
                     {/* <Nav.Link href="#link">Link</Nav.Link> */}
                     <NavDropdown title="Traer datos">
-                        <NavDropdown.Item onClick={async() => setData(await useFetch("/usuarios"))}>Usuarios</NavDropdown.Item>
+                        <NavDropdown.Item onClick={async() => setData(await useFetch("/edificios"))}>Edificios</NavDropdown.Item>
                         <NavDropdown.Item onClick={async() => setData(await useFetch("/pisos"))}>Pisos</NavDropdown.Item>
                         <NavDropdown.Item onClick={async() => setData(await useFetch("/aulas"))}>Aulas</NavDropdown.Item>
                         <NavDropdown.Item onClick={async() => setData(await useFetch("/usuarios"))}>Usuarios</NavDropdown.Item>
