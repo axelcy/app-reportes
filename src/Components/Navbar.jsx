@@ -1,13 +1,14 @@
+import './Navbar.css'
+import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
+import useFetch from '../Hooks/useFetch';
+
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import InputGroup from 'react-bootstrap/InputGroup';
-
-import './Navbar.css'
-import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
-import useFetch from '../Hooks/useFetch';
+import { Button } from 'react-bootstrap';
 
 function NavBar({ setData }) {
     const [logo, setLogo] = useState()
@@ -24,19 +25,23 @@ function NavBar({ setData }) {
               {/* <Link to={"/"}><Navbar.Brand>{logo}</Navbar.Brand></Link> */}
               <Link to={"/"}><div className='navbar-brand'>{logo}<span>App reportes</span></div></Link>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav">
+              <Navbar.Collapse>
                   <Nav className="me-auto">
-                  {/* <Nav.Link href="#home">Home</Nav.Link> */}
-                  {/* <Nav.Link href="#link">Link</Nav.Link> */}
-                  <NavDropdown title="Traer datos" id="basic-nav-dropdown">
-                      <NavDropdown.Item onClick={async() => setData(await useFetch("/usuarios"))}>Usuarios</NavDropdown.Item>
-                      <NavDropdown.Item onClick={async() => setData(await useFetch("/pisos"))}>Pisos</NavDropdown.Item>
-                      <NavDropdown.Item onClick={async() => setData(await useFetch("/aulas"))}>Pisos</NavDropdown.Item>
-                      <NavDropdown.Item onClick={async() => setData(await useFetch("/usuarios"))}>Pisos</NavDropdown.Item>
-                      <NavDropdown.Divider />
-                        <input className='form-control' id='select-img' ref={imgInput}/>
-                      <NavDropdown.Item onClick={fetchImg}>Buscar</NavDropdown.Item>
-                  </NavDropdown>
+                    {/* <Link to={"/test"}>Ir a /test</Link> */}
+                    {/* <Nav.Link href="/test">Test</Nav.Link> */}
+                    {/* <Nav.Link href="#link">Link</Nav.Link> */}
+                    <NavDropdown title="Traer datos">
+                        <NavDropdown.Item onClick={async() => setData(await useFetch("/usuarios"))}>Usuarios</NavDropdown.Item>
+                        <NavDropdown.Item onClick={async() => setData(await useFetch("/pisos"))}>Pisos</NavDropdown.Item>
+                        <NavDropdown.Item onClick={async() => setData(await useFetch("/aulas"))}>Aulas</NavDropdown.Item>
+                        <NavDropdown.Item onClick={async() => setData(await useFetch("/usuarios"))}>Usuarios</NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item onClick={fetchImg}>Buscar imagen</NavDropdown.Item>
+                    </NavDropdown>
+                    <div className='buscar-section'>
+                        <input className='form-control' ref={imgInput} autoComplete='off' placeholder='el-pepe.jpg'/>
+                        <Button onClick={fetchImg} className='form-control' variant='outline-secondary'>Buscar imagen</Button>
+                    </div>
                   </Nav>
               </Navbar.Collapse>
               </Container>

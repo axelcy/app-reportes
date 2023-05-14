@@ -15,6 +15,8 @@ span {
     /* align-items: center; */
 }
 
-#select-img{
-    
+.buscar-section{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
 }

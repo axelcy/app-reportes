@@ -10,7 +10,8 @@ function App() {
   return (
     <>
       <Navbar setData={setData} />
-      <Link to={"/test"}><h1>Hello World!</h1></Link>
+      <h1>App reportes</h1>
+      <Link to={"/test"}><h3>Ir a /test</h3></Link>
       <button onClick={async() => setData(await useFetch("/edificios"))}>Traer edificios</button>
       <p>{data && JSON.stringify(data)}</p>
       {typeof data == 'string' && data.split(import.meta.env.VITE_URL_API)[1].startsWith('/img/') && <img className='img' src={data}/>}
