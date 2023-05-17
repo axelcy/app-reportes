@@ -16,7 +16,8 @@ function App() {
       <Link to={"/test"}><h3>Ir a /test</h3></Link>
       <Row>
         <Col xs={4}>
-          <button onClick={async() => setData(await useFetch("/edificios"))}>Traer edificios</button>
+          {/* <button onClick={async() => setData(await useFetch("/edificios"))}>Traer edificios</button> */}
+          <h3>DATA</h3>
           <p>{data && JSON.stringify(data)}</p>
           {typeof data == 'string' && data.split(import.meta.env.VITE_URL_API)[1].startsWith('/img/') && <img className='img' src={data}/>}
         </Col>
