@@ -1,5 +1,5 @@
 import sql from 'mssql'
-import config from '../../dbconfig-env.ts'
+import config from '../../dbconfig-env'
 
 class EdificioService {
     getAll = async () => {

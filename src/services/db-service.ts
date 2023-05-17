@@ -1,8 +1,8 @@
-import AulaService from "./aula-service.ts"
-import EdificioService from "./edificio-service.ts"
-import IncidenteService from "./incidente-service.ts"
-import PisoService from "./piso-service.ts"
-import UsuarioService from "./usuario-service.ts"
+import AulaService from "./aula-service"
+import EdificioService from "./edificio-service"
+import IncidenteService from "./incidente-service"
+import PisoService from "./piso-service"
+import UsuarioService from "./usuario-service"
 
 class DbService {
     getEdificios = async() => await new EdificioService().getAll()

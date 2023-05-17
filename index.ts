@@ -1,4 +1,4 @@
-import DbService from "./src/services/db-service.ts"
+import DbService from "./src/services/db-service"
 import express from 'express'
 import cors from 'cors'
 import { dirname } from 'path';
