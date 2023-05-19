@@ -4,5 +4,10 @@ form > .row {
 
 .form-epa {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+}
+
+.form-epa > div {
+    width: 0;
+    flex-grow: 1;
 }
