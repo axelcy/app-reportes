@@ -1,12 +1,36 @@
 import sql from 'mssql'
 import config from '../../dbconfig-env'
 
+type Order = 'importancia' | 'fecha' | 'edificio' | 'categoria'
+
 class IncidenteService {
-    getAll = async () => {
+    getAll = async (order: Order = 'fecha') => {
+        let query = `
+        select i.Id, i.Descripcion, i.Id_Usuario, i.Fecha, i.Id_Usuario_Solucion, i.Estado, c.Descripcion 'Categoria', n.Descripcion 'Nivel de Imporancia', e.Descripcion 'Edificio' from Incidentes i
+		inner join Categorias c on c.Id = i.Categoria
+        inner join Niveles_Importancia n on n.Id = i.Nivel_Importancia
+        inner join Pisos_Aulas pa on pa.Id = i.Id_Piso_Aula
+        inner join Edificios_Pisos ep on ep.Id = pa.Id_Edificio_Piso
+        inner join Edificios e on e.Id = ep.Id_Edificio
+        `
+        switch (order) {
+            case 'importancia':
+                query += "order by i.Nivel_Importancia"
+                break
+            case 'fecha':
+                query += "order by i.Fecha"
+                break
+            case 'edificio':
+                query += "order by ep.Id_Edificio"
+                break
+            case 'categoria':
+                query += "order by c.Id"
+                break
+        }
         let returnArray = null
         try {
             const pool = await sql.connect(config)
-            const result = await pool.request().query("SELECT * from Incidentes")
+            const result = await pool.request().query(query)
             returnArray = result.recordsets[0]
         }
         catch (error) {
