@@ -26,6 +26,7 @@ function NavBar({ setData }) {
                     {/* <Nav.Link href="#link">Link</Nav.Link> */}
                     <NavDropdown title="Traer datos">
                         <NavDropdown.Item onClick={async() => setData(await useFetch("/edificios"))}>Edificios</NavDropdown.Item>
+                        <NavDropdown.Item onClick={async() => setData(await useFetch("/incidentes"))}>Incidentes</NavDropdown.Item>
                         <NavDropdown.Item onClick={async() => setData(await useFetch("/pisos"))}>Pisos</NavDropdown.Item>
                         <NavDropdown.Item onClick={async() => setData(await useFetch("/aulas"))}>Aulas</NavDropdown.Item>
                         <NavDropdown.Item onClick={async() => setData(await useFetch("/usuarios"))}>Usuarios</NavDropdown.Item>
