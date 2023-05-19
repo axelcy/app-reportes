@@ -4,13 +4,14 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
+import FormReportes from './pages/Form.jsx'
 
 const routes = createBrowserRouter([{
   path: "/",
   element: <App />
 },{
   path: "/test",
-  element: <h1>/Test</h1>
+  element: <FormReportes />
 }])
 
 

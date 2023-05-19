@@ -1,0 +1,8 @@
+form > .row {
+    padding-bottom: 1rem;
+}
+
+.form-epa {
+    display: flex;
+    flex-direction: column;
+}
