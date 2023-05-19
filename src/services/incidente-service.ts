@@ -4,7 +4,7 @@ import config from '../../dbconfig-env'
 type Order = 'importancia' | 'fecha' | 'edificio' | 'categoria'
 
 class IncidenteService {
-    getAll = async (order: Order = 'fecha') => {
+    getAll = async (order: Order) => {
         let query = `
         select i.Id, i.Descripcion, i.Id_Usuario, i.Fecha, i.Id_Usuario_Solucion, i.Estado, c.Descripcion 'Categoria', n.Descripcion 'Nivel de Imporancia', e.Descripcion 'Edificio' from Incidentes i
 		inner join Categorias c on c.Id = i.Categoria
@@ -15,16 +15,16 @@ class IncidenteService {
         `
         switch (order) {
             case 'importancia':
-                query += "order by i.Nivel_Importancia"
+                query += "order by i.Nivel_Importancia desc"
                 break
             case 'fecha':
-                query += "order by i.Fecha"
+                query += "order by i.Fecha asc"
                 break
             case 'edificio':
-                query += "order by ep.Id_Edificio"
+                query += "order by ep.Id_Edificio asc"
                 break
             case 'categoria':
-                query += "order by c.Id"
+                query += "order by c.Id asc"
                 break
         }
         let returnArray = null

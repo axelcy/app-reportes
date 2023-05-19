@@ -31,7 +31,7 @@ app.get(routes.edificios, async(_req: any, _res: any) => _res.send(await dbServi
 app.get(routes.pisos, async(_req: any, _res: any) => _res.send(await dbService.getPisos()))
 app.get(routes.aulas, async(_req: any, _res: any) => _res.send(await dbService.getAulas()))
 app.get(routes.usuarios, async(_req: any, _res: any) => _res.send(await dbService.getUsuarios()))
-app.get(routes.incidentes, async(_req: any, _res: any) => _res.send(await dbService.getIncidentes()))
+app.get(routes.incidentes, async(_req: any, _res: any) => _res.send(await dbService.getIncidentes('importancia')))
 
 // Images
 app.get(`${routes.img}/:img`, async(_req: any, _res: any) => {

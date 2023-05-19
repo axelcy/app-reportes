@@ -4,11 +4,13 @@ import IncidenteService from "./incidente-service"
 import PisoService from "./piso-service"
 import UsuarioService from "./usuario-service"
 
+type Order = 'importancia' | 'fecha' | 'edificio' | 'categoria'
+
 class DbService {
     getEdificios = async() => await new EdificioService().getAll()
     getUsuarios = async() => await new UsuarioService().getAll()
     getPisos = async() => await new PisoService().getAll()
-    getIncidentes = async() => await new IncidenteService().getAll()
+    getIncidentes = async(order: Order = 'fecha') => await new IncidenteService().getAll(order)
     getAulas = async() => await new AulaService().getAll()
 
     getUsuarioById = async(id: number) => await new UsuarioService().getById(id)
