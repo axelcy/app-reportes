@@ -4,12 +4,14 @@ import { Container, Row } from "react-bootstrap";
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import './Form.css'
+import { Link } from 'react-router-dom'
 
 const FormReportes = () => {
 
     return (
         <>
             <NavBar />
+            <Link to={"/"}><h3>Ir a /form</h3></Link>
             <Container>
                 <h2>Formulario reporte</h2>
                 <Form>

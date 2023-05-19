@@ -13,7 +13,7 @@ function App() {
     <Container  fluid className='AppContainer'>
       <Navbar setData={setData} />
       <h1>App reportes</h1>
-      <Link to={"/test"}><h3>Ir a /test</h3></Link>
+      <Link to={"/form"}><h3>Ir a /form</h3></Link>
       <Row>
         <Col xs={4}>
           {/* <button onClick={async() => setData(await useFetch("/edificios"))}>Traer edificios</button> */}

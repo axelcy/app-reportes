@@ -10,7 +10,7 @@ const routes = createBrowserRouter([{
   path: "/",
   element: <App />
 },{
-  path: "/test",
+  path: "/form",
   element: <FormReportes />
 }])
 
