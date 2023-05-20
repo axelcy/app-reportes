@@ -1,5 +1,6 @@
 import sql from 'mssql'
 import config from '../../dbconfig-env'
+import Incidente from '../models/Incidente'
 
 type Order = 'importancia' | 'fecha' | 'edificio' | 'categoria'
 
@@ -85,6 +86,25 @@ class IncidenteService {
             console.log(error)
         }
         return returnArray
+    }
+    insert = async (Incidente: Incidente) => {
+        let returnArray = null
+
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input('pNombre'     , sql.NChar , Incidente?.nombre ?? '')
+                .input('pDescripcion', sql.NChar   , Incidente?.descripcion ?? '')
+                .input('pNivel'    , sql.Int , Incidente?.nivel ?? 0)
+                // .input('pDescripcion', sql.NChar , Incidente?.categoria ?? '')
+                // .input('pImporte'    , sql.Int , Incidente?.aula ??)
+                // .input('pImporte'    , sql.Date , Incidente?.fecha ?? 0)
+                .query(`INSERT INTO Incidentes (Nombre, Descripcion, Nivel_importancia, Categoria, Aula, Fecha) VALUES (@pNombre, @pDescripcion, @pNivel_importancia, @pCategoria, @pAula, @pFecha)`);
+                returnArray = result.recordsets[0]
+        } catch (error) {
+            console.log(error);
+        }
+        return returnArray;
     }
 }
 
