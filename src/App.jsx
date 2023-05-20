@@ -7,7 +7,7 @@ import Tabla from './Components/Tabla'
 
 function App() {
   const [data, setData] = useState()
-
+  console.log(data)
   return (
     <Container  fluid className='AppContainer'>
       <Navbar setData={setData} />

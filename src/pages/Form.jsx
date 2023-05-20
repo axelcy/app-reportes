@@ -7,12 +7,18 @@ import './Form.css'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import useFetch from "../Hooks/useFetch";
+import Button from 'react-bootstrap/Button';
+
+var IdPiso
 
 const FormReportes = () => {
 
     const [edificios, setEdificios] = useState([])
     const [pisos, setPisos] = useState([])
     const [aulas, setAulas] = useState([])
+    const [data, setData] = useState()
+
+    
 
     const [ubicacion, setUbicacion] = useState({
         edificio: 0,
@@ -20,8 +26,8 @@ const FormReportes = () => {
         aula: 0
     })
 
-    const updateUbicacion = async(e) => {
-        setUbicacion({...ubicacion, [e.target.name]: Number(e.target.value)})
+    const updateUbicacion = async (e) => {
+        setUbicacion({ ...ubicacion, [e.target.name]: Number(e.target.value) })
         if (e.target.name === 'edificio') {
             setPisos([])
             setPisos(await useFetch('/pisos/edificio/' + e.target.value))
@@ -30,6 +36,7 @@ const FormReportes = () => {
             setAulas([])
             setAulas(await useFetch('/aulas/piso/' + e.target.value))
         }
+        if (e.target.name === 'aula') IdPiso = e.target.value
     }
 
     useEffect(() => async () => setEdificios(await useFetch('/edificios')), [])
@@ -73,21 +80,21 @@ const FormReportes = () => {
                         <div>
                             <Form.Label>Edificio</Form.Label>
                             <Form.Group>
-                                <Form.Select className="ubicacion-field" onChange={async(e) => updateUbicacion(e)} name="edificio">
+                                <Form.Select className="ubicacion-field" onChange={async (e) => updateUbicacion(e)} name="edificio">
                                     <option value={0}></option>
-                                    {edificios?.map((edificio, key) => 
-                                        <option key={key} value={edificio.Id}>{edificio.Descripcion}</option> 
+                                    {edificios?.map((edificio, key) =>
+                                        <option key={key} value={edificio.Id}>{edificio.Descripcion}</option>
                                     )}
                                 </Form.Select>
                             </Form.Group>
                         </div>
                         <div>
-                        <Form.Label>Piso</Form.Label>
+                            <Form.Label>Piso</Form.Label>
                             <Form.Group>
-                                <Form.Select className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="piso" disabled={!Boolean(pisos?.length)}>
+                                <Form.Select className="ubicacion-field" onChange={async (e) => await updateUbicacion(e)} name="piso" disabled={!Boolean(pisos?.length)}>
                                     <option value={0}></option>
-                                    {pisos?.map((piso, key) => 
-                                        <option key={key} value={piso.Id}>{piso.Descripcion}</option> 
+                                    {pisos?.map((piso, key) =>
+                                        <option key={key} value={piso.Id}>{piso.Descripcion}</option>
                                     )}
                                 </Form.Select>
                             </Form.Group>
@@ -95,15 +102,22 @@ const FormReportes = () => {
                         <div>
                             <Form.Label>Aula</Form.Label>
                             <Form.Group>
-                                <Form.Select className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="aula" disabled={!Boolean(aulas?.length)}>
+                                <Form.Select className="ubicacion-field" onChange={async (e) => {await updateUbicacion(e)}} name="aula" disabled={!Boolean(aulas?.length)}>
                                     <option value={0}></option>
-                                    {aulas?.map((aula, key) => 
-                                        <option key={key} value={aula.Id}>{aula.Descripcion}</option> 
+                                    {aulas?.map((aula, key) =>
+                                        <option key={key} value={aula.Id} >{aula.Descripcion}</option>
                                     )}
                                 </Form.Select>
                             </Form.Group>
                         </div>
-                        
+                    </Row>
+                    <Row>
+                        <div>
+                            <Form.Group>
+                            <p>{data && JSON.stringify(data)}</p>
+                            <Button as="input" type="button" value="button" onClick={async() => setData(await useFetch(`/aulas/${IdPiso}`))}/>
+                            </Form.Group>
+                        </div>
                     </Row>
                 </Form>
             </Container>
