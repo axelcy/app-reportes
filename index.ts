@@ -28,8 +28,26 @@ app.get('/', (_req: any, _res: any) => _res.send(`Reportes api!`))
 
 // Routes
 app.get(routes.edificios, async(_req: any, _res: any) => _res.send(await dbService.getEdificios()))
+app.get(`${routes.edificios}/:id`, async(_req: any, _res: any) => {
+    _res.send(await dbService.getEdificioById(Number(_req.params.id)))
+})
+
 app.get(routes.pisos, async(_req: any, _res: any) => _res.send(await dbService.getPisos()))
+app.get(`${routes.pisos}/:id`, async(_req: any, _res: any) => {
+    _res.send(await dbService.getPisoById(Number(_req.params.id)))
+})
+app.get(`${routes.pisos}/edificio/:id`, async(_req: any, _res: any) => {
+    _res.send(await dbService.getPisosByEdificio(Number(_req.params.id)))
+})
+
 app.get(routes.aulas, async(_req: any, _res: any) => _res.send(await dbService.getAulas()))
+app.get(`${routes.aulas}/:id`, async(_req: any, _res: any) => {
+    _res.send(await dbService.getAulaById(Number(_req.params.id)))
+})
+app.get(`${routes.aulas}/piso/:id`, async(_req: any, _res: any) => {
+    _res.send(await dbService.getAulasByPiso(Number(_req.params.id)))
+})
+
 app.get(routes.usuarios, async(_req: any, _res: any) => _res.send(await dbService.getUsuarios()))
 app.get(routes.incidentes, async(_req: any, _res: any) => _res.send(await dbService.getIncidentes('importancia')))
 
