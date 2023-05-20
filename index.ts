@@ -53,7 +53,7 @@ app.get(routes.incidentes, async(_req: any, _res: any) => _res.send(await dbServ
 
 // Images
 app.get(`${routes.img}/:img`, async(_req: any, _res: any) => {
-    _res.sendFile(`${__dirname}/src/img/${_req.params.img}`, (err: any) => {
-        err && _res.sendFile(`${__dirname}/src/img/error.jpg`)
+    _res.sendFile(`${__dirname}/public/img/${_req.params.img}`, (err: any) => {
+        err && _res.sendFile(`${__dirname}/public/img/error.jpg`)
     })
 })
