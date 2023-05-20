@@ -11,3 +11,10 @@ form > .row {
     width: 0;
     flex-grow: 1;
 }
+
+.ubicacion-field:disabled{
+    filter: brightness(50%);
+}
+.button-importancia:hover{
+    filter: brightness(60%);
+}

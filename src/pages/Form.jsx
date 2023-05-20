@@ -5,13 +5,39 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import './Form.css'
 import { Link } from 'react-router-dom'
+import { useEffect, useState } from "react";
+import useFetch from "../Hooks/useFetch";
 
 const FormReportes = () => {
+
+    const [edificios, setEdificios] = useState([])
+    const [pisos, setPisos] = useState([])
+    const [aulas, setAulas] = useState([])
+
+    const [ubicacion, setUbicacion] = useState({
+        edificio: 0,
+        piso: 0,
+        aula: 0
+    })
+
+    const updateUbicacion = async(e) => {
+        setUbicacion({...ubicacion, [e.target.name]: Number(e.target.value)})
+        if (e.target.name === 'edificio') {
+            setPisos([])
+            setPisos(await useFetch('/pisos/edificio/' + e.target.value))
+        }
+        if (e.target.name === 'piso') {
+            setAulas([])
+            setAulas(await useFetch('/aulas/piso/' + e.target.value))
+        }
+    }
+
+    useEffect(() => async () => setEdificios(await useFetch('/edificios')), [])
 
     return (
         <>
             <NavBar />
-            <Link to={"/"}><h3>Ir a /form</h3></Link>
+            <Link to={"/"}><h3>Ir a /</h3></Link>
             <Container>
                 <h2>Formulario reporte</h2>
                 <Form>
@@ -28,17 +54,18 @@ const FormReportes = () => {
                     <Row>
                         <Form.Label>Nivel de importancia</Form.Label>
                         <ToggleButtonGroup type="radio" name="options">
-                            <ToggleButton id="tbg-radio-1" value={1} variant={'success'} > Bajo </ToggleButton>
-                            <ToggleButton id="tbg-radio-2" value={2} variant={'warning'} > Medio </ToggleButton>
-                            <ToggleButton id="tbg-radio-3" value={3} variant={'danger'} > Alto </ToggleButton>
+                            <ToggleButton id="tbg-radio-1" className="button-importancia" value={1} variant={'success'} > Bajo </ToggleButton>
+                            <ToggleButton id="tbg-radio-2" className="button-importancia" value={2} variant={'warning'} > Medio </ToggleButton>
+                            <ToggleButton id="tbg-radio-3" className="button-importancia" value={3} variant={'danger'} > Alto </ToggleButton>
                         </ToggleButtonGroup>
                     </Row>
                     <Row>
                         <Form.Label>Categoría</Form.Label>
                         <Form.Group>
                             <Form.Select>
-                                <option>Electricidad</option>
-                                <option>Informática</option>
+                                <option value={0}>Seleccione una categoría</option>
+                                <option value={1}>Electricidad</option>
+                                <option value={2}>Informática</option>
                             </Form.Select>
                         </Form.Group>
                     </Row>
@@ -46,36 +73,33 @@ const FormReportes = () => {
                         <div>
                             <Form.Label>Edificio</Form.Label>
                             <Form.Group>
-                                <Form.Select>
-                                    <option></option>
-                                    <option>Yatay 1</option>
-                                    <option>Río 2</option>
-                                    <option>Río 3</option>
-                                    <option>Yatay 4</option>
+                                <Form.Select className="ubicacion-field" onChange={async(e) => updateUbicacion(e)} name="edificio">
+                                    <option value={0}></option>
+                                    {edificios?.map((edificio, key) => 
+                                        <option key={key} value={edificio.Id}>{edificio.Descripcion}</option> 
+                                    )}
                                 </Form.Select>
                             </Form.Group>
                         </div>
                         <div>
                         <Form.Label>Piso</Form.Label>
                             <Form.Group>
-                                <Form.Select>
-                                    <option></option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
+                                <Form.Select className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="piso" disabled={!Boolean(pisos?.length)}>
+                                    <option value={0}></option>
+                                    {pisos?.map((piso, key) => 
+                                        <option key={key} value={piso.Id}>{piso.Descripcion}</option> 
+                                    )}
                                 </Form.Select>
                             </Form.Group>
                         </div>
                         <div>
                             <Form.Label>Aula</Form.Label>
                             <Form.Group>
-                                <Form.Select>
-                                    <option></option>
-                                    <option>1101</option>
-                                    <option>1102</option>
-                                    <option>1103</option>
-                                    <option>1104</option>
+                                <Form.Select className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="aula" disabled={!Boolean(aulas?.length)}>
+                                    <option value={0}></option>
+                                    {aulas?.map((aula, key) => 
+                                        <option key={key} value={aula.Id}>{aula.Descripcion}</option> 
+                                    )}
                                 </Form.Select>
                             </Form.Group>
                         </div>
