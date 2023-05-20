@@ -1,12 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import useFetch from '../Hooks/useFetch';
 import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import './Navbar.css'
 
 function NavBar({ setData }) {
-    const [logo, setLogo] = useState()
-    useEffect(() => async() => setLogo(await useFetch("/img/logo-ort.png")), [])
     const imgInput = useRef()
     const fetchImg = async() => {
         if (!imgInput.current.value) return
@@ -17,7 +15,7 @@ function NavBar({ setData }) {
           <Navbar bg="light" expand="lg">
               <Container>
               {/* <Link to={"/"}><Navbar.Brand>{logo}</Navbar.Brand></Link> */}
-              <Link to={"/"}><div className='navbar-brand'><img className='logo' src={logo}/><span>App reportes</span></div></Link>
+              <Link to={"/"}><div className='navbar-brand'><img className='logo' src={'/logo.png'}/><span>App reportes</span></div></Link>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse>
                   <Nav className="me-auto">
