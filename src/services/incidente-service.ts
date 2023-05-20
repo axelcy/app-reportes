@@ -6,7 +6,7 @@ type Order = 'importancia' | 'fecha' | 'edificio' | 'categoria'
 class IncidenteService {
     getAll = async (order: Order) => {
         let query = `
-        select i.Id, i.Descripcion, i.Id_Usuario, i.Fecha, i.Id_Usuario_Solucion, i.Estado, c.Descripcion 'Categoria', n.Descripcion 'Nivel de Imporancia', e.Descripcion 'Edificio' from Incidentes i
+        select i.Id, i.Nombre, i.Descripcion, i.Id_Usuario, i.Fecha, i.Id_Usuario_Solucion, i.Estado, c.Descripcion 'Categoria', n.Descripcion 'Nivel de Imporancia', e.Descripcion 'Edificio' from Incidentes i
 		inner join Categorias c on c.Id = i.Categoria
         inner join Niveles_Importancia n on n.Id = i.Nivel_Importancia
         inner join Pisos_Aulas pa on pa.Id = i.Id_Piso_Aula
@@ -56,7 +56,7 @@ class IncidenteService {
     getByEdificio = async(id: number) => {
         let returnArray = null
         let query = `
-        select i.id, i.Descripcion, i.Fecha, i.Nivel from Incidentes i
+        select i.id, i.Nombre, i.Descripcion, i.Fecha, i.Nivel from Incidentes i
         inner join Pisos_Aulas pa on pa.Id = i.Id_Piso_Aula
         inner join Edificios_Pisos ep on ep.Id = pa.Id_Edificio_Piso
         inner join Edificios e on e.Id = ep.Id_Edificio
