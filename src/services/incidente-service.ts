@@ -96,7 +96,7 @@ class IncidenteService {
                 .input('pNombre'     , sql.NChar , Incidente?.nombre ?? '')
                 .input('pDescripcion', sql.NChar   , Incidente?.descripcion ?? '')
                 .input('pNivel'    , sql.Int , Incidente?.nivel ?? 0)
-                // .input('pDescripcion', sql.NChar , Incidente?.categoria ?? '')
+                // .input('pDescripcion', sql.Int , Incidente?.categoria ?? '')
                 // .input('pImporte'    , sql.Int , Incidente?.aula ??)
                 // .input('pImporte'    , sql.Date , Incidente?.fecha ?? 0)
                 .query(`INSERT INTO Incidentes (Nombre, Descripcion, Nivel_importancia, Categoria, Aula, Fecha) VALUES (@pNombre, @pDescripcion, @pNivel_importancia, @pCategoria, @pAula, @pFecha)`);
