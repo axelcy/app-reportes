@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "native-curso",
-    "slug": "native-curso",
+    "name": "app-reportes-native",
+    "slug": "app-reportes-native",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
