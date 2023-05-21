@@ -18,7 +18,7 @@ const FormReportes = () => {
     })
 
     const updateUbicacion = async(e) => {
-        setUbicacion({ ...ubicacion, [e.target.name]: await useFetch(`/${e.target.name}s/${Number(e.target.value)}`) })
+        setUbicacion({ ...ubicacion, [e.target.name]: await useFetch(`/${e.target.name}/${Number(e.target.value)}`) })
         if (e.target.name === 'edificio') {
             setPisos([])
             setPisos(await useFetch('/pisos/edificio/' + e.target.value))
