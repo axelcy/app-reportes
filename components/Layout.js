@@ -1,6 +1,6 @@
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import React from 'react'
-import { StatusBar } from 'expo-status-bar'
+// import { StatusBar } from 'expo-status-bar'
 
 const Layout = ({children}) => {
 
@@ -14,10 +14,11 @@ const Layout = ({children}) => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#c4c4c4',
+        backgroundColor: 'lightgrey',
         padding: 20,
         flex: 1,
         alignItems: "center",
+        gap: 20,
     }
 })
 
