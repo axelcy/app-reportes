@@ -1,4 +1,4 @@
-form > .row {
+form>.row {
     padding-bottom: 1rem;
 }
 
@@ -7,14 +7,47 @@ form > .row {
     flex-direction: row;
 }
 
-.form-epa > div {
+.form-epa>div {
     width: 0;
     flex-grow: 1;
 }
 
-.ubicacion-field:disabled{
+.ubicacion-field:disabled {
     filter: brightness(50%);
 }
-.button-importancia:hover{
+
+.button-importancia:hover {
     filter: brightness(60%);
+}
+
+.ph{
+    width: 23rem;
+    height: 2.5rem;
+    position: relative;
+}
+
+.ph input{
+    background: #242424;
+    width: 100%;
+    height: 100%;
+    border: 0.15rem solid black;
+    border-radius: 5px;
+    padding-left: 8px;
+}
+.ph label{
+    position: absolute;
+    left: 3%;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all .4s ease;
+    pointer-events: none;
+    color: black;
+}
+
+div.ph input:focus + label,
+div.ph input :valid + label {
+    background: #242424;
+    font-size: 15px;
+    top: 0;
+    padding: 0.2rem;
 }
