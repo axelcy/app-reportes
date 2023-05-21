@@ -16,16 +16,16 @@ class IncidenteService {
         `
         switch (order) {
             case 'importancia':
-                query += "order by i.Nivel_Importancia desc"
+                query += " order by i.Nivel_Importancia desc"
                 break
             case 'fecha':
-                query += "order by i.Fecha asc"
+                query += " order by i.Fecha asc"
                 break
             case 'edificio':
-                query += "order by ep.Id_Edificio asc"
+                query += " order by ep.Id_Edificio asc"
                 break
             case 'categoria':
-                query += "order by c.Id asc"
+                query += " order by c.Id asc"
                 break
         }
         let returnArray = null
