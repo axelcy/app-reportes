@@ -18,11 +18,11 @@ const routes = Object.freeze({
 
     getPisos: '/pisos',
     getPisoById: '/piso',
-    getPisosByEdificio: '/piso/edificio',
+    getPisosByEdificio: '/pisos/edificio',
 
     getAulas: '/aulas',
     getAulaById: '/aula',
-    getAulasByPiso: '/aula/piso',
+    getAulasByPiso: '/aulas/piso',
 
     getUsuarios: '/usuarios',
     getUsuarioById: '/usuario',
