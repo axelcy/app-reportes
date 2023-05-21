@@ -21,33 +21,35 @@ form>.row {
 }
 
 .ph{
-    width: 23rem;
-    height: 2.5rem;
     position: relative;
+    margin-top: 25px;
 }
-
-.ph input{
-    background: #242424;
-    width: 100%;
-    height: 100%;
-    border: 0.15rem solid black;
-    border-radius: 5px;
+.ph input, .ph textarea{
     padding-left: 8px;
 }
 .ph label{
     position: absolute;
-    left: 3%;
-    top: 50%;
+    left: 20px;
+    /* top: 50%; */
+    top: 18px;
     transform: translateY(-50%);
     transition: all .4s ease;
     pointer-events: none;
-    color: black;
+    color: #212529;
 }
 
 div.ph input:focus + label,
-div.ph input :valid + label {
-    background: #242424;
+div.ph input :valid + label,
+
+div.ph textarea:focus + label,
+div.ph textarea :valid + label {
+    /* background-color: white; */
+    color: white;
+    border-color: blue;
+    border: 2px;
+    border-radius: 5px;
     font-size: 15px;
-    top: 0;
     padding: 0.2rem;
+    top: -20px;
+    left: 15px;
 }

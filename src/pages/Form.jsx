@@ -41,16 +41,17 @@ const FormReportes = () => {
                 <h2>Formulario reporte</h2>
                 <Form>
                     <Row>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        <Form.Group className="mb-3 ph" controlId="exampleForm.ControlInput1">
+                            <Form.Control type="text" />
                             <Form.Label>Nombre</Form.Label>
-                            <div className="ph">
+                            {/* <div className="ph">
                                 <input  type="text" id="Nombre" />
                                 <label>Nombre</label>
-                            </div>
+                            </div> */}
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                            <Form.Label>Descripción</Form.Label>
+                        <Form.Group className="mb-3 ph" controlId="exampleForm.ControlTextarea1">
                             <Form.Control as="textarea" rows={3} />
+                            <Form.Label>Descripción</Form.Label>
                         </Form.Group>
                     </Row>
                     <Row>
