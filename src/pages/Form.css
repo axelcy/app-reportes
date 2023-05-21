@@ -20,17 +20,17 @@ form>.row {
     filter: brightness(60%);
 }
 
-.ph{
+.animated-input{
     position: relative;
     margin-top: 25px;
 }
-.ph input, .ph textarea{
+.animated-input input,
+.animated-input textarea{
     padding-left: 8px;
 }
-.ph label{
+.animated-input label{
     position: absolute;
     left: 20px;
-    /* top: 50%; */
     top: 18px;
     transform: translateY(-50%);
     transition: all .4s ease;
@@ -38,18 +38,12 @@ form>.row {
     color: #212529;
 }
 
-div.ph input:focus + label,
-div.ph input :valid + label,
-
-div.ph textarea:focus + label,
-div.ph textarea :valid + label {
-    /* background-color: white; */
+.animated-input input:focus + label,
+.animated-input input:valid + label,
+.animated-input textarea:focus + label,
+.animated-input textarea:valid + label {
     color: white;
-    border-color: blue;
-    border: 2px;
-    border-radius: 5px;
     font-size: 15px;
-    padding: 0.2rem;
     top: -20px;
     left: 15px;
 }
