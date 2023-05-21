@@ -21,6 +21,7 @@ const FormReportes = () => {
         setUbicacion({ ...ubicacion, [e.target.name]: await useFetch(`/${e.target.name}/${Number(e.target.value)}`) })
         if (e.target.name === 'edificio') {
             setPisos([])
+            setAulas([])
             setPisos(await useFetch('/pisos/edificio/' + e.target.value))
         }
         if (e.target.name === 'piso') {
