@@ -3,21 +3,34 @@ import { useEffect, useState } from 'react'
 import useFetch from '../hooks/useFetch'
 import Layout from '../components/Layout'
 
-const FormScreen = () => {
+const FormScreen = ({navigation}) => {
 
-    const [data, setData] = useState([])
-    useEffect(() => {
-        const fetchData = async () => setData(await useFetch('/edificios'))
-        fetchData()
-    }, [])
+    const [reporte, setReporte] = useState({
+        Nombre: "", Descripcion: "",
+    })
+    const handleChange = (name, value) => setReporte({...reporte, [name]: value})
+    const handleSubmit = () => {
+        // useFetch('/incidentes', {...reporte})
+        console.log(reporte)
+        navigation.navigate('ReportesScreen')
+    }
+    // useEffect(() => {
+    //     const fetchData = async () => setReporte(await useFetch('/edificios'))
+    //     fetchData()
+    // }, [])
     return (
         <Layout>
             <Text style={styles.titulo}>Crea tu reporte{"\n"}</Text>
-            <TextInput style={styles.input} placeholder='Nombre'/>
-            <TextInput style={styles.input} placeholder='Descripcion'/>
+            <TextInput style={styles.input} placeholder='Nombre' 
+                onChangeText={text => handleChange('Nombre', text)}
+            />
+            <TextInput style={styles.input} placeholder='Descripcion' 
+                onChangeText={text => handleChange('Descripcion', text)}
+            />
             <TouchableOpacity style={styles.buttonSaveContainer}>
-                <Text style={styles.buttonSave}>Reportar</Text>
+                <Text style={styles.buttonSave} onPress={handleSubmit}>Reportar</Text>
             </TouchableOpacity>
+            <Text>{JSON.stringify(reporte)}</Text>
         </Layout>
     )
 }
