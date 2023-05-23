@@ -11,4 +11,4 @@ Hay varias maneras:
     1. https://reactnavigation.org/docs/drawer-navigator/
     2. https://reactnavigation.org/docs/bottom-tab-navigator/
 
-minuto en el que dejé: 2:21:39
+minuto en el que dejé: 2:50:00
