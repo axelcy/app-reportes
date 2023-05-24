@@ -12,3 +12,5 @@ Hay varias maneras:
     2. https://reactnavigation.org/docs/bottom-tab-navigator/
 
 minuto en el que dejé: 2:50:00
+
+yarn start --tunnel
