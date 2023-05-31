@@ -7,25 +7,25 @@ type Order = 'importancia' | 'fecha' | 'edificio' | 'categoria'
 class IncidenteService {
     getAll = async (order: Order) => {
         let query = `
-        select i.Id, i.Nombre, i.Descripcion, i.Id_Usuario, i.Fecha, i.Id_Usuario_Solucion, i.Estado, c.Descripcion 'Categoria', n.Descripcion 'Nivel de Imporancia', e.Descripcion 'Edificio' from Incidentes i
-		inner join Categorias c on c.Id = i.Categoria
-        inner join Niveles_Importancia n on n.Id = i.Nivel_Importancia
-        inner join Pisos_Aulas pa on pa.Id = i.Id_Piso_Aula
-        inner join Edificios_Pisos ep on ep.Id = pa.Id_Edificio_Piso
-        inner join Edificios e on e.Id = ep.Id_Edificio
+        select i.id, i.nombre, i.descripcion, i.idUsuario, i.fecha, i.idUsuarioSolucion, i.estado, c.descripcion 'Categoria', n.descripcion 'Nivel de Imporancia', e.descripcion 'Edificio' from Incidentes i
+		inner join Categorias c on c.id = i.Categoria
+        inner join Niveles_Importancia n on n.id = i.Nivel_Importancia
+        inner join Pisos_Aulas pa on pa.id = i.Id_Piso_Aula
+        inner join Edificios_Pisos ep on ep.id = pa.Id_Edificio_Piso
+        inner join Edificios e on e.id = ep.idEdificio
         `
         switch (order) {
             case 'importancia':
-                query += " order by i.Nivel_Importancia desc"
+                query += " order by i.nivelImportancia desc"
                 break
             case 'fecha':
-                query += " order by i.Fecha asc"
+                query += " order by i.fecha asc"
                 break
             case 'edificio':
-                query += " order by ep.Id_Edificio asc"
+                query += " order by ep.idEdificio asc"
                 break
             case 'categoria':
-                query += " order by c.Id asc"
+                query += " order by c.id asc"
                 break
         }
         let returnArray = null
@@ -43,7 +43,7 @@ class IncidenteService {
         let returnArray = null
         let query = `
         select * from Incidentes
-        where Id = @Id`
+        where id = @Id`
         try {
             const pool = await sql.connect(config)
             const result = await pool.request().input('Id', sql.Int, id).query(query)
@@ -57,11 +57,11 @@ class IncidenteService {
     getByEdificio = async(id: number) => {
         let returnArray = null
         let query = `
-        select i.id, i.Nombre, i.Descripcion, i.Fecha, i.Nivel from Incidentes i
-        inner join Pisos_Aulas pa on pa.Id = i.Id_Piso_Aula
-        inner join Edificios_Pisos ep on ep.Id = pa.Id_Edificio_Piso
-        inner join Edificios e on e.Id = ep.Id_Edificio
-        where e.Id = @Id`
+        select i.id, i.nombre, i.descripcion, i.fecha, i.nivel from Incidentes i
+        inner join Pisos_Aulas pa on pa.id = i.idPisoAula
+        inner join Edificios_Pisos ep on ep.id = pa.idEdificioPiso
+        inner join Edificios e on e.id = ep.idEdificio
+        where e.id = @Id`
         try {
             const pool = await sql.connect(config)
             const result = await pool.request().input('Id', sql.Int, id).query(query)
@@ -76,7 +76,7 @@ class IncidenteService {
         let returnArray = null
         let query = `
         select * from Incidentes
-        where Id_Usuario = @IdUsuario`
+        where idUsuario = @IdUsuario`
         try {
             const pool = await sql.connect(config)
             const result = await pool.request().input('IdUsuario', sql.Int, id).query(query)
@@ -93,13 +93,10 @@ class IncidenteService {
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-                .input('pNombre'     , sql.NChar , Incidente?.nombre ?? '')
-                .input('pDescripcion', sql.NChar   , Incidente?.descripcion ?? '')
-                .input('pNivel'    , sql.Int , Incidente?.nivel ?? 0)
-                // .input('pDescripcion', sql.Int , Incidente?.categoria ?? '')
-                // .input('pImporte'    , sql.Int , Incidente?.aula ??)
-                // .input('pImporte'    , sql.Date , Incidente?.fecha ?? 0)
-                .query(`INSERT INTO Incidentes (Nombre, Descripcion, Nivel_importancia, Categoria, Aula, Fecha) VALUES (@pNombre, @pDescripcion, @pNivel_importancia, @pCategoria, @pAula, @pFecha)`);
+                .input('Nombre'     , sql.NChar , Incidente?.nombre ?? '')
+                .input('Descripcion', sql.NChar   , Incidente?.descripcion ?? '')
+                .input('NivelImportancia'    , sql.Int , Incidente?.nivel ?? 0)
+                .query(`INSERT INTO Incidentes (nombre, descripcion, nivelImportancia, categoria, aula, fecha) VALUES (@Nombre, @Descripcion, @NivelImportancia, @Categoria, @Aula, @Fecha)`);
                 returnArray = result.recordsets[0]
         } catch (error) {
             console.log(error);

@@ -18,7 +18,7 @@ class PisoService {
         let returnArray = null
         let query = `
         select * from Pisos
-        where Id = @Id`
+        where id = @Id`
         try {
             const pool = await sql.connect(config)
             const result = await pool.request().input('Id', sql.Int, id).query(query)
@@ -33,8 +33,8 @@ class PisoService {
         let returnArray = null
         let query = `
         select p.* from Pisos p
-        inner join Edificios_Pisos ep on ep.Id_Piso = p.Id
-        where ep.Id_Edificio = @Id`
+        inner join Edificios_Pisos ep on ep.idPiso = p.id
+        where ep.idEdificio = @Id`
         try {
             const pool = await sql.connect(config)
             const result = await pool.request().input('Id', sql.Int, id).query(query)

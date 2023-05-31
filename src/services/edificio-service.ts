@@ -18,7 +18,7 @@ class EdificioService {
         let returnArray = null
         let query = `
         select * from Edificios
-        where Id = @Id`
+        where id = @Id`
         try {
             const pool = await sql.connect(config)
             const result = await pool.request().input('Id', sql.Int, id).query(query)

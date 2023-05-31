@@ -18,7 +18,7 @@ class UsuarioService {
         let returnArray = null
         let query = `
         select * from Usuarios
-        where Id = @Id`
+        where id = @Id`
         try {
             const pool = await sql.connect(config)
             const result = await pool.request().input('Id', sql.Int, id).query(query)
@@ -33,7 +33,7 @@ class UsuarioService {
         let returnArray = null
         let query = `
         select * from Usuarios
-        where Nombre like '%${name}%'`
+        where nombre like '%${name}%'`
         try {
             const pool = await sql.connect(config)
             const result = await pool.request().query(query)
