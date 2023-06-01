@@ -29,7 +29,7 @@ const ReportesScreen = () => {
                 />
             }
               data={data}
-              renderItem={({item}) => <Text key={item.Id}>{item.Id}. {item.Descripcion}</Text>}
+              renderItem={({item}) => <Text key={item.id}>{item.id}. {item.descripcion}</Text>}
             />
         </Layout>
     )
