@@ -56,7 +56,7 @@ const FormReportes = () => {
             <Link to={"/"}><h3>Ir a /</h3></Link>
             <Container>
                 <h2>Formulario reporte</h2>
-                <Form onSubmit={async() => await handleSubmit()}>
+                <Form> {/* onSubmit={async() => await handleSubmit()} */}
                     <Row>
                         <Form.Group className="mb-3 animated-input" controlId="exampleForm.ControlInput1">
                             <Form.Control type="text" autoComplete="off" required/>
@@ -122,7 +122,7 @@ const FormReportes = () => {
                     </Row>
                     <Row>
                         <Form.Group>
-                            <Button variant="primary" type="submit">Reportar</Button>
+                            <Button variant="primary" type="button" onClick={async() => await handleSubmit()}>Reportar</Button>
                         </Form.Group>
                     </Row>
                 </Form>
