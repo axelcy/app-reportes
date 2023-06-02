@@ -100,7 +100,7 @@ app.get(`${routes.img}/:img`, async(_req: any, _res: any) => {
 import Incidente from './src/models/Incidente'
 
 app.use(bodyParser.json()) // to support JSON-encoded bodies: {"name":"waza","color":"red"}
-app.use(express.urlencoded({ extended: true })) // to support URL-encoded bodies: name=foo&color=red
+// app.use(express.urlencoded({ extended: true })) // to support URL-encoded bodies: name=foo&color=red
 
 app.post(routes.post + routes.getIncidenteById, async(_req: any, _res: any) => {
     const incidente: Incidente = _req.body
