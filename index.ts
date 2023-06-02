@@ -3,7 +3,7 @@ import express from 'express'
 import cors from 'cors'
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
-
+import bodyParser from 'body-parser'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename)
@@ -12,6 +12,7 @@ const port = 3001
 const dbService: DbService = new DbService()
 const routes = Object.freeze({
     img: '/img',
+    post: '/post',
 
     getEdificios: '/edificios',
     getEdificioById: '/edificio',
@@ -39,6 +40,10 @@ console.clear()
 app.use(cors())
 app.listen(port, () => console.log(` * Example app listening on port ${port}`))
 app.get('/', (_req: any, _res: any) => _res.send(`Reportes api!`))
+
+app.use(express.json());
+app.use(express.urlencoded());
+// app.use(express.multipart());
 
 // Routes
 
@@ -92,7 +97,6 @@ app.get(`${routes.img}/:img`, async(_req: any, _res: any) => {
 
 
 // ---------------------------------------POST WAZA---------------------------------------
-import bodyParser from 'body-parser'
 
 // var urlencodedParser = bodyParser.urlencoded({ extended: false })  
 // app.post('/process_post', urlencodedParser, function (req, res) {  
@@ -106,11 +110,14 @@ import bodyParser from 'body-parser'
 //  })  
 
 app.use(bodyParser.json()) // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })) // to support URL-encoded bodies 
-
+// app.use(bodyParser.urlencoded({ extended: true })) // to support URL-encoded bodies 
+app.use(express.urlencoded({ extended: true }))  
 // assuming POST: name=foo&color=red            <-- URL encoding
 //
 // or       POST: {"name":"foo","color":"red"}  <-- JSON encoding
 
-app.post('/test-page', async(_req: any, _res: any) => {
+app.post(routes.post + routes.getIncidenteById, async(_req: any, _res: any) => {
+    const response = _req.body
+    console.log(response)
+    _res.end(JSON.stringify(response))
 });
