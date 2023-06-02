@@ -87,19 +87,26 @@ class IncidenteService {
         }
         return returnArray
     }
-    insert = async (Incidente: Incidente) => {
+    insert = async (incidente: Incidente) => {
         let returnArray = null
-
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-                .input('Nombre'     , sql.NChar , Incidente?.nombre ?? '')
-                .input('Descripcion', sql.NChar   , Incidente?.descripcion ?? '')
-                .input('NivelImportancia'    , sql.Int , Incidente?.nivel ?? 0)
-                .query(`INSERT INTO Incidentes (nombre, descripcion, nivelImportancia, categoria, aula, fecha) VALUES (@Nombre, @Descripcion, @NivelImportancia, @Categoria, @Aula, @Fecha)`);
-                returnArray = result.recordsets[0]
+            .input('Nombre',            sql.NChar, incidente.nombre)
+            .input('Descripcion',       sql.NChar, incidente.descripcion)
+            .input('IdUsuario',         sql.Int, incidente.idUsuario)
+            .input('IdPisoAula',        sql.Int, incidente.idPisoAula)
+            .input('Fecha',             sql.Date, incidente.fecha)
+            .input('NivelImportancia',  sql.Int, incidente.nivelImportancia)
+            .input('Estado',            sql.Int, incidente.estado)
+            .input('IdUsuarioSolucion', sql.Int, incidente.idUsuarioSolucion)
+            .input('Categoria',         sql.Int, incidente.categoria)
+            .query(`INSERT INTO Incidentes (nombre, descripcion, idUsuario, idPisoAula, fecha, nivelImportancia, estado, idUsuarioSolucion, categoria) 
+            VALUES (@Nombre, @Descripcion, @IdUsuario, @IdPisoAula, @Fecha, @NivelImportancia, @Estado, @IdUsuarioSolucion, @Categoria)`);
+            returnArray = result.recordsets[0]
         } catch (error) {
             console.log(error);
+            throw new Error("No se pudo hacer el INSERT de INCIDENTE")
         }
         return returnArray;
     }

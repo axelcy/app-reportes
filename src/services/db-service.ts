@@ -5,6 +5,8 @@ import PisoService from "./piso-service"
 import UsuarioService from "./usuario-service"
 import PisoAulaService from "./pisoaula-service"
 
+import Incidente from '../models/Incidente'
+
 type Order = 'importancia' | 'fecha' | 'edificio' | 'categoria'
 
 class DbService {
@@ -26,10 +28,14 @@ class DbService {
     getAulasByPiso = async(id: number) => await new AulaService().getByPiso(id)
 
     getPisoAulaByAula = async(idAula: number) => await new PisoAulaService().getByAula(idAula)
-     
 
     getIncidenteByUsuario = async(id: number) => await new IncidenteService().getByUsuario(id)
     getIncidenteByEdificio = async(id: number) => await new IncidenteService().getByEdificio(id)
+
+    // INSERT
+
+    insertIncidente = async(incidente: Incidente) => await new IncidenteService().insert(incidente)
+
 }
 
 export default DbService

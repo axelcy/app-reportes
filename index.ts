@@ -97,6 +97,7 @@ app.get(`${routes.img}/:img`, async(_req: any, _res: any) => {
 
 
 // ---------------------------------------POST WAZA---------------------------------------
+import Incidente from './src/models/Incidente'
 
 // var urlencodedParser = bodyParser.urlencoded({ extended: false })  
 // app.post('/process_post', urlencodedParser, function (req, res) {  
@@ -117,7 +118,8 @@ app.use(express.urlencoded({ extended: true }))
 // or       POST: {"name":"foo","color":"red"}  <-- JSON encoding
 
 app.post(routes.post + routes.getIncidenteById, async(_req: any, _res: any) => {
-    const response = _req.body
-    console.log(response)
-    _res.end(JSON.stringify(response))
+    const incidente: Incidente = _req.body
+    console.log(incidente)
+    const results = await dbService.insertIncidente(incidente)
+    _res.end(JSON.stringify(results))
 });
