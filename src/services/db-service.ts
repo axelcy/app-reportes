@@ -3,6 +3,7 @@ import EdificioService from "./edificio-service"
 import IncidenteService from "./incidente-service"
 import PisoService from "./piso-service"
 import UsuarioService from "./usuario-service"
+import PisoAulaService from "./pisoaula-service"
 
 type Order = 'importancia' | 'fecha' | 'edificio' | 'categoria'
 
@@ -23,6 +24,9 @@ class DbService {
 
     getPisosByEdificio = async(id: number) => await new PisoService().getByEdificio(id)
     getAulasByPiso = async(id: number) => await new AulaService().getByPiso(id)
+
+    getPisoAulaByAula = async(idAula: number) => await new PisoAulaService().getByAula(idAula)
+     
 
     getIncidenteByUsuario = async(id: number) => await new IncidenteService().getByUsuario(id)
     getIncidenteByEdificio = async(id: number) => await new IncidenteService().getByEdificio(id)

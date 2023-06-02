@@ -28,8 +28,9 @@ const routes = Object.freeze({
     getUsuarioById: '/usuario',
 
     getIncidentes: '/incidentes',
-    getIncidenteById: '/incidente'
-    
+    getIncidenteById: '/incidente',
+
+    getPisoAulaByAula: '/pisoaula/aula'
 })
 
 console.clear()
@@ -68,11 +69,18 @@ app.get(`${routes.getAulasByPiso}/:id`, async(_req: any, _res: any) => {
     _res.send(await dbService.getAulasByPiso(Number(_req.params.id)))
 })
 
+// PISO AULA
+app.get(`${routes.getPisoAulaByAula}/:idAula`, async(_req: any, _res: any) => {
+    _res.send(await dbService.getPisoAulaByAula(Number(_req.params.idAula)))
+})
+
 // USUARIOS
 app.get(routes.getUsuarios, async(_req: any, _res: any) => _res.send(await dbService.getUsuarios()))
 
 // INCIDENTES
 app.get(routes.getIncidentes, async(_req: any, _res: any) => _res.send(await dbService.getIncidentes('importancia')))
+
+
 
 
 // Images
