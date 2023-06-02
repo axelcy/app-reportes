@@ -99,23 +99,8 @@ app.get(`${routes.img}/:img`, async(_req: any, _res: any) => {
 // ---------------------------------------POST WAZA---------------------------------------
 import Incidente from './src/models/Incidente'
 
-// var urlencodedParser = bodyParser.urlencoded({ extended: false })  
-// app.post('/process_post', urlencodedParser, function (req, res) {  
-//     // Prepare output in JSON format  
-//     response = {  
-//         first_name:req.body.first_name,  
-//         last_name:req.body.last_name  
-//     };  
-//     console.log(response);  
-//     res.end(JSON.stringify(response));  
-//  })  
-
-app.use(bodyParser.json()) // to support JSON-encoded bodies
-// app.use(bodyParser.urlencoded({ extended: true })) // to support URL-encoded bodies 
-app.use(express.urlencoded({ extended: true }))  
-// assuming POST: name=foo&color=red            <-- URL encoding
-//
-// or       POST: {"name":"foo","color":"red"}  <-- JSON encoding
+app.use(bodyParser.json()) // to support JSON-encoded bodies: {"name":"waza","color":"red"}
+app.use(express.urlencoded({ extended: true })) // to support URL-encoded bodies: name=foo&color=red
 
 app.post(routes.post + routes.getIncidenteById, async(_req: any, _res: any) => {
     const incidente: Incidente = _req.body
