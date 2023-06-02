@@ -19,13 +19,13 @@ const FormReportes = () => {
     const [incidente, setIncidente] = useState({
         Nombre: "",
         Descripcion: "",
-        Id_Usuario: "",
-        Id_Piso_Aula: "", // necesitamos el ID_Piso_Aula, hace falta un endpoint para acceder acá.
-        Fecha: "",
-        Nivel_Importancia: "",
-        Estado: 1, // en espera
-        Id_Usuario_Solucion: null,
-        Id_Categoria: "" // en la BD aparece como "Categoria", hay que cambiarlo
+        idUsuario: "",
+        idPisoAula: "", // necesitamos el ID_Piso_Aula, hace falta un endpoint para acceder acá.
+        fecha: "",
+        nivelImportancia: "",
+        estado: 1, // en espera
+        idUsuarioSolucion: null,
+        idCategoria: "" // en la BD aparece como "Categoria", hay que cambiarlo
     })
 
     const updateUbicacion = async (e) => {
@@ -87,7 +87,7 @@ const FormReportes = () => {
                                 <Form.Select className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="edificio">
                                     <option value={0}></option>
                                     {edificios?.map((edificio, key) =>
-                                        <option key={key} value={edificio.Id}>{edificio.Descripcion}</option>
+                                        <option key={key} value={edificio.id}>{edificio.descripcion}</option>
                                     )}
                                 </Form.Select>
                             </Form.Group>
@@ -98,7 +98,7 @@ const FormReportes = () => {
                                 <Form.Select className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="piso" disabled={!Boolean(pisos?.length)}>
                                     <option value={0}></option>
                                     {pisos?.map((piso, key) =>
-                                        <option key={key} value={piso.Id}>{piso.Descripcion}</option>
+                                        <option key={key} value={piso.id}>{piso.descripcion}</option>
                                     )}
                                 </Form.Select>
                             </Form.Group>
@@ -109,7 +109,7 @@ const FormReportes = () => {
                                 <Form.Select className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="aula" disabled={!Boolean(aulas?.length)}>
                                     <option value={0}></option>
                                     {aulas?.map((aula, key) =>
-                                        <option key={key} value={aula.Id} >{aula.Descripcion}</option>
+                                        <option key={key} value={aula.id} >{aula.descripcion}</option>
                                     )}
                                 </Form.Select>
                             </Form.Group>
@@ -117,7 +117,6 @@ const FormReportes = () => {
                     </Row>
                     <Row>
                         <Form.Group>
-                            {/* <p>{ubicacion.aula && JSON.stringify(ubicacion.aula)}</p> */}
                             <Button variant="primary" onClick={handleSubmit}>Reportar</Button>
                         </Form.Group>
                     </Row>

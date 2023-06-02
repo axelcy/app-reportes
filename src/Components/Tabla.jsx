@@ -23,9 +23,9 @@ function Tabla() {
         {usuarios?.map((usuario, key) =>
         <tr key={key}>
           <td>{key + 1}</td>
-          <td>{usuario.Nombre}</td>
-          <td>{usuario.Apellido}</td>
-          <td>{usuario?.EsSupervisor}- </td>
+          <td>{usuario.nombre}</td>
+          <td>{usuario.apellido}</td>
+          <td>{usuario?.esSupervisor}- </td>
         </tr>)}
       </tbody>
     </Table>
