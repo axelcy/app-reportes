@@ -16,22 +16,9 @@ const FormReportes = () => {
         piso: null,
         aula: null
     })
-    const incidenteVacio = {
-        nombre: "",
-        descripcion: "",
-        idUsuario: "",
-        idPisoAula: "", // necesitamos el ID_Piso_Aula, hace falta un endpoint para acceder acá.
-        fecha: "",
-        nivelImportancia: "",
-        estado: 1, // en espera
-        idUsuarioSolucion: null,
-        idCategoria: "" // en la BD aparece como "Categoria", hay que cambiarlo
-    }
-    const [incidente, setIncidente] = useState(incidenteVacio)
+    const [incidente, setIncidente] = useState({})
 
     const handleChange = (e) => {
-        console.log(e.target.name)
-        console.log(e.target.value)
         setIncidente({...incidente, [e.target.name]: e.target.value})
     }
 
@@ -51,14 +38,19 @@ const FormReportes = () => {
     useEffect(() => async () => setEdificios(await useFetch('/edificios')), [])
     const handleSubmit = async() => {
         const data = {
+            categoria: null,
+            nivelImportancia: 1,
             ...incidente,
             idPisoAula: (await useFetch("/pisoaula/aula/" + ubicacion.aula.id))[0].id,
-            fecha: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+            fecha: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
             // el mes es 5 no se xq esta mal
+            idUsuario: 0, // hay q hacer login para esto
+            estado: 1, // en espera
+            idUsuarioSolucion: null,
         }
         console.log(data)
         await useFetch('/post/incidente', data)
-        setIncidente(incidenteVacio)
+        setIncidente({})
     }
     return (
         <>
@@ -79,17 +71,17 @@ const FormReportes = () => {
                     </Row>
                     <Row>
                         <Form.Label>Nivel de importancia</Form.Label>
-                        <ToggleButtonGroup type="radio" name="nivelImportancia" onChange={handleChange}>
-                            <ToggleButton id="tbg-radio-1" className="button-importancia" value={1} variant={'success'} > Bajo </ToggleButton>
-                            <ToggleButton id="tbg-radio-2" className="button-importancia" value={2} variant={'warning'} > Medio </ToggleButton>
-                            <ToggleButton id="tbg-radio-3" className="button-importancia" value={3} variant={'danger'} > Alto </ToggleButton>
+                        <ToggleButtonGroup type="radio" name="nivelImportancia">
+                            <ToggleButton id="tbg-radio-1" onChange={handleChange} className="button-importancia" value={1} variant={'success'} > Bajo </ToggleButton>
+                            <ToggleButton id="tbg-radio-2" onChange={handleChange} className="button-importancia" value={2} variant={'warning'} > Medio </ToggleButton>
+                            <ToggleButton id="tbg-radio-3" onChange={handleChange} className="button-importancia" value={3} variant={'danger'} > Alto </ToggleButton>
                         </ToggleButtonGroup>
                     </Row>
                     <Row>
                         <Form.Label>Categoría</Form.Label>
                         <Form.Group>
-                            <Form.Select>
-                                <option value={0}>Seleccione una categoría</option>
+                            <Form.Select onChange={handleChange} name="categoria">
+                                <option value={null}>Seleccione una categoría</option>
                                 <option value={1}>Electricidad</option>
                                 <option value={2}>Informática</option>
                             </Form.Select>
@@ -133,7 +125,7 @@ const FormReportes = () => {
                     <Row>
                         <Form.Group>
                             <div>{ubicacion.aula ? JSON.stringify(ubicacion.aula) : "no existe"}</div>
-                            <Button variant="primary" type="button" onClick={async() => await handleSubmit()}>Reportar</Button>
+                            <Button variant="primary" type="button" onClick={async() => await handleSubmit()} disabled={!ubicacion.aula || !incidente.nombre}>Reportar</Button>
                         </Form.Group>
                     </Row>
                 </Form>
