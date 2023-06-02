@@ -17,8 +17,8 @@ const FormReportes = () => {
         aula: null
     })
     const incidenteVacio = {
-        Nombre: "",
-        Descripcion: "",
+        nombre: "",
+        descripcion: "",
         idUsuario: "",
         idPisoAula: "", // necesitamos el ID_Piso_Aula, hace falta un endpoint para acceder acá.
         fecha: "",
@@ -28,8 +28,15 @@ const FormReportes = () => {
         idCategoria: "" // en la BD aparece como "Categoria", hay que cambiarlo
     }
     const [incidente, setIncidente] = useState(incidenteVacio)
+
+    const handleChange = (e) => {
+        console.log(e.target.name)
+        console.log(e.target.value)
+        setIncidente({...incidente, [e.target.name]: e.target.value})
+    }
+
     const updateUbicacion = async (e) => {
-        setUbicacion({ ...ubicacion, [e.target.name]: await useFetch(`/${e.target.name}/${Number(e.target.value)}`) })
+        setUbicacion({ ...ubicacion, [e.target.name]: (await useFetch(`/${e.target.name}/${Number(e.target.value)}`))[0] })
         if (e.target.name === 'edificio') {
             setPisos([])
             setAulas([])
@@ -43,11 +50,14 @@ const FormReportes = () => {
 
     useEffect(() => async () => setEdificios(await useFetch('/edificios')), [])
     const handleSubmit = async() => {
-        await useFetch('/incidentes', {
+        const data = {
             ...incidente,
-            idPisoAula: useFetch("/pisoaula/aula/" + ubicacion.aula),
+            idPisoAula: (await useFetch("/pisoaula/aula/" + ubicacion.aula.id))[0].id,
             fecha: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
-        })
+            // el mes es 5 no se xq esta mal
+        }
+        console.log(data)
+        await useFetch('/post/incidente', data)
         setIncidente(incidenteVacio)
     }
     return (
@@ -59,17 +69,17 @@ const FormReportes = () => {
                 <Form> {/* onSubmit={async() => await handleSubmit()} */}
                     <Row>
                         <Form.Group className="mb-3 animated-input" controlId="exampleForm.ControlInput1">
-                            <Form.Control type="text" autoComplete="off" required/>
+                            <Form.Control type="text" autoComplete="off" required name="nombre" onChange={handleChange}/>
                             <Form.Label>Nombre</Form.Label>
                         </Form.Group>
                         <Form.Group className="mb-3 animated-input" autoComplete="off" controlId="exampleForm.ControlTextarea1">
-                            <Form.Control as="textarea" rows={3} required/>
+                            <Form.Control as="textarea" rows={3} required name="descripcion" onChange={handleChange}/>
                             <Form.Label>Descripción</Form.Label>
                         </Form.Group>
                     </Row>
                     <Row>
                         <Form.Label>Nivel de importancia</Form.Label>
-                        <ToggleButtonGroup type="radio" name="options">
+                        <ToggleButtonGroup type="radio" name="nivelImportancia" onChange={handleChange}>
                             <ToggleButton id="tbg-radio-1" className="button-importancia" value={1} variant={'success'} > Bajo </ToggleButton>
                             <ToggleButton id="tbg-radio-2" className="button-importancia" value={2} variant={'warning'} > Medio </ToggleButton>
                             <ToggleButton id="tbg-radio-3" className="button-importancia" value={3} variant={'danger'} > Alto </ToggleButton>
@@ -122,6 +132,7 @@ const FormReportes = () => {
                     </Row>
                     <Row>
                         <Form.Group>
+                            <div>{ubicacion.aula ? JSON.stringify(ubicacion.aula) : "no existe"}</div>
                             <Button variant="primary" type="button" onClick={async() => await handleSubmit()}>Reportar</Button>
                         </Form.Group>
                     </Row>
