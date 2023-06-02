@@ -16,7 +16,7 @@ const FormReportes = () => {
         piso: null,
         aula: null
     })
-    const [incidente, setIncidente] = useState({
+    const incidenteVacio = {
         Nombre: "",
         Descripcion: "",
         idUsuario: "",
@@ -26,8 +26,8 @@ const FormReportes = () => {
         estado: 1, // en espera
         idUsuarioSolucion: null,
         idCategoria: "" // en la BD aparece como "Categoria", hay que cambiarlo
-    })
-
+    }
+    const [incidente, setIncidente] = useState(incidenteVacio)
     const updateUbicacion = async (e) => {
         setUbicacion({ ...ubicacion, [e.target.name]: await useFetch(`/${e.target.name}/${Number(e.target.value)}`) })
         if (e.target.name === 'edificio') {
@@ -42,8 +42,13 @@ const FormReportes = () => {
     }
 
     useEffect(() => async () => setEdificios(await useFetch('/edificios')), [])
-    const handleSubmit = () => {
-        useFetch('/incidentes', {})
+    const handleSubmit = async() => {
+        await useFetch('/incidentes', {
+            ...incidente,
+            idPisoAula: useFetch("/pisoaula/aula/" + ubicacion.aula),
+            fecha: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+        })
+        setIncidente(incidenteVacio)
     }
     return (
         <>
@@ -51,7 +56,7 @@ const FormReportes = () => {
             <Link to={"/"}><h3>Ir a /</h3></Link>
             <Container>
                 <h2>Formulario reporte</h2>
-                <Form>
+                <Form onSubmit={async() => await handleSubmit()}>
                     <Row>
                         <Form.Group className="mb-3 animated-input" controlId="exampleForm.ControlInput1">
                             <Form.Control type="text" autoComplete="off" required/>
@@ -117,7 +122,7 @@ const FormReportes = () => {
                     </Row>
                     <Row>
                         <Form.Group>
-                            <Button variant="primary" onClick={handleSubmit}>Reportar</Button>
+                            <Button variant="primary" type="submit">Reportar</Button>
                         </Form.Group>
                     </Row>
                 </Form>
