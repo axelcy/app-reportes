@@ -61,17 +61,17 @@ const FormReportes = () => {
                 <Form> {/* onSubmit={async() => await handleSubmit()} */}
                     <Row>
                         <Form.Group className="mb-3 animated-input" controlId="exampleForm.ControlInput1">
-                            <Form.Control type="text" autoComplete="off" required name="nombre" onChange={handleChange}/>
+                            <Form.Control type="text" autoComplete="off" required name="nombre" onChange={handleChange} /> {/* value={incidente.nombre} */}
                             <Form.Label>Nombre</Form.Label>
                         </Form.Group>
                         <Form.Group className="mb-3 animated-input" autoComplete="off" controlId="exampleForm.ControlTextarea1">
-                            <Form.Control as="textarea" rows={3} required name="descripcion" onChange={handleChange}/>
+                            <Form.Control as="textarea" rows={3} required name="descripcion" onChange={handleChange} /> {/* value={incidente.descripcion} */}
                             <Form.Label>Descripción</Form.Label>
                         </Form.Group>
                     </Row>
                     <Row>
                         <Form.Label>Nivel de importancia</Form.Label>
-                        <ToggleButtonGroup type="radio" name="nivelImportancia">
+                        <ToggleButtonGroup type="radio" name="nivelImportancia" > {/* value={incidente.nivelImportancia} */}
                             <ToggleButton id="tbg-radio-1" onChange={handleChange} className="button-importancia" value={1} variant={'success'} > Bajo </ToggleButton>
                             <ToggleButton id="tbg-radio-2" onChange={handleChange} className="button-importancia" value={2} variant={'warning'} > Medio </ToggleButton>
                             <ToggleButton id="tbg-radio-3" onChange={handleChange} className="button-importancia" value={3} variant={'danger'} > Alto </ToggleButton>
@@ -80,7 +80,7 @@ const FormReportes = () => {
                     <Row>
                         <Form.Label>Categoría</Form.Label>
                         <Form.Group>
-                            <Form.Select onChange={handleChange} name="categoria">
+                            <Form.Select onChange={handleChange} name="categoria" > {/* value={incidente.categoria} */}
                                 <option value={null}>Seleccione una categoría</option>
                                 <option value={1}>Electricidad</option>
                                 <option value={2}>Informática</option>
