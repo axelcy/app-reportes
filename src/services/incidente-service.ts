@@ -5,7 +5,7 @@ import Incidente from '../models/Incidente'
 type Order = 'importancia' | 'fecha' | 'edificio' | 'categoria'
 
 class IncidenteService {
-    getAll = async (order: Order) => {
+    getAll = async (order: Order = 'fecha') => {
         let query = `
         select i.id, i.nombre, i.descripcion, i.idUsuario, i.fecha, i.idUsuarioSolucion, i.estado, c.descripcion 'Categoria', n.descripcion 'Nivel de Imporancia', e.descripcion 'Edificio' from Incidentes i
 		inner join Categorias c on c.id = i.Categoria

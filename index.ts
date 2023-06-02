@@ -102,9 +102,18 @@ import Incidente from './src/models/Incidente'
 app.use(bodyParser.json()) // to support JSON-encoded bodies: {"name":"waza","color":"red"}
 // app.use(express.urlencoded({ extended: true })) // to support URL-encoded bodies: name=foo&color=red
 
-app.post(routes.post + routes.getIncidenteById, async(_req: any, _res: any) => {
+app.post(routes.getIncidenteById, async(_req: any, _res: any) => {
     const incidente: Incidente = _req.body
-    console.log(incidente)
+    // console.log(incidente)
     const results = await dbService.insertIncidente(incidente)
     _res.end(JSON.stringify(results))
 });
+
+// app.delete para borrar
+// app.put para actualizar
+
+
+// no tocar esto!!!!
+
+// import routerEdificios from "./src/routes/edificios";
+// app.use(routerEdificios)
