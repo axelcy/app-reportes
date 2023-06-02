@@ -89,3 +89,28 @@ app.get(`${routes.img}/:img`, async(_req: any, _res: any) => {
         err && _res.sendFile(`${__dirname}/public/img/error.jpg`)
     })
 })
+
+
+// ---------------------------------------POST WAZA---------------------------------------
+import bodyParser from 'body-parser'
+
+// var urlencodedParser = bodyParser.urlencoded({ extended: false })  
+// app.post('/process_post', urlencodedParser, function (req, res) {  
+//     // Prepare output in JSON format  
+//     response = {  
+//         first_name:req.body.first_name,  
+//         last_name:req.body.last_name  
+//     };  
+//     console.log(response);  
+//     res.end(JSON.stringify(response));  
+//  })  
+
+app.use(bodyParser.json()) // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })) // to support URL-encoded bodies 
+
+// assuming POST: name=foo&color=red            <-- URL encoding
+//
+// or       POST: {"name":"foo","color":"red"}  <-- JSON encoding
+
+app.post('/test-page', async(_req: any, _res: any) => {
+});
