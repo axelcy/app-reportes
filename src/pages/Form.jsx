@@ -44,7 +44,7 @@ const FormReportes = () => {
             idPisoAula: (await useFetch("/pisoaula/aula/" + ubicacion.aula.id))[0].id,
             fecha: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
             // el mes es 5 no se xq esta mal
-            idUsuario: 0, // hay q hacer login para esto
+            idUsuario: 1, // hay q hacer login para esto
             estado: 1, // en espera
             idUsuarioSolucion: null,
         }
