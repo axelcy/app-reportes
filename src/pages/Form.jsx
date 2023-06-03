@@ -49,7 +49,7 @@ const FormReportes = () => {
             idUsuarioSolucion: null,
         }
         console.log(data)
-        await useFetch('/post/incidente', data)
+        await useFetch('/incidente', data)
         setIncidente({})
     }
     return (
