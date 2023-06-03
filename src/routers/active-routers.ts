@@ -4,8 +4,10 @@ import routerIncidentes from "./incidentes"
 import routerPisos from "./pisos"
 import routerPisosAulas from "./pisos-aulas"
 import routerUsuarios from "./usuarios"
+import routerImages from "./images"
 
 export default [
+    routerImages,
     routerAulas,
     routerEdificios,
     routerIncidentes,

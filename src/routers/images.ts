@@ -1,8 +1,8 @@
 import { Router } from 'express'
 import { getImg } from '../controllers/images'
 
-const routerIncidentes = Router()
+const routerImages = Router()
 
-routerIncidentes.get('/img/:img', getImg)
+routerImages.get('/img/:img', getImg)
 
-export default routerIncidentes
+export default routerImages

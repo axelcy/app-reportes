@@ -2,6 +2,13 @@ import express from 'express'
 import cors from 'cors'
 import activeRoutes from './src/routers/active-routers'
 
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url)
+export const __dirname = dirname(__filename) // \app-reportes
+
+
 console.clear()
 
 const app = express()
