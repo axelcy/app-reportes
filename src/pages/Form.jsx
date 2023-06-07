@@ -18,6 +18,10 @@ const FormReportes = () => {
     })
     const [incidente, setIncidente] = useState({})
 
+    // probar esto
+    // useEffect(() => { setPisos([]); setAulas([]) }, [edificios])
+    // useEffect(() => { setAulas([]) }, [pisos])
+
     const handleChange = (e) => {
         setIncidente({...incidente, [e.target.name]: e.target.value})
     }
@@ -39,11 +43,10 @@ const FormReportes = () => {
     const handleSubmit = async() => {
         const data = {
             categoria: null,
-            nivelImportancia: 1,
+            nivelImportancia: 1, // cambiar por solo importancia (tmb abajo en el <option/>)
             ...incidente,
             idPisoAula: (await useFetch("/pisoaula/aula/" + ubicacion.aula.id))[0].id,
             fecha: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
-            // el mes es 5 no se xq esta mal
             idUsuario: 1, // hay q hacer login para esto
             estado: 1, // en espera
             idUsuarioSolucion: null,
