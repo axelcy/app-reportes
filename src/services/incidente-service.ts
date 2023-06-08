@@ -8,15 +8,15 @@ class IncidenteService {
     getAll = async (order: Order = 'fecha') => {
         let query = `
         select i.id, i.nombre, i.descripcion, i.idUsuario, i.fecha, i.idUsuarioSolucion, i.estado, c.descripcion 'Categoria', n.descripcion 'Nivel de Imporancia', e.descripcion 'Edificio' from Incidentes i
-		inner join Categorias c on c.id = i.Categoria
-        inner join Niveles_Importancia n on n.id = i.Nivel_Importancia
-        inner join Pisos_Aulas pa on pa.id = i.Id_Piso_Aula
-        inner join Edificios_Pisos ep on ep.id = pa.Id_Edificio_Piso
+		inner join Categorias c on c.id = i.categoria
+        inner join Niveles_Importancia n on n.id = i.importancia
+        inner join Pisos_Aulas pa on pa.id = i.idPisoAula
+        inner join Edificios_Pisos ep on ep.id = pa.idEdificioPiso
         inner join Edificios e on e.id = ep.idEdificio
         `
         switch (order) {
             case 'importancia':
-                query += " order by i.nivelImportancia desc"
+                query += " order by i.importancia desc"
                 break
             case 'fecha':
                 query += " order by i.fecha asc"
@@ -97,12 +97,12 @@ class IncidenteService {
             .input('IdUsuario',         sql.Int, incidente.idUsuario)
             .input('IdPisoAula',        sql.Int, incidente.idPisoAula)
             .input('Fecha',             sql.Date, incidente.fecha)
-            .input('NivelImportancia',  sql.Int, incidente.nivelImportancia)
+            .input('NivelImportancia',  sql.Int, incidente.importancia)
             .input('Estado',            sql.Int, incidente.estado)
             .input('IdUsuarioSolucion', sql.Int, incidente.idUsuarioSolucion)
             .input('Categoria',         sql.Int, incidente.categoria)
-            .query(`INSERT INTO Incidentes (nombre, descripcion, idUsuario, idPisoAula, fecha, nivelImportancia, estado, idUsuarioSolucion, categoria) 
-            VALUES (@Nombre, @Descripcion, @IdUsuario, @IdPisoAula, @Fecha, @NivelImportancia, @Estado, @IdUsuarioSolucion, @Categoria)`);
+            .query(`INSERT INTO Incidentes (nombre, descripcion, idUsuario, idPisoAula, fecha, importancia, estado, idUsuarioSolucion, categoria) 
+            VALUES (@Nombre, @Descripcion, @IdUsuario, @IdPisoAula, @Fecha, @Importancia, @Estado, @IdUsuarioSolucion, @Categoria)`);
             returnArray = result.recordsets[0]
         } catch (error) {
             console.log(error);

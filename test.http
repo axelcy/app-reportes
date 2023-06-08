@@ -1,0 +1,7 @@
+@api = http://localhost:3001
+
+### Aulas
+GET {{api}}/aulas
+
+### Usuarios
+GET {{api}}/usuarios
