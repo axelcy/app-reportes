@@ -27,6 +27,7 @@ import routerImages from "./images"
  *  summary: Get all aulas 
  *  tag: [Aulas]
 */
+
 export default [
     routerImages,
     routerAulas,

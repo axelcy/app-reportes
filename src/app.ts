@@ -13,7 +13,7 @@ app.use(cors()) // comunicacion entre servidores
 app.use(morgan('dev')) // ver peticiones en consola
 app.use(express.json()) // para recibir json
 
-app.use('/', swaggerUI.serve, swaggerUI.setup(swaggerJSdoc(options)))
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerJSdoc(options)))
 activeRoutes.forEach(router => app.use(router))
 
 // app.delete para borrar
