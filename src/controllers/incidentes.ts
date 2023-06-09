@@ -7,7 +7,6 @@ export const getAll = async(_req: any, _res: any) => {
 
 export const insert = async(_req: any, _res: any) => {
     const incidente: Incidente = _req.body
-    // console.log(incidente)
     const results = await new IncidenteService().insert(incidente)
     _res.end(JSON.stringify(results))
 }

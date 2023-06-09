@@ -4,6 +4,6 @@ import { getAll, insert } from '../controllers/incidentes'
 const routerIncidentes = Router()
 
 routerIncidentes.get('/incidentes', getAll)
-routerIncidentes.post('/incidentes', insert)
+routerIncidentes.post('/incidente', insert)
 
 export default routerIncidentes

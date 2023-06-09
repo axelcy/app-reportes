@@ -97,7 +97,7 @@ class IncidenteService {
             .input('IdUsuario',         sql.Int, incidente.idUsuario)
             .input('IdPisoAula',        sql.Int, incidente.idPisoAula)
             .input('Fecha',             sql.Date, incidente.fecha)
-            .input('NivelImportancia',  sql.Int, incidente.importancia)
+            .input('Importancia',  sql.Int, incidente.importancia)
             .input('Estado',            sql.Int, incidente.estado)
             .input('IdUsuarioSolucion', sql.Int, incidente.idUsuarioSolucion)
             .input('Categoria',         sql.Int, incidente.categoria)
