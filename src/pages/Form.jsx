@@ -43,7 +43,7 @@ const FormReportes = () => {
     const handleSubmit = async() => {
         const data = {
             categoria: null,
-            nivelImportancia: 1, // cambiar por solo importancia (tmb abajo en el <option/>)
+            importancia: 1,
             ...incidente,
             idPisoAula: (await useFetch("/pisoaula/aula/" + ubicacion.aula.id))[0].id,
             fecha: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
@@ -74,7 +74,7 @@ const FormReportes = () => {
                     </Row>
                     <Row>
                         <Form.Label>Nivel de importancia</Form.Label>
-                        <ToggleButtonGroup type="radio" name="nivelImportancia" > {/* value={incidente.nivelImportancia} */}
+                        <ToggleButtonGroup type="radio" name="importancia" > {/* value={incidente.importancia} */}
                             <ToggleButton id="tbg-radio-1" onChange={handleChange} className="button-importancia" value={1} variant={'success'} > Bajo </ToggleButton>
                             <ToggleButton id="tbg-radio-2" onChange={handleChange} className="button-importancia" value={2} variant={'warning'} > Medio </ToggleButton>
                             <ToggleButton id="tbg-radio-3" onChange={handleChange} className="button-importancia" value={3} variant={'danger'} > Alto </ToggleButton>
