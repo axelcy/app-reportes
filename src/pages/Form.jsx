@@ -24,6 +24,9 @@ const FormReportes = () => {
 
     const handleChange = (e) => {
         setIncidente({...incidente, [e.target.name]: e.target.value})
+        if(e.target.name === 'importancia') e.target.classList.add('button-selected')
+
+        console.log(e.target.classList)
     }
 
     const updateUbicacion = async (e) => {
@@ -74,10 +77,10 @@ const FormReportes = () => {
                     </Row>
                     <Row>
                         <Form.Label>Nivel de importancia</Form.Label>
-                        <ToggleButtonGroup type="radio" name="importancia" > {/* value={incidente.importancia} */}
-                            <ToggleButton id="tbg-radio-1" onChange={handleChange} className="button-importancia" value={1} variant={'success'} > Bajo </ToggleButton>
-                            <ToggleButton id="tbg-radio-2" onChange={handleChange} className="button-importancia" value={2} variant={'warning'} > Medio </ToggleButton>
-                            <ToggleButton id="tbg-radio-3" onChange={handleChange} className="button-importancia" value={3} variant={'danger'} > Alto </ToggleButton>
+                        <ToggleButtonGroup type="radio" name="importancia" className="importancia-group" defaultValue={[1]}> {/* value={incidente.importancia} */}
+                            <ToggleButton id="tbg-radio-1" onChange={handleChange} value={1} variant={'outline-success'} > Bajo </ToggleButton>
+                            <ToggleButton id="tbg-radio-2" onChange={handleChange} value={2} variant={'outline-warning'} > Medio </ToggleButton>
+                            <ToggleButton id="tbg-radio-3" onChange={handleChange} value={3} variant={'outline-danger'} > Alto </ToggleButton>
                         </ToggleButtonGroup>
                     </Row>
                     <Row>

@@ -16,10 +16,6 @@ form>.row {
     filter: brightness(50%);
 }
 
-.button-importancia:hover {
-    filter: brightness(60%);
-}
-
 .animated-input{
     position: relative;
     margin-top: 25px !important;
