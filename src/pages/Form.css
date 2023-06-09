@@ -22,7 +22,7 @@ form>.row {
 
 .animated-input{
     position: relative;
-    margin-top: 25px;
+    margin-top: 25px !important;
 }
 .animated-input input,
 .animated-input textarea{

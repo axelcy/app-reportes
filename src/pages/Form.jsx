@@ -1,9 +1,9 @@
 import { Container, Row, Button, ToggleButton, ToggleButtonGroup, Form } from "react-bootstrap"
-import './Form.css'
 import { useEffect, useState } from "react"
 import { Link } from 'react-router-dom'
 import useFetch from "../Hooks/useFetch"
 import NavBar from "../Components/NavBar"
+import './Form.css'
 
 
 const FormReportes = () => {
@@ -40,7 +40,8 @@ const FormReportes = () => {
     }
 
     useEffect(() => async () => setEdificios(await useFetch('/edificios')), [])
-    const handleSubmit = async() => {
+    const handleSubmit = async(e) => {
+        e.preventDefault()
         const data = {
             categoria: null,
             importancia: 1,
@@ -51,9 +52,8 @@ const FormReportes = () => {
             estado: 1, // en espera
             idUsuarioSolucion: null,
         }
-        console.log(data)
         await useFetch('/incidente', data)
-        setIncidente({})
+        location.reload()
     }
     return (
         <>
@@ -61,7 +61,7 @@ const FormReportes = () => {
             <Link to={"/"}><h3>Ir a /</h3></Link>
             <Container>
                 <h2>Formulario reporte</h2>
-                <Form> {/* onSubmit={async() => await handleSubmit()} */}
+                <Form onSubmit={async(e) => await handleSubmit(e)}> {/* onSubmit={async() => await handleSubmit()} */}
                     <Row>
                         <Form.Group className="mb-3 animated-input" controlId="exampleForm.ControlInput1">
                             <Form.Control type="text" autoComplete="off" required name="nombre" onChange={handleChange} /> {/* value={incidente.nombre} */}
@@ -127,8 +127,7 @@ const FormReportes = () => {
                     </Row>
                     <Row>
                         <Form.Group>
-                            <div>{ubicacion.aula ? JSON.stringify(ubicacion.aula) : "no existe"}</div>
-                            <Button variant="primary" type="button" onClick={async() => await handleSubmit()} disabled={!ubicacion.aula || !incidente.nombre}>Reportar</Button>
+                            <Button variant="primary" type="submit" disabled={!ubicacion.aula}>Reportar</Button>
                         </Form.Group>
                     </Row>
                 </Form>
