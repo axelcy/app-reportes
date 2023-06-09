@@ -6,6 +6,27 @@ import routerPisosAulas from "./pisos-aulas"
 import routerUsuarios from "./usuarios"
 import routerImages from "./images"
 
+/**
+ * @swagger
+ * /Test:
+ *  get:
+ *  summary: Test get
+*/
+
+/**
+ * @swagger
+ * tags:
+ * - name: Aulas
+ *   description: Aulas endpoints
+*/
+
+/**
+ * @swagger
+ * /aulas:
+ *  get:
+ *  summary: Get all aulas 
+ *  tag: [Aulas]
+*/
 export default [
     routerImages,
     routerAulas,
