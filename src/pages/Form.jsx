@@ -99,8 +99,8 @@ const FormReportes = () => {
                             <Form.Group>
                                 <Form.Select className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="edificio">
                                     <option value={0}></option>
-                                    {edificios?.map((edificio, key) =>
-                                        <option key={key} value={edificio.id}>{edificio.descripcion}</option>
+                                    {edificios?.map((edificio) =>
+                                        <option key={edificio.id} value={edificio.id}>{edificio.descripcion}</option>
                                     )}
                                 </Form.Select>
                             </Form.Group>
@@ -110,8 +110,8 @@ const FormReportes = () => {
                             <Form.Group>
                                 <Form.Select className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="piso" disabled={!Boolean(pisos?.length)}>
                                     <option value={0}></option>
-                                    {pisos?.map((piso, key) =>
-                                        <option key={key} value={piso.id}>{piso.descripcion}</option>
+                                    {pisos?.map((piso) =>
+                                        <option key={piso.id} value={piso.id}>{piso.descripcion}</option>
                                     )}
                                 </Form.Select>
                             </Form.Group>
@@ -121,8 +121,8 @@ const FormReportes = () => {
                             <Form.Group>
                                 <Form.Select className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="aula" disabled={!Boolean(aulas?.length)}>
                                     <option value={0}></option>
-                                    {aulas?.map((aula, key) =>
-                                        <option key={key} value={aula.id} >{aula.descripcion}</option>
+                                    {aulas?.map((aula) =>
+                                        <option key={aula.id} value={aula.id} >{aula.descripcion}</option>
                                     )}
                                 </Form.Select>
                             </Form.Group>
