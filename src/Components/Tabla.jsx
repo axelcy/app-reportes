@@ -6,7 +6,7 @@ function Tabla() {
 
   const [usuarios, setUsuarios] = useState([])
 
-  useEffect(() => async() => setUsuarios(await useFetch("/usuarios")))
+  useEffect(() => async() => setUsuarios(await useFetch("/usuarios")), [])
 
 
   return (
