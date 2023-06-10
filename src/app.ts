@@ -9,7 +9,7 @@ import { options } from '../swaggerOptions'
 const app = express()
 app.set('port', process.env.PORT || 3001)
 
-app.use(cors()) // comunicacion entre servidores
+app.use(cors()) // para recibir peticiones de otros servidores
 app.use(morgan('dev')) // ver peticiones en consola
 app.use(express.json()) // para recibir json
 

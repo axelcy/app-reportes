@@ -7,3 +7,7 @@ export const __dirname = dirname(__filename) // \app-reportes
 
 console.clear()
 app.listen(app.get('port'), () => console.log(` * Example app listening on port ${app.get('port')}!`))
+
+// import crypto from 'crypto'
+// type userId = `${string}-${string}-${string}-${string}-${string}`
+// readonly id: userId = crypto.randomUUID()
