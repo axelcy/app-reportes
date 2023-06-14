@@ -18,11 +18,12 @@ function App() {
       <Container fluid>
         <Row>
           <Col xs={4}>
-            <h3>DATA</h3>
+            <h3>/img/el-pepe.jpg</h3> {/* DATA */}
             <p>{data && JSON.stringify(data)}</p>
             {typeof data == 'string' && data.split(import.meta.env.VITE_URL_API)[1].startsWith('/img/') && <img className='img' src={data}/>}
           </Col>
           <Col xs={8}>
+            <Tabla />
             <Tabla />
           </Col>
         </Row>
