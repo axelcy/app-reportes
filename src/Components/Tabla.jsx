@@ -25,7 +25,7 @@ function Tabla() {
           <td>{key + 1}</td>
           <td>{usuario.nombre}</td>
           <td>{usuario.apellido}</td>
-          <td>{usuario?.esSupervisor}- </td>
+          <td>{usuario?.esSupervisor} - </td>
         </tr>)}
       </tbody>
     </Table>

@@ -5,6 +5,10 @@ import FormReportes from './pages/Form.jsx'
 import App from './App.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
+import { UsuarioProvider } from './context/usuario.jsx'
+import { Footer } from './Components/Footer.jsx'
+import { TestProvider } from './context/test.jsx'
+
 
 const routes = createBrowserRouter([{
   path: "/",
@@ -17,6 +21,11 @@ const routes = createBrowserRouter([{
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={routes}/>
+    <TestProvider>
+      <UsuarioProvider>
+        <RouterProvider router={routes}/>
+        <Footer />
+      </UsuarioProvider>
+    </TestProvider>
   </StrictMode>,
 )

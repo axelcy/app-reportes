@@ -25,12 +25,10 @@ const FormReportes = () => {
     const handleChange = (e) => {
         setIncidente({...incidente, [e.target.name]: e.target.value})
         if(e.target.name === 'importancia') e.target.classList.add('button-selected')
-
-        console.log(e.target.classList)
     }
 
     const updateUbicacion = async (e) => {
-        setUbicacion({ ...ubicacion, [e.target.name]: (await useFetch(`/${e.target.name}/${Number(e.target.value)}`))[0] })
+        setUbicacion({ ...ubicacion, [e.target.name]: (await useFetch(`/${e.target.name}/${Number(e.target.value)}`)) })
         if (e.target.name === 'edificio') {
             setPisos([])
             setAulas([])
@@ -49,7 +47,7 @@ const FormReportes = () => {
             categoria: null,
             importancia: 1,
             ...incidente,
-            idPisoAula: (await useFetch("/pisoaula/aula/" + ubicacion.aula.id))[0].id,
+            idPisoAula: (await useFetch("/pisoaula/aula/" + ubicacion.aula.id)).id,
             fecha: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
             idUsuario: 1, // hay q hacer login para esto
             estado: 1, // en espera
