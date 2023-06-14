@@ -6,19 +6,19 @@ import './Navbar.css'
 import useTest from '../Hooks/useTest';
 
 function NavBar({ setData }) {
-    const imgInput = useRef()
+    const input = useRef()
     const { setTest } = useTest()
     
     const fetchData = async() => {
-        if (!imgInput.current.value) return
+        if (!input.current.value) return
         try {
-            const data = await useFetch('/' + imgInput.current.value)
+            const data = await useFetch(input.current.value)
             setTest(data)
         }
         catch {
-            imgInput.current.placeholder = 'Error 404 😟'
+            input.current.placeholder = 'Error 404 😟'
         }
-        imgInput.current.value = ''
+        input.current.value = ''
     }
 
     return (
@@ -32,10 +32,11 @@ function NavBar({ setData }) {
                     {/* <Link to={"/test"}>Ir a /test</Link> */}
                     {/* <Nav.Link href="/test">Test</Nav.Link> */}
                     {/* <Nav.Link href="#link">Link</Nav.Link> */}
-                    <div className='buscar-section'>
-                        <input className='form-control' disabled={!setData} ref={imgInput} autoComplete='off' placeholder='el-pepe.jpg'/>
+                    <form className='buscar-section' onSubmit={(e) => e.preventDefault()}>
+                        {/* hacer q con enter se envie el form pero q no se recargue la pag*/}
+                        <input className='form-control' disabled={!setData} ref={input} autoComplete='off' placeholder='el-pepe.jpg'/>
                         <Button onClick={fetchData} disabled={!setData} className='form-control' variant='outline-secondary'>Buscar imagen</Button>
-                    </div>
+                    </form>
                   </Nav>
               </Navbar.Collapse>
               </Container>
