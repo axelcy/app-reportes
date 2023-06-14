@@ -35,7 +35,7 @@ function NavBar() {
                     <form className='buscar-section' onSubmit={(e) => e.preventDefault()}>
                         {/* hacer q con enter se envie el form pero q no se recargue la pag*/}
                         <input className='form-control' ref={input} autoComplete='off' placeholder='el-pepe.jpg'/>
-                        <Button onClick={fetchData} className='form-control' variant='outline-secondary'>Buscar imagen</Button>
+                        <Button onClick={fetchData} className='form-control' variant='outline-secondary'>Fetch data</Button>
                     </form>
                   </Nav>
               </Navbar.Collapse>
