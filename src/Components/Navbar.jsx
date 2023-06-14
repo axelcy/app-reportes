@@ -5,7 +5,7 @@ import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import './Navbar.css'
 import useTest from '../Hooks/useTest';
 
-function NavBar({ setData }) {
+function NavBar() {
     const input = useRef()
     const { setTest } = useTest()
     
@@ -34,8 +34,8 @@ function NavBar({ setData }) {
                     {/* <Nav.Link href="#link">Link</Nav.Link> */}
                     <form className='buscar-section' onSubmit={(e) => e.preventDefault()}>
                         {/* hacer q con enter se envie el form pero q no se recargue la pag*/}
-                        <input className='form-control' disabled={!setData} ref={input} autoComplete='off' placeholder='el-pepe.jpg'/>
-                        <Button onClick={fetchData} disabled={!setData} className='form-control' variant='outline-secondary'>Buscar imagen</Button>
+                        <input className='form-control' ref={input} autoComplete='off' placeholder='el-pepe.jpg'/>
+                        <Button onClick={fetchData} className='form-control' variant='outline-secondary'>Buscar imagen</Button>
                     </form>
                   </Nav>
               </Navbar.Collapse>

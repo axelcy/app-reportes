@@ -12,7 +12,7 @@ function App() {
 
   return (
     <>
-      <Navbar setData={setData} />
+      <Navbar />
       <h1>App reportes</h1>
       <Link to={"/form"}><h3>Ir a /form</h3></Link>
       <Container fluid>
