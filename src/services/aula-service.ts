@@ -22,7 +22,7 @@ class AulaService {
         try {
             const pool = await sql.connect(config)
             const result = await pool.request().input('Id', sql.Int, id).query(query)
-            returnArray = result.recordsets[0]
+            returnArray = result.recordsets[0][0]
         }
         catch (error) {
             console.log(error)

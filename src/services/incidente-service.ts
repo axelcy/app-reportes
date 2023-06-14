@@ -7,7 +7,7 @@ type Order = 'importancia' | 'fecha' | 'edificio' | 'categoria'
 class IncidenteService {
     getAll = async (order: Order = 'fecha') => {
         let query = `
-        select i.id, i.nombre, i.descripcion, i.idUsuario, i.fecha, i.idUsuarioSolucion, i.estado, c.descripcion 'Categoria', n.descripcion 'Nivel de Imporancia', e.descripcion 'Edificio' from Incidentes i
+        select i.id, i.nombre, i.descripcion, i.idUsuario, i.fecha, i.idUsuarioSolucion, i.estado, c.descripcion 'categoria', n.descripcion 'imporancia', e.descripcion 'edificio' from Incidentes i
 		inner join Categorias c on c.id = i.categoria
         inner join Niveles_Importancia n on n.id = i.importancia
         inner join Pisos_Aulas pa on pa.id = i.idPisoAula
@@ -47,7 +47,7 @@ class IncidenteService {
         try {
             const pool = await sql.connect(config)
             const result = await pool.request().input('Id', sql.Int, id).query(query)
-            returnArray = result.recordsets[0]
+            returnArray = result.recordsets[0][0]
         }
         catch (error) {
             console.log(error)

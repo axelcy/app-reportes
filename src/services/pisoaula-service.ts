@@ -22,7 +22,7 @@ class PisoAulaService {
         try {
             const pool = await sql.connect(config)
             const result = await pool.request().input('IdAula', sql.Int, idAula).query(query)
-            returnArray = result.recordsets[0]
+            returnArray = result.recordsets[0][0]
         }
         catch (error) {
             console.log(error)
