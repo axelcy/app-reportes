@@ -5,7 +5,7 @@ export const getAll = async(_req: any, _res: any) => {
 }
 
 export const getById = async(_req: any, _res: any) => {
-    _res.send(await new UsuarioService().getById(Number(_req.params.idAula)))
+    _res.send(await new UsuarioService().getById(Number(_req.params.id)))
 }
 
 export const getByName = async(_req: any, _res: any) => {
