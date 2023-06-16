@@ -17,7 +17,7 @@ const FormReportes = () => {
         piso: null,
         aula: null
     })
-    const [incidente, setIncidente] = useState()
+    const [incidente, setIncidente] = useState({})
 
     const updateUbicacion = async (e) => {
         setUbicacion({ ...ubicacion, [e.target.name]: (await useFetch(`/${e.target.name}/${Number(e.target.value)}`)) })
@@ -60,7 +60,7 @@ const FormReportes = () => {
             <Link to={"/"}><h3>Ir a /</h3></Link>
             <Container>
                 <h2 className="text">Formulario reporte</h2>
-                <Form onSubmit={async(e) => await handleSubmit(e)}> {/* onSubmit={async() => await handleSubmit()} */}
+                <Form onSubmit={async (e) => await handleSubmit(e)}> {/* onSubmit={async() => await handleSubmit()} */}
                     <Row>
                         <Form.Group className="mb-3 animated-input" controlId="exampleForm.ControlInput1">
                             <Form.Control type="text" autoComplete="off" required name="nombre" onChange={handleChange} /> {/* value={incidente.nombre} */}
@@ -74,9 +74,9 @@ const FormReportes = () => {
                     <Row>
                         <Form.Label className="text">Nivel de importancia</Form.Label>
                         <ToggleButtonGroup type="radio" name="importancia" className="importancia-group"> {/* value={incidente.importancia} */}
-                            <ToggleButton id="tbg-radio-1" onChange={handleChange} value={1} variant={'success'} > Bajo </ToggleButton>
-                            <ToggleButton id="tbg-radio-2" onChange={handleChange} value={2} variant={'warning'} > Medio </ToggleButton>
-                            <ToggleButton id="tbg-radio-3" onChange={handleChange} value={3} variant={'danger'} > Alto </ToggleButton>
+                            <ToggleButton id="tbg-check-1" onChange={handleChange} value={1}>Bajo </ToggleButton>
+                            <ToggleButton id="tbg-check-2" onChange={handleChange} value={2}>Medio</ToggleButton>
+                            <ToggleButton id="tbg-check-3" onChange={handleChange} value={3}>Alto</ToggleButton>
                         </ToggleButtonGroup>
                     </Row>
                     <Row>
@@ -109,7 +109,7 @@ const FormReportes = () => {
                         <div>
                             <Form.Label className="text">Piso</Form.Label>
                             <Form.Group>
-                                <Form.Select className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="piso" disabled={!Boolean(pisos?.length)}>
+                                <Form.Select className="ubicacion-field" onChange={async (e) => await updateUbicacion(e)} name="piso" disabled={!Boolean(pisos?.length)}>
                                     <option value={0}></option>
                                     {pisos?.map((piso) =>
                                         <option key={piso.id} value={piso.id}>{piso.descripcion}</option>
@@ -120,7 +120,7 @@ const FormReportes = () => {
                         <div>
                             <Form.Label className="text">Aula</Form.Label>
                             <Form.Group>
-                                <Form.Select className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="aula" disabled={!Boolean(aulas?.length)}>
+                                <Form.Select className="ubicacion-field" onChange={async (e) => await updateUbicacion(e)} name="aula" disabled={!Boolean(aulas?.length)}>
                                     <option value={0}></option>
                                     {aulas?.map((aula) =>
                                         <option key={aula.id} value={aula.id} >{aula.descripcion}</option>
