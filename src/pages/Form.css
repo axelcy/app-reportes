@@ -91,3 +91,11 @@ label.btn.btn-primary:hover{
     background-color: #5264C9;
     border-color: #5264C9;
 }
+button.btn.btn-primary{
+    background-color: #3f51b5 ;
+    border-color: #3f51b5 ;
+}
+button.btn.btn-primary:hover{
+    background-color: #5264C9 !important;
+    border-color: #5264C9 !important;
+}
