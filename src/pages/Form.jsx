@@ -7,8 +7,9 @@ import './Form.css'
 
 
 const FormReportes = () => {
-
+    const [categorias, setCategorias] = useState([])
     const [edificios, setEdificios] = useState([])
+
     const [pisos, setPisos] = useState([])
     const [aulas, setAulas] = useState([])
     const [ubicacion, setUbicacion] = useState({
@@ -16,16 +17,7 @@ const FormReportes = () => {
         piso: null,
         aula: null
     })
-    const [incidente, setIncidente] = useState({})
-
-    // probar esto
-    // useEffect(() => { setPisos([]); setAulas([]) }, [edificios])
-    // useEffect(() => { setAulas([]) }, [pisos])
-
-    const handleChange = (e) => {
-        setIncidente({...incidente, [e.target.name]: e.target.value})
-        if(e.target.name === 'importancia') e.target.classList.add('button-selected')
-    }
+    const [incidente, setIncidente] = useState()
 
     const updateUbicacion = async (e) => {
         setUbicacion({ ...ubicacion, [e.target.name]: (await useFetch(`/${e.target.name}/${Number(e.target.value)}`)) })
@@ -39,12 +31,17 @@ const FormReportes = () => {
             setAulas(await useFetch('/aulas/piso/' + e.target.value))
         }
     }
+    // ----------------------------------------------
+    useEffect(() => async () => {
+        setEdificios(await useFetch('/edificios'))
+        setCategorias(await useFetch('/categorias'))
+    }, [])
 
-    useEffect(() => async () => setEdificios(await useFetch('/edificios')), [])
+    const handleChange = (e) => setIncidente({...incidente, [e.target.name]: e.target.value})
+
     const handleSubmit = async(e) => {
         e.preventDefault()
         const data = {
-            categoria: null,
             importancia: 1,
             ...incidente,
             idPisoAula: (await useFetch("/pisoaula/aula/" + ubicacion.aula.id)).id,
@@ -56,6 +53,7 @@ const FormReportes = () => {
         await useFetch('/incidente', data)
         location.reload()
     }
+
     return (
         <>
             <NavBar />
@@ -75,7 +73,7 @@ const FormReportes = () => {
                     </Row>
                     <Row>
                         <Form.Label>Nivel de importancia</Form.Label>
-                        <ToggleButtonGroup type="radio" name="importancia" className="importancia-group" defaultValue={[1]}> {/* value={incidente.importancia} */}
+                        <ToggleButtonGroup type="radio" name="importancia" className="importancia-group"> {/* value={incidente.importancia} */}
                             <ToggleButton id="tbg-radio-1" onChange={handleChange} value={1} variant={'outline-success'} > Bajo </ToggleButton>
                             <ToggleButton id="tbg-radio-2" onChange={handleChange} value={2} variant={'outline-warning'} > Medio </ToggleButton>
                             <ToggleButton id="tbg-radio-3" onChange={handleChange} value={3} variant={'outline-danger'} > Alto </ToggleButton>
@@ -84,10 +82,13 @@ const FormReportes = () => {
                     <Row>
                         <Form.Label>Categoría</Form.Label>
                         <Form.Group>
-                            <Form.Select onChange={handleChange} name="categoria" > {/* value={incidente.categoria} */}
+                            <Form.Select onChange={handleChange} name="categoria"> {/* value={incidente.categoria} */}
                                 <option value={null}>Seleccione una categoría</option>
-                                <option value={1}>Electricidad</option>
-                                <option value={2}>Informática</option>
+                                {
+                                    categorias?.map((categoria) => 
+                                        <option key={categoria.id} value={categoria.id}>{categoria.descripcion}</option>
+                                    )
+                                }
                             </Form.Select>
                         </Form.Group>
                     </Row>
@@ -96,10 +97,12 @@ const FormReportes = () => {
                             <Form.Label>Edificio</Form.Label>
                             <Form.Group>
                                 <Form.Select className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="edificio">
-                                    <option value={0}></option>
-                                    {edificios?.map((edificio) =>
-                                        <option key={edificio.id} value={edificio.id}>{edificio.descripcion}</option>
-                                    )}
+                                    <option value={null}></option>
+                                    {
+                                        edificios?.map((edificio) =>
+                                            <option key={edificio.id} value={edificio.id}>{edificio.descripcion}</option>
+                                        )
+                                    }
                                 </Form.Select>
                             </Form.Group>
                         </div>
