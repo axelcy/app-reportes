@@ -48,3 +48,7 @@
 .footer-img-hover span{
   white-space: unset;
 }
+
+.footer-text{
+  color: black;
+}
