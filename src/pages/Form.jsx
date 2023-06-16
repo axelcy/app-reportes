@@ -89,7 +89,7 @@ const FormReportes = () => {
                     <Row>
                         <Form.Label className="label-form-reporte">Categoría</Form.Label>
                         <Form.Group>
-                            <Form.Select onChange={handleChange} name="categoria"> {/* value={incidente.categoria} */}
+                            <Form.Select required onChange={handleChange} name="categoria"> {/* value={incidente.categoria} */}
                                 <option className="option-form-reporte" value={null}>Eliga una categoría</option>
                                 {
                                     categorias?.map((categoria) => 
@@ -103,7 +103,7 @@ const FormReportes = () => {
                         <div>
                             <Form.Label className="label-form-reporte">Edificio</Form.Label>
                             <Form.Group>
-                                <Form.Select className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="edificio">
+                                <Form.Select required className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="edificio">
                                 <option className="option-form-reporte" value={null}>~ Edificio ~</option>
                                     {
                                         edificios?.map((edificio) =>
@@ -116,7 +116,7 @@ const FormReportes = () => {
                         <div>
                             <Form.Label className="label-form-reporte">Piso</Form.Label>
                             <Form.Group>
-                                <Form.Select className="ubicacion-field" onChange={async (e) => await updateUbicacion(e)} name="piso" disabled={!Boolean(pisos?.length)}>
+                                <Form.Select required className="ubicacion-field" onChange={async (e) => await updateUbicacion(e)} name="piso" disabled={!Boolean(pisos?.length)}>
                                     <option value={null}>~ Piso ~</option>
                                     {pisos?.map((piso) =>
                                         <option key={piso.id} value={piso.id}>{piso.descripcion}</option>
@@ -125,7 +125,7 @@ const FormReportes = () => {
                             </Form.Group>
                         </div>
                         <div>
-                            <Form.Label className="label-form-reporte">Aula</Form.Label>
+                            <Form.Label required className="label-form-reporte">Aula</Form.Label>
                             <Form.Group>
                                 <Form.Select className="ubicacion-field" onChange={async (e) => await updateUbicacion(e)} name="aula" disabled={!Boolean(aulas?.length)}>
                                     <option value={null}>~ Aula ~</option>

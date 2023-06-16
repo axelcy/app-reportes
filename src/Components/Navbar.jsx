@@ -28,11 +28,9 @@ function NavBar() {
               <Link to={"/"}><div className='navbar-brand'><img className='logo' src={'/logo.png'}/><span>App reportes</span></div></Link>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse>
-                  <Nav className="me-auto">
-                    {/* <Link to={"/"}>Ir a /</Link> */}
-                    {/* <Link to={"/form"}>Ir a /form</Link> */}
-                    <Nav.Link><Link to={"/"}>Home</Link></Nav.Link>
-                    <Nav.Link><Link to={"/form"}>Reportar</Link></Nav.Link>
+                  <Nav className="me-auto navbar-collapse">
+                    <Link to={"/"}>Home</Link>
+                    <Link to={"/form"}>Reportar</Link>
                     <form className='buscar-section' onSubmit={(e) => e.preventDefault()}>
                         {/* hacer q con enter se envie el form pero q no se recargue la pag*/}
                         <input className='form-control' ref={input} autoComplete='off' placeholder='el-pepe.jpg'/>

@@ -13,7 +13,9 @@ form>.row {
 }
 
 .ubicacion-field:disabled {
-    filter: brightness(50%);
+    filter: brightness(70%);
+    color: crimson;
+    font-weight: 500;
 }
 
 .animated-input{
@@ -34,6 +36,13 @@ form>.row {
     color: #212529;
 }
 
+.animated-input label::after{
+    content: ' *';
+    color: red;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
 .animated-input input:focus + label,
 .animated-input input:valid + label,
 .animated-input textarea:focus + label,
@@ -45,6 +54,13 @@ form>.row {
     left: 15px;
 }
 
+.animated-input input:focus + label:after,
+.animated-input input:valid + label:after,
+.animated-input textarea:focus + label:after,
+.animated-input textarea:valid + label:after {
+    content: '';
+}
+
 .label-form-reporte{
     font-weight: 500;
 }
@@ -52,6 +68,16 @@ form>.row {
     font-weight: 500;
 }
 
+
+/* .label-form-reporte:after{
+    content: ' *';
+    color: red;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+.label-form-reporte:valid::after{
+    content: '';
+} */
 
 /* label.btn.btn-primary{
     background-color: #3f51b5 ;
