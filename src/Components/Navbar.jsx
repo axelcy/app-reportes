@@ -29,9 +29,10 @@ function NavBar() {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse>
                   <Nav className="me-auto">
-                    {/* <Link to={"/test"}>Ir a /test</Link> */}
-                    {/* <Nav.Link href="/test">Test</Nav.Link> */}
-                    {/* <Nav.Link href="#link">Link</Nav.Link> */}
+                    {/* <Link to={"/"}>Ir a /</Link> */}
+                    {/* <Link to={"/form"}>Ir a /form</Link> */}
+                    <Nav.Link><Link to={"/"}>Home</Link></Nav.Link>
+                    <Nav.Link><Link to={"/form"}>Reportar</Link></Nav.Link>
                     <form className='buscar-section' onSubmit={(e) => e.preventDefault()}>
                         {/* hacer q con enter se envie el form pero q no se recargue la pag*/}
                         <input className='form-control' ref={input} autoComplete='off' placeholder='el-pepe.jpg'/>

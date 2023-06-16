@@ -57,7 +57,7 @@ const FormReportes = () => {
     return (
         <>
             <NavBar />
-            <Link to={"/"}><h3>Ir a /</h3></Link>
+            {/* <Link to={"/"}><h3>Ir a /</h3></Link> */}
             <Container>
                 <h2 className="text">Formulario reporte</h2>
                 <Form onSubmit={async (e) => await handleSubmit(e)}> {/* onSubmit={async() => await handleSubmit()} */}
