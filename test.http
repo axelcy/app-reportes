@@ -5,3 +5,6 @@ GET {{api}}/aulas
 
 ### Usuarios
 GET {{api}}/usuarios
+
+### Categoria
+GET {{api}}/categorias

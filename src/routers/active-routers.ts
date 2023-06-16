@@ -5,6 +5,7 @@ import routerPisos from "./pisos"
 import routerPisosAulas from "./pisos-aulas"
 import routerUsuarios from "./usuarios"
 import routerImages from "./images"
+import routerCategorias from "./categorias"
 
 /**
  * @swagger
@@ -35,5 +36,6 @@ export default [
     routerIncidentes,
     routerPisos,
     routerPisosAulas,
-    routerUsuarios
+    routerUsuarios,
+    routerCategorias
 ]
