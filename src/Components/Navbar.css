@@ -4,7 +4,7 @@
 }
 
 .Navbar *:hover{
-    color: black;
+    color: #20295B;
 }
 .navbar-collapse{
     display: flex;
