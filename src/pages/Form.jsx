@@ -39,7 +39,11 @@ const FormReportes = () => {
 
     const handleChange = (e) => {
         setIncidente({...incidente, [e.target.name]: e.target.value})
-        if (e.target.name === "importancia") e.target.classList.add('button-active')
+        if (e.target.name === "importancia") {
+            let activos = document.getElementsByClassName("button-active")
+            activos?.map(e => e.classList.remove("button-active"))
+            e.target.classList.add('button-active')
+        }
     }
 
     const handleSubmit = async(e) => {
