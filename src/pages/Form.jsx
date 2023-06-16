@@ -38,28 +38,34 @@ const FormReportes = () => {
     }, [])
 
     const handleChange = (e) => {
-        setIncidente({...incidente, [e.target.name]: e.target.value})
-        if (e.target.name === "importancia") {
-            let activos = document.getElementsByClassName("button-active")
-            activos?.map(e => e.classList.remove("button-active"))
-            e.target.classList.add('button-active')
+        setIncidente({ ...incidente, [e.target.name]: e.target.value })
+
+        var btns = document.getElementsByName("importancia")
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].addEventListener("click", function () {
+                var current = document.getElementsByClassName("active");
+                if (current.length > 0) {
+                    current[0].className = current[0].className.replace(" active", "");
+                }
+                this.className += " active";
+            })
         }
     }
 
-    const handleSubmit = async(e) => {
-        e.preventDefault()
-        const data = {
-            importancia: 1,
-            ...incidente,
-            idPisoAula: (await useFetch("/pisoaula/aula/" + ubicacion.aula.id)).id,
-            fecha: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
-            idUsuario: 1, // hay q hacer login para esto
-            estado: 1, // en espera
-            idUsuarioSolucion: null,
+        const handleSubmit = async (e) => {
+            e.preventDefault()
+            const data = {
+                importancia: 1,
+                ...incidente,
+                idPisoAula: (await useFetch("/pisoaula/aula/" + ubicacion.aula.id)).id,
+                fecha: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
+                idUsuario: 1, // hay q hacer login para esto
+                estado: 1, // en espera
+                idUsuarioSolucion: null,
+            }
+            await useFetch('/incidente', data)
+            location.reload()
         }
-        await useFetch('/incidente', data)
-        location.reload()
-    }
 
     return (
         <>
@@ -106,16 +112,54 @@ const FormReportes = () => {
                                 <Form.Select required className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="edificio">
                                 <option className="option-form-reporte" value={null}>~ Edificio ~</option>
                                     {
-                                        edificios?.map((edificio) =>
-                                            <option className="option-form-reporte" key={edificio.id} value={edificio.id}>{edificio.descripcion}</option>
+                                        categorias?.map((categoria) =>
+                                            <option className="option-form-reporte" key={categoria.id} value={categoria.id}>{categoria.descripcion}</option>
                                         )
                                     }
                                 </Form.Select>
                             </Form.Group>
                         </div>
-                        <div>
-                            <Form.Label className="label-form-reporte">Piso</Form.Label>
+                        </Row>
+                        <Row className="form-epa">
+                            <div>
+                                <Form.Label className="label-form-reporte">Edificio</Form.Label>
+                                <Form.Group>
+                                    <Form.Select className="ubicacion-field" onChange={async (e) => await updateUbicacion(e)} name="edificio">
+                                        <option className="option-form-reporte" value={null}>~ Edificio ~</option>
+                                        {
+                                            edificios?.map((edificio) =>
+                                                <option className="option-form-reporte" key={edificio.id} value={edificio.id}>{edificio.descripcion}</option>
+                                            )
+                                        }
+                                    </Form.Select>
+                                </Form.Group>
+                            </div>
+                            <div>
+                                <Form.Label className="label-form-reporte">Piso</Form.Label>
+                                <Form.Group>
+                                    <Form.Select className="ubicacion-field" onChange={async (e) => await updateUbicacion(e)} name="piso" disabled={!Boolean(pisos?.length)}>
+                                        <option value={null}>~ Piso ~</option>
+                                        {pisos?.map((piso) =>
+                                            <option key={piso.id} value={piso.id}>{piso.descripcion}</option>
+                                        )}
+                                    </Form.Select>
+                                </Form.Group>
+                            </div>
+                            <div>
+                                <Form.Label className="label-form-reporte">Aula</Form.Label>
+                                <Form.Group>
+                                    <Form.Select className="ubicacion-field" onChange={async (e) => await updateUbicacion(e)} name="aula" disabled={!Boolean(aulas?.length)}>
+                                        <option value={null}>~ Aula ~</option>
+                                        {aulas?.map((aula) =>
+                                            <option key={aula.id} value={aula.id} >{aula.descripcion}</option>
+                                        )}
+                                    </Form.Select>
+                                </Form.Group>
+                            </div>
+                        </Row>
+                        <Row>
                             <Form.Group>
+<<<<<<< Updated upstream
                                 <Form.Select required className="ubicacion-field" onChange={async (e) => await updateUbicacion(e)} name="piso" disabled={!Boolean(pisos?.length)}>
                                     <option value={null}>~ Piso ~</option>
                                     {pisos?.map((piso) =>
@@ -146,5 +190,15 @@ const FormReportes = () => {
         </>
     )
 }
+=======
+                                <Button variant="primary" type="submit" disabled={!ubicacion.aula}>Reportar</Button>
+                            </Form.Group>
+                        </Row>
+                    </Form>
+                </Container>
+            </>
+        )
+    }
+>>>>>>> Stashed changes
 
-export default FormReportes
+    export default FormReportes
