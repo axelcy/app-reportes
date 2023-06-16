@@ -37,7 +37,10 @@ const FormReportes = () => {
         setCategorias(await useFetch('/categorias'))
     }, [])
 
-    const handleChange = (e) => setIncidente({...incidente, [e.target.name]: e.target.value})
+    const handleChange = (e) => {
+        setIncidente({...incidente, [e.target.name]: e.target.value})
+        if (e.target.name === "importancia") e.target.classList.add('button-active')
+    }
 
     const handleSubmit = async(e) => {
         e.preventDefault()
