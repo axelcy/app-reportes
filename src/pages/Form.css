@@ -38,14 +38,22 @@ form>.row {
 .animated-input input:valid + label,
 .animated-input textarea:focus + label,
 .animated-input textarea:valid + label {
+    color: #3f51b5;
     font-size: 15px;
+    font-weight: 700;
     top: -20px;
     left: 15px;
 }
-.text{
-    color: #3f51b5 !important;
+
+.label-form-reporte{
+    font-weight: 500;
 }
-label.btn.btn-primary{
+.option-form-reporte{
+    font-weight: 500;
+}
+
+
+/* label.btn.btn-primary{
     background-color: #3f51b5 ;
     border-color: #3f51b5 ;
 }
@@ -56,4 +64,4 @@ label.btn.btn-primary.active{
 label.btn.btn-primary:hover{
     background-color: #4556B7 ;
     border-color: #4556B7 ;
-}
+} */

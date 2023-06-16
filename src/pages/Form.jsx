@@ -75,7 +75,7 @@ const FormReportes = () => {
                         </Form.Group>
                     </Row>
                     <Row>
-                        <Form.Label className="text">Nivel de importancia</Form.Label>
+                        <Form.Label className="label-form-reporte">Nivel de importancia</Form.Label>
                         <ToggleButtonGroup type="radio" name="importancia" className="importancia-group"> {/* value={incidente.importancia} */}
                             <ToggleButton id="tbg-check-1" onChange={handleChange} value={1}>Bajo </ToggleButton>
                             <ToggleButton id="tbg-check-2" onChange={handleChange} value={2}>Medio</ToggleButton>
@@ -83,13 +83,13 @@ const FormReportes = () => {
                         </ToggleButtonGroup>
                     </Row>
                     <Row>
-                        <Form.Label className="text">Categoría</Form.Label>
+                        <Form.Label className="label-form-reporte">Categoría</Form.Label>
                         <Form.Group>
                             <Form.Select onChange={handleChange} name="categoria"> {/* value={incidente.categoria} */}
-                                <option value={null}>Seleccione una categoría</option>
+                                <option className="option-form-reporte" value={null}>Eliga una categoría</option>
                                 {
                                     categorias?.map((categoria) => 
-                                        <option key={categoria.id} value={categoria.id}>{categoria.descripcion}</option>
+                                        <option className="option-form-reporte" key={categoria.id} value={categoria.id}>{categoria.descripcion}</option>
                                     )
                                 }
                             </Form.Select>
@@ -97,23 +97,23 @@ const FormReportes = () => {
                     </Row>
                     <Row className="form-epa">
                         <div>
-                            <Form.Label className="text">Edificio</Form.Label>
+                            <Form.Label className="label-form-reporte">Edificio</Form.Label>
                             <Form.Group>
                                 <Form.Select className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="edificio">
-                                    <option value={null}></option>
+                                <option className="option-form-reporte" value={null}>~ Edificio ~</option>
                                     {
                                         edificios?.map((edificio) =>
-                                            <option key={edificio.id} value={edificio.id}>{edificio.descripcion}</option>
+                                            <option className="option-form-reporte" key={edificio.id} value={edificio.id}>{edificio.descripcion}</option>
                                         )
                                     }
                                 </Form.Select>
                             </Form.Group>
                         </div>
                         <div>
-                            <Form.Label className="text">Piso</Form.Label>
+                            <Form.Label className="label-form-reporte">Piso</Form.Label>
                             <Form.Group>
                                 <Form.Select className="ubicacion-field" onChange={async (e) => await updateUbicacion(e)} name="piso" disabled={!Boolean(pisos?.length)}>
-                                    <option value={0}></option>
+                                    <option value={null}>~ Piso ~</option>
                                     {pisos?.map((piso) =>
                                         <option key={piso.id} value={piso.id}>{piso.descripcion}</option>
                                     )}
@@ -121,10 +121,10 @@ const FormReportes = () => {
                             </Form.Group>
                         </div>
                         <div>
-                            <Form.Label className="text">Aula</Form.Label>
+                            <Form.Label className="label-form-reporte">Aula</Form.Label>
                             <Form.Group>
                                 <Form.Select className="ubicacion-field" onChange={async (e) => await updateUbicacion(e)} name="aula" disabled={!Boolean(aulas?.length)}>
-                                    <option value={0}></option>
+                                    <option value={null}>~ Aula ~</option>
                                     {aulas?.map((aula) =>
                                         <option key={aula.id} value={aula.id} >{aula.descripcion}</option>
                                     )}
