@@ -1,16 +1,16 @@
-import { useEffect, useId, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import useTest from '../Hooks/useTest'
 import './Footer.css'
 
 export function Footer () {
   const { test } = useTest()
-  const imgId = useId()
+  const imgId = useRef()
   const [isOnHover, setIsOnHover] = useState(false)
   useEffect(() => {
     if (isOnHover) {
-      document.getElementById(imgId)?.parentElement?.classList.add('footer-img-hover')
+      imgId.current?.parentElement?.classList.add('footer-img-hover')
     } else {
-      document.getElementById(imgId)?.parentElement?.classList.remove('footer-img-hover')
+      imgId.current?.parentElement?.classList.remove('footer-img-hover')
     }
   }, [isOnHover])
 
@@ -27,8 +27,8 @@ export function Footer () {
   }
 
   return (test &&
-    <footer className='test-footer' onMouseLeave={handleMouseLeave}>
-      <img id={imgId} src={isAnImg() ? test : '/info.png'} onMouseEnter={handleMouseEnter} />
+    <footer className='test-footer'  onMouseLeave={handleMouseLeave}>
+      <img ref={imgId} src={isAnImg() ? test : '/info.png'} onMouseEnter={handleMouseEnter} />
       <span className='footer-text'>{JSON.stringify(test)}</span>
     </footer>
   )
