@@ -41,11 +41,14 @@ const FormReportes = () => {
         setIncidente({...incidente, [e.target.name]: e.target.value})
         if (e.target.name === "importancia") {
             let activos = document.getElementsByClassName("form-button-active")
-            console.log(activos)
+            var arrayElementos = Array.from(activos)
+            console.log(arrayElementos.length)
+            if (arrayElementos.length > 0) {
+                for (let i = 0; i < arrayElementos.length; i++) {
+                    document.getElementsByClassName("form-button-active")[i].classList.remove('form-button-active')
+                }
+            }
             e.target.classList.add('form-button-active')
-            // let activos = document.getElementsByClassName("button-active")
-            // if (activos.length >= 1) return
-            // activos?.forEach(e => e.classList.remove("button-active"))
         }
     }
 
