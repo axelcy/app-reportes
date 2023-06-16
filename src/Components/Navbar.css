@@ -29,4 +29,19 @@ span {
     display: flex;
     flex-direction: row;
     gap: 10px;
+    width: 50%;
+
+}
+
+.navbar-fetch-input{
+    flex: 2;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+.navbar-fetch-button{
+    flex: 1;
+    min-width: fit-content;
 }

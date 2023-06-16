@@ -22,7 +22,7 @@ function NavBar() {
     }
 
     return (
-          <Navbar bg="light" expand="sm" className='Navbar'>
+          <Navbar bg="light" expand="md" className='Navbar'>
               <Container>
               {/* <Link to={"/"}><Navbar.Brand>{logo}</Navbar.Brand></Link> */}
               <Link to={"/"}><div className='navbar-brand'><img className='logo' src={'/logo.png'}/><span>App reportes</span></div></Link>
@@ -33,8 +33,8 @@ function NavBar() {
                     <Link to={"/form"}>Reportar</Link>
                     <form className='buscar-section' onSubmit={(e) => e.preventDefault()}>
                         {/* hacer q con enter se envie el form pero q no se recargue la pag*/}
-                        <input className='form-control' ref={input} autoComplete='off' placeholder='el-pepe.jpg'/>
-                        <Button onClick={fetchData} className='form-control' variant='outline-secondary'>Fetch data</Button>
+                        <input className='form-control navbar-fetch-input' ref={input} autoComplete='off' placeholder='/img/el-pepe.jpg' defaultValue={'/img/el-pepe.jpg'} />
+                        <Button onClick={fetchData} className='form-control navbar-fetch-button' variant='outline-secondary'>Fetch data</Button>
                     </form>
                   </Nav>
               </Navbar.Collapse>
