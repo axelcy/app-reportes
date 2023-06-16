@@ -61,7 +61,7 @@ const FormReportes = () => {
             <NavBar />
             <Link to={"/"}><h3>Ir a /</h3></Link>
             <Container>
-                <h2>Formulario reporte</h2>
+                <h2 className="text">Formulario reporte</h2>
                 <Form onSubmit={async(e) => await handleSubmit(e)}> {/* onSubmit={async() => await handleSubmit()} */}
                     <Row>
                         <Form.Group className="mb-3 animated-input" controlId="exampleForm.ControlInput1">
@@ -74,15 +74,15 @@ const FormReportes = () => {
                         </Form.Group>
                     </Row>
                     <Row>
-                        <Form.Label>Nivel de importancia</Form.Label>
-                        <ToggleButtonGroup type="radio" name="importancia" className="importancia-group" defaultValue={[1]}> {/* value={incidente.importancia} */}
-                            <ToggleButton id="tbg-radio-1" onChange={handleChange} value={1} variant={'outline-success'} > Bajo </ToggleButton>
-                            <ToggleButton id="tbg-radio-2" onChange={handleChange} value={2} variant={'outline-warning'} > Medio </ToggleButton>
-                            <ToggleButton id="tbg-radio-3" onChange={handleChange} value={3} variant={'outline-danger'} > Alto </ToggleButton>
+                        <Form.Label className="text">Nivel de importancia</Form.Label>
+                        <ToggleButtonGroup type="radio" name="importancia" className="importancia-group"> {/* value={incidente.importancia} */}
+                            <ToggleButton id="tbg-radio-1" onChange={handleChange} value={1} variant={'success'} > Bajo </ToggleButton>
+                            <ToggleButton id="tbg-radio-2" onChange={handleChange} value={2} variant={'warning'} > Medio </ToggleButton>
+                            <ToggleButton id="tbg-radio-3" onChange={handleChange} value={3} variant={'danger'} > Alto </ToggleButton>
                         </ToggleButtonGroup>
                     </Row>
                     <Row>
-                        <Form.Label>Categoría</Form.Label>
+                        <Form.Label className="text">Categoría</Form.Label>
                         <Form.Group>
                             <Form.Select onChange={handleChange} name="categoria" > {/* value={incidente.categoria} */}
                                 <option value={null}>Seleccione una categoría</option>
@@ -93,7 +93,7 @@ const FormReportes = () => {
                     </Row>
                     <Row className="form-epa">
                         <div>
-                            <Form.Label>Edificio</Form.Label>
+                            <Form.Label className="text">Edificio</Form.Label>
                             <Form.Group>
                                 <Form.Select className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="edificio">
                                     <option value={0}></option>
@@ -104,7 +104,7 @@ const FormReportes = () => {
                             </Form.Group>
                         </div>
                         <div>
-                            <Form.Label>Piso</Form.Label>
+                            <Form.Label className="text">Piso</Form.Label>
                             <Form.Group>
                                 <Form.Select className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="piso" disabled={!Boolean(pisos?.length)}>
                                     <option value={0}></option>
@@ -115,7 +115,7 @@ const FormReportes = () => {
                             </Form.Group>
                         </div>
                         <div>
-                            <Form.Label>Aula</Form.Label>
+                            <Form.Label className="text">Aula</Form.Label>
                             <Form.Group>
                                 <Form.Select className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="aula" disabled={!Boolean(aulas?.length)}>
                                     <option value={0}></option>
