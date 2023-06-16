@@ -131,9 +131,9 @@ const FormReportes = () => {
                             </Form.Group>
                         </div>
                         <div>
-                            <Form.Label required className="label-form-reporte">Aula</Form.Label>
+                            <Form.Label className="label-form-reporte">Aula</Form.Label>
                             <Form.Group>
-                                <Form.Select className="ubicacion-field" onChange={async (e) => await updateUbicacion(e)} name="aula" disabled={!Boolean(aulas?.length)}>
+                                <Form.Select required className="ubicacion-field" onChange={async (e) => await updateUbicacion(e)} name="aula" disabled={!Boolean(aulas?.length)}>
                                     <option value={null}>~ Aula ~</option>
                                     {aulas?.map((aula) =>
                                         <option key={aula.id} value={aula.id} >{aula.descripcion}</option>
