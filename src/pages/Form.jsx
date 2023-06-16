@@ -110,7 +110,7 @@ const FormReportes = () => {
                             <Form.Label className="label-form-reporte">Edificio</Form.Label>
                             <Form.Group>
                                 <Form.Select required className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="edificio">
-                                <option className="option-form-reporte" value={null}>~ Edificio ~</option>
+                                <option className="option-form-reporte">~ Edificio ~</option>
                                     {
                                         edificios?.map((edificio) =>
                                             <option className="option-form-reporte" key={edificio.id} value={edificio.id}>{edificio.descripcion}</option>
@@ -123,7 +123,7 @@ const FormReportes = () => {
                             <Form.Label className="label-form-reporte">Piso</Form.Label>
                             <Form.Group>
                                 <Form.Select required className="ubicacion-field" onChange={async (e) => await updateUbicacion(e)} name="piso" disabled={!Boolean(pisos?.length)}>
-                                    <option value={null}>~ Piso ~</option>
+                                    <option>~ Piso ~</option>
                                     {pisos?.map((piso) =>
                                         <option key={piso.id} value={piso.id}>{piso.descripcion}</option>
                                     )}
@@ -134,7 +134,7 @@ const FormReportes = () => {
                             <Form.Label className="label-form-reporte">Aula</Form.Label>
                             <Form.Group>
                                 <Form.Select required className="ubicacion-field" onChange={async (e) => await updateUbicacion(e)} name="aula" disabled={!Boolean(aulas?.length)}>
-                                    <option value={null}>~ Aula ~</option>
+                                    <option>~ Aula ~</option>
                                     {aulas?.map((aula) =>
                                         <option key={aula.id} value={aula.id} >{aula.descripcion}</option>
                                     )}
