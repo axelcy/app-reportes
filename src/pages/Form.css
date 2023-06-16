@@ -83,11 +83,11 @@ label.btn.btn-primary{
     background-color: #3f51b5 ;
     border-color: #3f51b5 ;
 }
-label.btn.btn-primary.active{
-    background-color: #10152E ;
-    border-color: #10152E ;
+.form-button-active + label{
+    background-color: #20295B !important;
+    border-color: #20295B !important;
 }
 label.btn.btn-primary:hover{
-    background-color: #5264C9 ;
-    border-color: #5264C9 ;
+    background-color: #5264C9 !important;
+    border-color: #5264C9 !important;
 }

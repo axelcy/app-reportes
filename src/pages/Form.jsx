@@ -40,9 +40,12 @@ const FormReportes = () => {
     const handleChange = (e) => {
         setIncidente({...incidente, [e.target.name]: e.target.value})
         if (e.target.name === "importancia") {
-            let activos = document.getElementsByClassName("button-active")
-            activos?.map(e => e.classList.remove("button-active"))
-            e.target.classList.add('button-active')
+            let activos = document.getElementsByClassName("form-button-active")
+            console.log(activos)
+            e.target.classList.add('form-button-active')
+            // let activos = document.getElementsByClassName("button-active")
+            // if (activos.length >= 1) return
+            // activos?.forEach(e => e.classList.remove("button-active"))
         }
     }
 
