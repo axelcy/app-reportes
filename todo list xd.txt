@@ -1,5 +1,3 @@
 para el 7 de julio:
-fondo azul, mejores colores.
-terminar la pantalla del form, tiene que estar perfecta.
 hacer lo de la foto.
-+ hacer un login con las cuentas de google.
+manejar cookies para lo del usuario

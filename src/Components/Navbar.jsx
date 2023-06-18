@@ -32,10 +32,10 @@ function NavBar() {
         const { credential } = credentialResponse
         let decodedUser = await jwt_decode(credential)
 
-        if (decodedUser.email.split('@')[1] !== 'est.ort.edu.ar') {
-            console.log('no es un mail de ort')
-            return
-        }
+        // if (decodedUser.email.split('@')[1] !== 'est.ort.edu.ar') {
+        //     console.log('no es un mail de ort')
+        //     return
+        // }
 
         const dbUser = await useFetch('/usuarios/email/' + decodedUser.email)
 
@@ -67,12 +67,13 @@ function NavBar() {
                             <Button onClick={fetchData} className='form-control navbar-fetch-button' variant='outline-secondary'>Fetch data</Button>
                             <Button onClick={verUsuario} className='form-control navbar-fetch-button' variant='outline-secondary'>Ver usuario</Button>
                         </form>
-                        {/* cambiarle el fondo */}
-                        <GoogleLogin
-                            onSuccess={credentialResponse => handleSuccessLogin(credentialResponse)}
-                            onError={() => console.log('Login Failed')}
-                        />
                     </Nav>
+                    {/* cambiarle el fondo */}
+                    {
+                        usuario ? <img className='logo' src={usuario.foto} /> :
+                        <GoogleLogin onSuccess={credentialResponse => handleSuccessLogin(credentialResponse)} />
+                    }
+                    {/* onError={() => console.log('Login Failed')} */}
                 </Navbar.Collapse>
             </Container>
         </Navbar>
