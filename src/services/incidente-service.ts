@@ -101,8 +101,9 @@ class IncidenteService {
             .input('Estado',            sql.Int, incidente.estado)
             .input('IdUsuarioSolucion', sql.Int, incidente.idUsuarioSolucion)
             .input('Categoria',         sql.Int, incidente.categoria)
-            .query(`INSERT INTO Incidentes (nombre, descripcion, idUsuario, idPisoAula, fecha, importancia, estado, idUsuarioSolucion, categoria) 
-            VALUES (@Nombre, @Descripcion, @IdUsuario, @IdPisoAula, @Fecha, @Importancia, @Estado, @IdUsuarioSolucion, @Categoria)`);
+            .input('Foto',              sql.NChar, incidente.foto)
+            .query(`INSERT INTO Incidentes (nombre, descripcion, idUsuario, idPisoAula, fecha, importancia, estado, idUsuarioSolucion, categoria, foto) 
+            VALUES (@Nombre, @Descripcion, @IdUsuario, @IdPisoAula, @Fecha, @Importancia, @Estado, @IdUsuarioSolucion, @Categoria, @Foto)`);
             returnArray = result.recordsets[0]
             /*{
                 recordsets: [],

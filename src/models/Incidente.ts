@@ -9,7 +9,8 @@ class Incidente {
     estado: number
     idUsuarioSolucion: number
     categoria: number
-    constructor(nombre: string, descripcion: string, idUsuario: number, idPisoAula: number, fecha: string, importancia: number, estado: number, idUsuarioSolucion: number, categoria: number){
+    foto: string
+    constructor(nombre: string, descripcion: string, idUsuario: number, idPisoAula: number, fecha: string, importancia: number, estado: number, idUsuarioSolucion: number, categoria: number, foto: string){
         this.nombre = nombre
         this.descripcion = descripcion
         this.idUsuario = idUsuario
@@ -19,6 +20,7 @@ class Incidente {
         this.estado = estado
         this.idUsuarioSolucion = idUsuarioSolucion
         this.categoria = categoria
+        this.foto = foto
     }
 }
 
