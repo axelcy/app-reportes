@@ -8,7 +8,8 @@ import './index.css'
 import { UsuarioProvider } from './context/usuario.jsx'
 import { Footer } from './Components/Footer.jsx'
 import { TestProvider } from './context/test.jsx'
-
+import { GoogleOAuthProvider } from '@react-oauth/google'
+import NavBar from './Components/NavBar.jsx'
 
 const routes = createBrowserRouter([{
   path: "/",
@@ -23,8 +24,10 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <TestProvider>
       <UsuarioProvider>
-        <RouterProvider router={routes}/>
-        <Footer />
+        <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+          <RouterProvider router={routes}/>
+          <Footer />
+        </GoogleOAuthProvider>
       </UsuarioProvider>
     </TestProvider>
   </StrictMode>,

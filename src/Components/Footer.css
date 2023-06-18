@@ -1,4 +1,5 @@
 .test-footer {
+  z-index: 1;
   position: fixed;
   left: 16px;
   bottom: 16px;

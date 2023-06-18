@@ -21,12 +21,12 @@ const FormReportes = () => {
 
     const updateUbicacion = async (e) => {
         setUbicacion({ ...ubicacion, [e.target.name]: (await useFetch(`/${e.target.name}/${Number(e.target.value)}`)) })
-        if (e.target.name === 'edificio') {
+        if (e.target.name === 'edificios') {
             setPisos([])
             setAulas([])
             setPisos(await useFetch('/pisos/edificio/' + e.target.value))
         }
-        if (e.target.name === 'piso') {
+        if (e.target.name === 'pisos') {
             setAulas([])
             setAulas(await useFetch('/aulas/piso/' + e.target.value))
         }
@@ -39,17 +39,14 @@ const FormReportes = () => {
 
     const handleChange = (e) => {
         setIncidente({...incidente, [e.target.name]: e.target.value})
-        if (e.target.name === "importancia") {
-            let activos = document.getElementsByClassName("form-button-active")
-            var arrayElementos = Array.from(activos)
-            console.log(arrayElementos.length)
-            if (arrayElementos.length > 0) {
-                for (let i = 0; i < arrayElementos.length; i++) {
-                    document.getElementsByClassName("form-button-active")[i].classList.remove('form-button-active')
-                }
+        if (e.target.name !== "importancia") return
+        let arrayElementos = Array.from(document.getElementsByClassName("form-button-active"))
+        if (arrayElementos.length > 0) {
+            for (let i = 0; i < arrayElementos.length; i++) {
+                document.getElementsByClassName("form-button-active")[i].classList.remove('form-button-active')
             }
-            e.target.classList.add('form-button-active')
         }
+        e.target.classList.add('form-button-active')
     }
 
     const handleSubmit = async(e) => {
@@ -57,7 +54,7 @@ const FormReportes = () => {
         const data = {
             importancia: 1,
             ...incidente,
-            idPisoAula: (await useFetch("/pisoaula/aula/" + ubicacion.aula.id)).id,
+            idPisoAula: (await useFetch("/pisosaulas/aula/" + ubicacion.aula.id)).id,
             fecha: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
             idUsuario: 1, // hay q hacer login para esto
             estado: 1, // en espera
@@ -109,7 +106,7 @@ const FormReportes = () => {
                         <div>
                             <Form.Label className="label-form-reporte">Edificio</Form.Label>
                             <Form.Group>
-                                <Form.Select required className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="edificio">
+                                <Form.Select required className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="edificios">
                                 <option className="option-form-reporte">~ Edificio ~</option>
                                     {
                                         edificios?.map((edificio) =>
@@ -122,7 +119,7 @@ const FormReportes = () => {
                         <div>
                             <Form.Label className="label-form-reporte">Piso</Form.Label>
                             <Form.Group>
-                                <Form.Select required className="ubicacion-field" onChange={async (e) => await updateUbicacion(e)} name="piso" disabled={!Boolean(pisos?.length)}>
+                                <Form.Select required className="ubicacion-field" onChange={async (e) => await updateUbicacion(e)} name="pisos" disabled={!Boolean(pisos?.length)}>
                                     <option>~ Piso ~</option>
                                     {pisos?.map((piso) =>
                                         <option key={piso.id} value={piso.id}>{piso.descripcion}</option>
@@ -133,7 +130,7 @@ const FormReportes = () => {
                         <div>
                             <Form.Label className="label-form-reporte">Aula</Form.Label>
                             <Form.Group>
-                                <Form.Select required className="ubicacion-field" onChange={async (e) => await updateUbicacion(e)} name="aula" disabled={!Boolean(aulas?.length)}>
+                                <Form.Select required className="ubicacion-field" onChange={async (e) => await updateUbicacion(e)} name="aulas" disabled={!Boolean(aulas?.length)}>
                                     <option>~ Aula ~</option>
                                     {aulas?.map((aula) =>
                                         <option key={aula.id} value={aula.id} >{aula.descripcion}</option>
