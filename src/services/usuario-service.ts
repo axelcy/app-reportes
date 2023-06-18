@@ -29,7 +29,23 @@ class UsuarioService {
         }
         return returnArray
     }
+    getByEmail = async(email: string) => {
+        let returnArray = null
+        let query = `
+        select * from Usuarios
+        where email = @Email`
+        try {
+            const pool = await sql.connect(config)
+            const result = await pool.request().query(query).input('Email', sql.VarChar, email).query(query)
+            returnArray = result.recordsets[0][0]
+        }
+        catch (error) {
+            console.log(error)
+        }
+        return returnArray
+    }
     getByName = async(name: string) => {
+        // todos los que coincidan con el name
         let returnArray = null
         let query = `
         select * from Usuarios
