@@ -1,9 +1,10 @@
 import { Router } from 'express'
-import { get, insert } from '../controllers/images'
+import { getImg, getIncidenteImg } from '../controllers/images'
 
 const routerImages = Router()
 
-routerImages.get('/img/:img', get)
-routerImages.post('/img/:base64img', insert)
+routerImages.get('/img/:img', getImg)
+routerImages.get('/img/incidente/:img', getIncidenteImg)
+// routerImages.post('/img/:base64img', insert)
 
 export default routerImages

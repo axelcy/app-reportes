@@ -88,10 +88,10 @@ class IncidenteService {
         return returnArray
     }
     insert = async (incidente: Incidente) => {
-        let returnArray = null
+        let returnData = null
         try {
             let pool = await sql.connect(config);
-            let result = await pool.request()
+            await pool.request()
             .input('Nombre',            sql.NChar, incidente.nombre)
             .input('Descripcion',       sql.NChar, incidente.descripcion)
             .input('IdUsuario',         sql.Int, incidente.idUsuario)
@@ -104,19 +104,17 @@ class IncidenteService {
             .input('Foto',              sql.NChar, incidente.foto)
             .query(`INSERT INTO Incidentes (nombre, descripcion, idUsuario, idPisoAula, fecha, importancia, estado, idUsuarioSolucion, categoria, foto) 
             VALUES (@Nombre, @Descripcion, @IdUsuario, @IdPisoAula, @Fecha, @Importancia, @Estado, @IdUsuarioSolucion, @Categoria, @Foto)`);
-            returnArray = result.recordsets[0]
-            /*{
-                recordsets: [],
-                recordset: undefined,
-                output: {},
-                rowsAffected: [ 1 ]
-            }*/
-            console.log(result)
+            const selectQuery = `
+                SELECT TOP 1 * FROM Incidentes
+                where idUsuario = ${incidente.idUsuario}
+                order by id desc
+            `
+            returnData = await sql.query(selectQuery);
         } catch (error) {
             console.log(error);
             throw new Error("No se pudo hacer el INSERT de INCIDENTE")
         }
-        return returnArray;
+        return returnData.recordset[0];
     }
 }
 
