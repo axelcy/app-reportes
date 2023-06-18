@@ -1,0 +1,9 @@
+.user-foto-modal{
+    /* height: 2rem; */
+    border-radius: 25%;
+    /* cursor: pointer; */
+    transition: .2s ease;
+}
+.user-foto-modal:hover{
+    /* transform: scale(1.5); */
+}

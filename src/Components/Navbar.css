@@ -13,7 +13,18 @@
 .logo {
     height: 2rem;
     margin-right: 1rem;
+    cursor: pointer;   
 }
+.user-foto{
+    height: 2rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: .2s ease;
+}
+.user-foto:hover{
+    transform: scale(1.5);
+}
+
 span {
     text-align: center;
     font-weight: 500;

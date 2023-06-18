@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import useFetch from '../Hooks/useFetch';
 import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
@@ -7,8 +7,10 @@ import useTest from '../Hooks/useTest';
 import { GoogleLogin } from '@react-oauth/google';
 import jwt_decode from "jwt-decode"
 import useUsuario from '../Hooks/useUsuario';
+import UserModal from './UserModal';
 
 function NavBar() {
+    const [modalShow, setModalShow] = useState(false)
     const input = useRef()
     const { setTest } = useTest()
     const { usuario, setUsuario } = useUsuario()
@@ -53,30 +55,36 @@ function NavBar() {
     }
 
     return (
-        <Navbar bg="light" expand="lg" className='Navbar'>
-            <Container>
-                <Link to={"/"}><div className='navbar-brand'><img className='logo' src={'/logo.png'} /><span>App reportes</span></div></Link>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse>
-                    <Nav className="me-auto navbar-collapse">
-                        <Link to={"/"}>Home</Link>
-                        <Link to={"/form"}>Reportar</Link>
-                        <form className='buscar-section' onSubmit={(e) => e.preventDefault()}>
-                            {/* hacer q con enter se envie el form pero q no se recargue la pag*/}
-                            <input className='form-control navbar-fetch-input' ref={input} autoComplete='off' placeholder='/img/el-pepe.jpg' defaultValue={'/img/el-pepe.jpg'} />
-                            <Button onClick={fetchData} className='form-control navbar-fetch-button' variant='outline-secondary'>Fetch data</Button>
-                            <Button onClick={verUsuario} className='form-control navbar-fetch-button' variant='outline-secondary'>Ver usuario</Button>
-                        </form>
-                    </Nav>
-                    {/* cambiarle el fondo */}
-                    {
-                        usuario ? <img className='logo' src={usuario.foto} /> :
-                        <GoogleLogin onSuccess={credentialResponse => handleSuccessLogin(credentialResponse)} />
-                    }
-                    {/* onError={() => console.log('Login Failed')} */}
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
+        <>
+            <Navbar bg="light" expand="lg" className='Navbar'>
+                <Container>
+                    <Link to={"/"}><div className='navbar-brand'><img className='logo' src={'/logo.png'} /><span>App reportes</span></div></Link>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse>
+                        <Nav className="me-auto navbar-collapse">
+                            <Link to={"/"}>Home</Link>
+                            <Link to={"/form"}>Reportar</Link>
+                            <form className='buscar-section' onSubmit={(e) => e.preventDefault()}>
+                                {/* hacer q con enter se envie el form pero q no se recargue la pag*/}
+                                <input className='form-control navbar-fetch-input' ref={input} autoComplete='off' placeholder='/img/el-pepe.jpg' defaultValue={'/img/el-pepe.jpg'} />
+                                <Button onClick={fetchData} className='form-control navbar-fetch-button' variant='outline-secondary'>Fetch data</Button>
+                                <Button onClick={verUsuario} className='form-control navbar-fetch-button' variant='outline-secondary'>Ver usuario</Button>
+                            </form>
+                        </Nav>
+                        {/* q la foto abra un modal para ver la data y reiniciar el usuario */}
+                        <Button onClick={() => setUsuario(null)} className='form-control navbar-fetch-button' variant='outline-secondary'>borrar storage</Button>
+                        {/* cambiarle el fondo */}
+                        {
+                            usuario ? 
+                            <img className='logo user-foto' src={usuario.foto} onClick={() => setModalShow(true)} /> :
+                            <GoogleLogin onSuccess={credentialResponse => handleSuccessLogin(credentialResponse)} />
+                        }
+                        {/* onError={() => console.log('Login Failed')} */}
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+            <UserModal show={modalShow} setShow={setModalShow} />
+        </>
     )
 }
 
