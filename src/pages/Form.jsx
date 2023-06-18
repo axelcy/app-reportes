@@ -5,10 +5,12 @@ import useFetch from "../Hooks/useFetch"
 import NavBar from "../Components/NavBar"
 import './Form.css'
 import useUsuario from "../Hooks/useUsuario"
-
+import Webcam from "react-webcam"
 
 const FormReportes = () => {
     const { usuario } = useUsuario()
+    const [webcam, setWebcam] = useState(false)
+
     const [categorias, setCategorias] = useState([])
     const [edificios, setEdificios] = useState([])
 
@@ -144,10 +146,20 @@ const FormReportes = () => {
                         </div>
                     </Row>
                     <Row>
-                        <Form.Group>
-                            <Button variant="primary" type="submit" disabled={!ubicacion.aulas}>Reportar</Button>
-                        </Form.Group>
+                        <div className="submit-row">
+                            <Button variant="primary" onClick={() => setWebcam(!webcam)}>Agregar foto</Button>
+                            <Form.Group>
+                                <Button variant="primary" type="submit" disabled={!ubicacion.aulas}>Reportar</Button>
+                            </Form.Group>
+                        </div>
                     </Row>
+                    {
+                        webcam && 
+                        <div className="webcam-container">
+                            <Webcam className="webcam" />
+                            <Button variant="primary" className="sacar-foto" onClick={() => setWebcam(!webcam)}>Tomar foto</Button>
+                        </div>
+                    }
                 </Form>
             </Container>
         </>
