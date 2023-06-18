@@ -33,10 +33,10 @@ class UsuarioService {
         let returnArray = null
         let query = `
         select * from Usuarios
-        where email = @Email`
+        where email = '${email}'`
         try {
             const pool = await sql.connect(config)
-            const result = await pool.request().query(query).input('Email', sql.VarChar, email).query(query)
+            const result = await pool.request().query(query)
             returnArray = result.recordsets[0][0]
         }
         catch (error) {

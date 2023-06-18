@@ -5,6 +5,6 @@ const routerUsuarios = Router()
 
 routerUsuarios.get('/usuarios', getAll)
 routerUsuarios.get('/usuarios/:id', getById)
-routerUsuarios.get('/usuarios/email/:id', getByEmail)
+routerUsuarios.get('/usuarios/email/:email', getByEmail)
 
 export default routerUsuarios
