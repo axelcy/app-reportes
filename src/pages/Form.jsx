@@ -65,7 +65,7 @@ const FormReportes = () => {
         }
         // console.log(data)
         await useFetch('/incidentes', data)
-        // location.reload()
+        location.reload()
     }
     const handleSubmitFoto = () => {
         setShowWebcam(false)
