@@ -13,9 +13,9 @@ const FormReportes = () => {
     const [pisos, setPisos] = useState([])
     const [aulas, setAulas] = useState([])
     const [ubicacion, setUbicacion] = useState({
-        edificio: null,
-        piso: null,
-        aula: null
+        edificios: null,
+        pisos: null,
+        aulas: null
     })
     const [incidente, setIncidente] = useState({})
 
@@ -54,13 +54,13 @@ const FormReportes = () => {
         const data = {
             importancia: 1,
             ...incidente,
-            idPisoAula: (await useFetch("/pisosaulas/aula/" + ubicacion.aula.id)).id,
+            idPisoAula: (await useFetch("/pisosaulas/aula/" + ubicacion.aulas.id)).id,
             fecha: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
             idUsuario: 1, // hay q hacer login para esto
             estado: 1, // en espera
             idUsuarioSolucion: null,
         }
-        await useFetch('/incidente', data)
+        await useFetch('/incidentes', data)
         location.reload()
     }
 
@@ -141,7 +141,7 @@ const FormReportes = () => {
                     </Row>
                     <Row>
                         <Form.Group>
-                            <Button variant="primary" type="submit" disabled={!ubicacion.aula}>Reportar</Button>
+                            <Button variant="primary" type="submit" disabled={!ubicacion.aulas}>Reportar</Button>
                         </Form.Group>
                     </Row>
                 </Form>

@@ -7,8 +7,6 @@
     color: #20295B;
 }
 .navbar-collapse{
-    display: flex;
-    align-items: center;
     gap: 1rem;
 }
 
@@ -35,12 +33,7 @@ span {
 }
 
 .navbar-fetch-input{
-    flex: 2;
-    border-radius: 5px;
-    border: 1px solid #ced4da;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    line-height: 1.5;
+    flex: 3;
 }
 .navbar-fetch-button{
     flex: 1;

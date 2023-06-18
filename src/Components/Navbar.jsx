@@ -24,24 +24,33 @@ function NavBar() {
         }
         input.current.value = ''
     }
+    const verUsuario = () => {
+        setTest(usuario)
+    }
     // ----------------------------------------------
     const handleSuccessLogin = async(credentialResponse) => {
-        const { clientId, credential } = credentialResponse
-        let user = jwt_decode(credential)
-        console.log(user)
-        if (user.email.split('@')[1] !== 'est.ort.edu.ar') {
-            console.log('no es un mail de ort')
-            return
+        const { credential } = credentialResponse
+        let decodedUser = jwt_decode(credential)
+        // if (decodedUser.email.split('@')[1] !== 'est.ort.edu.ar') {
+        //     console.log('no es un mail de ort')
+        //     return
+        // }
+        const dbUser = await useFetch('/usuarios/email/' + decodedUser.email)
+        if (dbUser.lenght === 1) return setUsuario(dbUser) // usuario encontrado
+        // usuario no encontrado, lo registramos acá
+        const newUser = {
+            nombre: decodedUser.name,
+            apellido: decodedUser.family_name,
+            email: decodedUser.email,
+            foto: decodedUser.picture,
+            esSupervisor: false,
         }
-        // const isRegistered = await useFetch('/usuarios/email/' + user.email)
-        // esSupervisor
-        // if (!isRegistered) newUser.email = user.email
-
-        // setUsuario(newUser)
+        setUsuario(newUser)
+        await useFetch('/usuarios', newUser)
     }
 
     return (
-        <Navbar bg="light" expand="md" className='Navbar'>
+        <Navbar bg="light" expand="lg" className='Navbar'>
             <Container>
                 <Link to={"/"}><div className='navbar-brand'><img className='logo' src={'/logo.png'} /><span>App reportes</span></div></Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -53,8 +62,10 @@ function NavBar() {
                             {/* hacer q con enter se envie el form pero q no se recargue la pag*/}
                             <input className='form-control navbar-fetch-input' ref={input} autoComplete='off' placeholder='/img/el-pepe.jpg' defaultValue={'/img/el-pepe.jpg'} />
                             <Button onClick={fetchData} className='form-control navbar-fetch-button' variant='outline-secondary'>Fetch data</Button>
+                            <Button onClick={verUsuario} className='form-control navbar-fetch-button' variant='outline-secondary'>Ver usuario</Button>
                         </form>
-                        <GoogleLogin 
+                        {/* cambiarle el fondo */}
+                        <GoogleLogin
                             onSuccess={credentialResponse => handleSuccessLogin(credentialResponse)}
                             onError={() => console.log('Login Failed')}
                         />
