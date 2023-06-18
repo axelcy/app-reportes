@@ -14,10 +14,10 @@ const get = async(endpoint, isImg) => {
             return await response.json()
         } catch {
             if (isImg) return response.url
+            throw new Error("No se pudo realizar el fetch tipo GET :(")
         }
     }
-    catch (err) {
-        console.log(err)
+    catch {
         throw new Error("No se pudo realizar el fetch tipo GET :(")
     }
 }
@@ -30,8 +30,7 @@ const post = async(endpoint, newData) => {
             body: JSON.stringify(newData)
         })
     }
-    catch (err) {
-        console.log(err)
+    catch {
         throw new Error("No se pudo realizar el fetch tipo POST :(")
     }
 }
