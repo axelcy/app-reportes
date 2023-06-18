@@ -97,13 +97,20 @@ class IncidenteService {
             .input('IdUsuario',         sql.Int, incidente.idUsuario)
             .input('IdPisoAula',        sql.Int, incidente.idPisoAula)
             .input('Fecha',             sql.Date, incidente.fecha)
-            .input('Importancia',  sql.Int, incidente.importancia)
+            .input('Importancia',       sql.Int, incidente.importancia)
             .input('Estado',            sql.Int, incidente.estado)
             .input('IdUsuarioSolucion', sql.Int, incidente.idUsuarioSolucion)
             .input('Categoria',         sql.Int, incidente.categoria)
             .query(`INSERT INTO Incidentes (nombre, descripcion, idUsuario, idPisoAula, fecha, importancia, estado, idUsuarioSolucion, categoria) 
             VALUES (@Nombre, @Descripcion, @IdUsuario, @IdPisoAula, @Fecha, @Importancia, @Estado, @IdUsuarioSolucion, @Categoria)`);
             returnArray = result.recordsets[0]
+            /*{
+                recordsets: [],
+                recordset: undefined,
+                output: {},
+                rowsAffected: [ 1 ]
+            }*/
+            console.log(result)
         } catch (error) {
             console.log(error);
             throw new Error("No se pudo hacer el INSERT de INCIDENTE")

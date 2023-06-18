@@ -1,5 +1,6 @@
 import sql from 'mssql'
 import config from '../../dbconfig-env'
+import Usuario from '../models/Usuario'
 
 class UsuarioService {
     getAll = async () => {
@@ -59,6 +60,25 @@ class UsuarioService {
             console.log(error)
         }
         return returnArray
+    }
+    insert = async (usuario: Usuario) => {
+        let returnArray = null
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+            .input('Nombre', sql.NChar, usuario.nombre)
+            .input('Apellido', sql.NChar, usuario.apellido)
+            .input('Email', sql.NChar, usuario.email)
+            .input('Foto', sql.NChar, usuario.foto)
+            .input('EsSupervisor', sql.Bit, usuario.esSupervisor)
+            .query(`INSERT INTO Usuarios (nombre, apellido, email, foto, esSupervisor) 
+            VALUES (@Nombre, @Apellido, @Email, @Foto, @EsSupervisor)`);
+            returnArray = result.recordsets[0]
+        } catch (error) {
+            console.log(error);
+            throw new Error("No se pudo hacer el INSERT de USUARIO")
+        }
+        return returnArray;
     }
 }
 
