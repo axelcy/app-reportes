@@ -1,5 +1,5 @@
 import { Container, Row, Button, ToggleButton, ToggleButtonGroup, Form } from "react-bootstrap"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback, useRef } from "react"
 import { Link } from 'react-router-dom'
 import useFetch from "../Hooks/useFetch"
 import NavBar from "../Components/NavBar"
@@ -9,33 +9,19 @@ import Webcam from "react-webcam"
 
 const FormReportes = () => {
     const { usuario } = useUsuario()
-    const [webcam, setWebcam] = useState(false)
-
+    // estados que solo cambian en el montaje
     const [categorias, setCategorias] = useState([])
     const [edificios, setEdificios] = useState([])
-
+    // ---------------------
     const [pisos, setPisos] = useState([])
     const [aulas, setAulas] = useState([])
-    const [ubicacion, setUbicacion] = useState({
-        edificios: null,
-        pisos: null,
-        aulas: null
-    })
+    const [ubicacion, setUbicacion] = useState({ edificios: null, pisos: null, aulas: null })
     const [incidente, setIncidente] = useState({})
 
-    const updateUbicacion = async (e) => {
-        setUbicacion({ ...ubicacion, [e.target.name]: (await useFetch(`/${e.target.name}/${Number(e.target.value)}`)) })
-        if (e.target.name === 'edificios') {
-            setPisos([])
-            setAulas([])
-            setPisos(await useFetch('/pisos/edificio/' + e.target.value))
-        }
-        if (e.target.name === 'pisos') {
-            setAulas([])
-            setAulas(await useFetch('/aulas/piso/' + e.target.value))
-        }
-    }
-    // ----------------------------------------------
+    const webcamRef = useRef()
+    const [webcam, setWebcam] = useState(false)
+    const [image, setImage] = useState(null)
+
     useEffect(() => async () => {
         setEdificios(await useFetch('/edificios'))
         setCategorias(await useFetch('/categorias'))
@@ -52,7 +38,18 @@ const FormReportes = () => {
         }
         e.target.classList.add('form-button-active')
     }
-
+    const handleUbicacionChange = async (e) => {
+        setUbicacion({ ...ubicacion, [e.target.name]: (await useFetch(`/${e.target.name}/${Number(e.target.value)}`)) })
+        if (e.target.name === 'edificios') {
+            setPisos([])
+            setAulas([])
+            setPisos(await useFetch('/pisos/edificio/' + e.target.value))
+        }
+        if (e.target.name === 'pisos') {
+            setAulas([])
+            setAulas(await useFetch('/aulas/piso/' + e.target.value))
+        }
+    }
     const handleSubmit = async(e) => {
         e.preventDefault()
         const data = {
@@ -69,6 +66,12 @@ const FormReportes = () => {
         await useFetch('/incidentes', data)
         location.reload()
     }
+    const handleSubmitFoto = () => {
+        setWebcam(false)
+        const imageSrc = webcamRef.current.getScreenshot()
+        console.log(imageSrc.length)
+        setImage(imageSrc)
+    }
 
     return (
         <>
@@ -76,6 +79,7 @@ const FormReportes = () => {
             {/* <Link to={"/"}><h3>Ir a /</h3></Link> */}
             <Container>
                 <h2 className="text">Formulario reporte</h2>
+                {image ? <img src={image} alt="foto" /> : null}
                 <Form onSubmit={async (e) => await handleSubmit(e)}> {/* onSubmit={async() => await handleSubmit()} */}
                     <Row>
                         <Form.Group className="mb-3 animated-input" controlId="exampleForm.ControlInput1">
@@ -112,7 +116,7 @@ const FormReportes = () => {
                         <div>
                             <Form.Label className="label-form-reporte">Edificio</Form.Label>
                             <Form.Group>
-                                <Form.Select required className="ubicacion-field" onChange={async(e) => await updateUbicacion(e)} name="edificios">
+                                <Form.Select required className="ubicacion-field" onChange={async(e) => await handleUbicacionChange(e)} name="edificios">
                                 <option className="option-form-reporte">~ Edificio ~</option>
                                     {
                                         edificios?.map((edificio) =>
@@ -125,7 +129,7 @@ const FormReportes = () => {
                         <div>
                             <Form.Label className="label-form-reporte">Piso</Form.Label>
                             <Form.Group>
-                                <Form.Select required className="ubicacion-field" onChange={async (e) => await updateUbicacion(e)} name="pisos" disabled={!Boolean(pisos?.length)}>
+                                <Form.Select required className="ubicacion-field" onChange={async (e) => await handleUbicacionChange(e)} name="pisos" disabled={!Boolean(pisos?.length)}>
                                     <option>~ Piso ~</option>
                                     {pisos?.map((piso) =>
                                         <option key={piso.id} value={piso.id}>{piso.descripcion}</option>
@@ -136,7 +140,7 @@ const FormReportes = () => {
                         <div>
                             <Form.Label className="label-form-reporte">Aula</Form.Label>
                             <Form.Group>
-                                <Form.Select required className="ubicacion-field" onChange={async (e) => await updateUbicacion(e)} name="aulas" disabled={!Boolean(aulas?.length)}>
+                                <Form.Select required className="ubicacion-field" onChange={async (e) => await handleUbicacionChange(e)} name="aulas" disabled={!Boolean(aulas?.length)}>
                                     <option>~ Aula ~</option>
                                     {aulas?.map((aula) =>
                                         <option key={aula.id} value={aula.id} >{aula.descripcion}</option>
@@ -156,8 +160,10 @@ const FormReportes = () => {
                     {
                         webcam && 
                         <div className="webcam-container">
-                            <Webcam className="webcam" />
-                            <Button variant="primary" className="sacar-foto" onClick={() => setWebcam(!webcam)}>Tomar foto</Button>
+                            <div className="inner-webcam-container">
+                                <Webcam ref={webcamRef} className="webcam" mirrored screenshotFormat={"image/webp"}/>
+                                <Button variant="primary" className="sacar-foto" onClick={handleSubmitFoto}>Sacar foto</Button>
+                            </div>
                         </div>
                     }
                 </Form>
