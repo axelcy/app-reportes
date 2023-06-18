@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom'
 import useFetch from "../Hooks/useFetch"
 import NavBar from "../Components/NavBar"
 import './Form.css'
+import useUsuario from "../Hooks/useUsuario"
 
 
 const FormReportes = () => {
+    const { usuario } = useUsuario()
     const [categorias, setCategorias] = useState([])
     const [edificios, setEdificios] = useState([])
 
@@ -53,13 +55,15 @@ const FormReportes = () => {
         e.preventDefault()
         const data = {
             importancia: 1,
+            foto: null, // hacer lo de la foto !!!!!!!!!!
             ...incidente,
             idPisoAula: (await useFetch("/pisosaulas/aula/" + ubicacion.aulas.id)).id,
             fecha: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
-            idUsuario: 1, // hay q hacer login para esto
+            idUsuario: usuario.id,
             estado: 1, // en espera
             idUsuarioSolucion: null,
         }
+        console.log(data)
         await useFetch('/incidentes', data)
         location.reload()
     }

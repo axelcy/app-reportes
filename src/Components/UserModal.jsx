@@ -23,6 +23,10 @@ function UserModal({ show, setShow }) {
             <p>Es supervisor: {usuario.esSupervisor ? 'Si' : 'No'}</p>
         </Modal.Body>
         <Modal.Footer>
+        <Button onClick={() => {
+          setUsuario(null)
+          handleClose()
+        }} style={{width: "fit-content"}} className='form-control' variant='outline-secondary'>Log out</Button>
           <Button variant="secondary" onClick={handleClose}>Close</Button>
           {/* <Button variant="primary" onClick={handleClose}>Save Changes</Button> */}
         </Modal.Footer>

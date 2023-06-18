@@ -52,6 +52,7 @@ function NavBar() {
             }
             setUsuario(newUser)
             await useFetch('/usuarios', newUser)
+            setUsuario({...newUser, id: (await useFetch('/usuarios/email/' + decodedUser.email)).id})
         }
     }
 
@@ -72,12 +73,10 @@ function NavBar() {
                                 <Button onClick={verUsuario} className='form-control navbar-fetch-button' variant='outline-secondary'>Ver usuario</Button>
                             </form>
                         </Nav>
-                        {/* q la foto abra un modal para ver la data y reiniciar el usuario */}
-                        <Button onClick={() => setUsuario(null)} className='form-control navbar-fetch-button' variant='outline-secondary'>borrar storage</Button>
-                        {/* cambiarle el fondo */}
                         {
                             usuario ? 
-                            <img className='logo user-foto' src={usuario.foto} onClick={() => setModalShow(true)} /> :
+                            <img className='logo user-foto' src={usuario.foto} onClick={() => setModalShow(true)} />
+                            : /* cambiarle el fondo al boton de google */
                             <GoogleLogin onSuccess={credentialResponse => handleSuccessLogin(credentialResponse)} />
                         }
                         {/* onError={() => console.log('Login Failed')} */}
