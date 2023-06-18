@@ -39,19 +39,20 @@ function NavBar() {
         //     return
         // }
 
-        const dbUser = await useFetch('/usuarios/email/' + decodedUser.email)
-
-        if (dbUser !== undefined) return setUsuario(dbUser)
-        
-        const newUser = {
-            nombre: decodedUser.name,
-            apellido: decodedUser.family_name,
-            email: decodedUser.email,
-            foto: decodedUser.picture,
-            esSupervisor: false,
+        try {
+            const dbUser = await useFetch('/usuarios/email/' + decodedUser.email)
+            setUsuario(dbUser)
+        } catch {
+            const newUser = {
+                nombre: decodedUser.given_name,
+                apellido: decodedUser.family_name,
+                email: decodedUser.email,
+                foto: decodedUser.picture,
+                esSupervisor: false,
+            }
+            setUsuario(newUser)
+            await useFetch('/usuarios', newUser)
         }
-        setUsuario(newUser)
-        await useFetch('/usuarios', newUser)
     }
 
     return (

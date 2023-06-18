@@ -9,7 +9,6 @@ import { UsuarioProvider } from './context/usuario.jsx'
 import { Footer } from './Components/Footer.jsx'
 import { TestProvider } from './context/test.jsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
-import NavBar from './Components/NavBar.jsx'
 
 const routes = createBrowserRouter([{
   path: "/",
