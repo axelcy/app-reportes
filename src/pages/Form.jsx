@@ -19,8 +19,9 @@ const FormReportes = () => {
     const [incidente, setIncidente] = useState({})
 
     const webcamRef = useRef()
-    const [webcam, setWebcam] = useState(false)
+    const [shoWwebcam, setShowWebcam] = useState(false)
     const [image, setImage] = useState(null)
+    const [showImage, setShowImage] = useState(false)
 
     useEffect(() => async () => {
         setEdificios(await useFetch('/edificios'))
@@ -53,33 +54,33 @@ const FormReportes = () => {
     const handleSubmit = async(e) => {
         e.preventDefault()
         const data = {
-            importancia: 1,
-            foto: null, // hacer lo de la foto !!!!!!!!!!
+            categoria: 0, // 0 = no tiene categoría
             ...incidente,
+            foto: image,
             idPisoAula: (await useFetch("/pisosaulas/aula/" + ubicacion.aulas.id)).id,
-            fecha: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
+            fecha: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`, // falta la hora
             idUsuario: usuario.id,
             estado: 1, // en espera
             idUsuarioSolucion: null,
         }
-        console.log(data)
+        // console.log(data)
         await useFetch('/incidentes', data)
-        location.reload()
+        // location.reload()
     }
     const handleSubmitFoto = () => {
-        setWebcam(false)
+        setShowWebcam(false)
         const imageSrc = webcamRef.current.getScreenshot()
         console.log(imageSrc.length)
         setImage(imageSrc)
     }
+    const handleShowImage = mostrar => setShowImage(mostrar)
 
     return (
         <>
             <NavBar />
-            {/* <Link to={"/"}><h3>Ir a /</h3></Link> */}
             <Container>
                 <h2 className="text">Formulario reporte</h2>
-                {image ? <img src={image} alt="foto" /> : null}
+                {showImage ? <img src={image} alt="foto" className="showimage" /> : null}
                 <Form onSubmit={async (e) => await handleSubmit(e)}> {/* onSubmit={async() => await handleSubmit()} */}
                     <Row>
                         <Form.Group className="mb-3 animated-input" controlId="exampleForm.ControlInput1">
@@ -151,14 +152,20 @@ const FormReportes = () => {
                     </Row>
                     <Row>
                         <div className="submit-row">
-                            <Button variant="primary" onClick={() => setWebcam(!webcam)}>Agregar foto</Button>
+                            {image ?
+                                <Button variant="outline-primary" 
+                                    onMouseEnter={() => handleShowImage(true)} 
+                                    onMouseLeave={() => handleShowImage(false)}
+                                >Ver foto</Button> : ""
+                            }
+                            <Button variant="primary" onClick={() => setShowWebcam(!shoWwebcam)}>{!image ? "Agregar foto" : "Cambiar foto"}</Button>
                             <Form.Group>
-                                <Button variant="primary" type="submit" disabled={!ubicacion.aulas}>Reportar</Button>
+                                <Button variant="primary" type="submit" disabled={!ubicacion.aulas || !incidente.importancia}>Reportar</Button>
                             </Form.Group>
                         </div>
                     </Row>
                     {
-                        webcam && 
+                        shoWwebcam && 
                         <div className="webcam-container">
                             <div className="inner-webcam-container">
                                 <Webcam ref={webcamRef} className="webcam" mirrored screenshotFormat={"image/webp"}/>
