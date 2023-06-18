@@ -30,14 +30,17 @@ function NavBar() {
     // ----------------------------------------------
     const handleSuccessLogin = async(credentialResponse) => {
         const { credential } = credentialResponse
-        let decodedUser = jwt_decode(credential)
-        // if (decodedUser.email.split('@')[1] !== 'est.ort.edu.ar') {
-        //     console.log('no es un mail de ort')
-        //     return
-        // }
+        let decodedUser = await jwt_decode(credential)
+
+        if (decodedUser.email.split('@')[1] !== 'est.ort.edu.ar') {
+            console.log('no es un mail de ort')
+            return
+        }
+
         const dbUser = await useFetch('/usuarios/email/' + decodedUser.email)
-        if (dbUser.lenght === 1) return setUsuario(dbUser) // usuario encontrado
-        // usuario no encontrado, lo registramos acá
+
+        if (dbUser !== undefined) return setUsuario(dbUser)
+        
         const newUser = {
             nombre: decodedUser.name,
             apellido: decodedUser.family_name,
