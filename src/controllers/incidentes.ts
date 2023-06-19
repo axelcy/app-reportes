@@ -10,6 +10,8 @@ export const getAll = async(_req: any, _res: any) => {
 export const insert = async(_req: any, _res: any) => {
     const incidente: Incidente = {..._req.body, foto: "incidente_ID.webp"}
     const newIncidente: Incidente = await new IncidenteService().insert(incidente)
+    newIncidente.foto = `incidente_${newIncidente.id}.webp`
+    await new IncidenteService().update(newIncidente)
     saveFileContentBase64Img(newIncidente.foto, _req.body.foto)
     _res.end(JSON.stringify(newIncidente))
 }
