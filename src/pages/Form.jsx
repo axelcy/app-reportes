@@ -6,6 +6,7 @@ import NavBar from "../Components/NavBar"
 import './Form.css'
 import useUsuario from "../Hooks/useUsuario"
 import Webcam from "react-webcam"
+import LogInButton from "../Components/LogInButton"
 
 const FormReportes = () => {
     const { usuario } = useUsuario()
@@ -27,6 +28,20 @@ const FormReportes = () => {
         setEdificios(await useFetch('/edificios'))
         setCategorias(await useFetch('/categorias'))
     }, [])
+
+    useEffect(() => {
+        if (!shoWwebcam) {
+            document.getElementsByTagName("body")[0].classList.remove("overflow-hidden")
+        }
+        else {
+            document.getElementsByTagName("body")[0].classList.add("overflow-hidden")
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                // behavior: 'smooth' // Esta opción animará el desplazamiento suavemente
+            });
+        } 
+    }, [shoWwebcam])
 
     const handleChange = (e) => {
         setIncidente({...incidente, [e.target.name]: e.target.value})
@@ -73,6 +88,13 @@ const FormReportes = () => {
     }
     const handleShowImage = mostrar => setShowImage(mostrar)
 
+    if (!usuario) return (
+        <>
+            <NavBar />
+            <h1>Acceso denegado</h1>
+            <h4>Es necesario estar logeado para poder reportar</h4>
+        </>
+    )
     return (
         <>
             <NavBar />
@@ -149,25 +171,34 @@ const FormReportes = () => {
                         </div>
                     </Row>
                     <Row>
-                        <div className="submit-row">
+                        <div className="foto-row">
                             {image ?
-                                <Button variant="outline-primary" 
-                                    onMouseEnter={() => handleShowImage(true)} 
-                                    onMouseLeave={() => handleShowImage(false)}
-                                >Ver foto</Button> : ""
+                                <>
+                                    <Button variant="success" 
+                                        onMouseEnter={() => handleShowImage(true)} 
+                                        onMouseLeave={() => handleShowImage(false)}>Ver foto</Button>
+                                    <Button variant="outline-primary" onClick={() => setImage(null)}>Eliminar foto</Button>
+                                </>
+                                : ""
                             }
                             <Button variant="primary" onClick={() => setShowWebcam(!shoWwebcam)}>{!image ? "Agregar foto" : "Cambiar foto"}</Button>
-                            <Form.Group>
-                                <Button variant="primary" type="submit" disabled={!ubicacion.aulas || !incidente.importancia}>Reportar</Button>
-                            </Form.Group>
+                            
                         </div>
+                    </Row>
+                    <Row>
+                        <Form.Group>
+                            <Button variant="primary" type="submit" disabled={!ubicacion.aulas || !incidente.importancia} className="reportar-button">Reportar</Button>
+                        </Form.Group>
                     </Row>
                     {
                         shoWwebcam && 
                         <div className="webcam-container">
                             <div className="inner-webcam-container">
-                                <Webcam ref={webcamRef} className="webcam" mirrored screenshotFormat={"image/webp"}/>
-                                <Button variant="primary" className="sacar-foto" onClick={handleSubmitFoto}>Sacar foto</Button>
+                                <Webcam ref={webcamRef} className="webcam"  screenshotFormat={"image/webp"}/>
+                                <div className="webcam-buttons-container">
+                                    <Button variant="secondary" className="sacar-foto" onClick={() => setShowWebcam(false)}>Cancelar</Button>
+                                    <Button variant="primary" className="sacar-foto" onClick={handleSubmitFoto}>Sacar foto</Button>
+                                </div>
                             </div>
                         </div>
                     }
@@ -175,6 +206,6 @@ const FormReportes = () => {
             </Container>
         </>
     )
-}
+}   
 
 export default FormReportes

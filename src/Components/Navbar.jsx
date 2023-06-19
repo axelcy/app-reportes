@@ -3,57 +3,29 @@ import { Link } from 'react-router-dom'
 import useFetch from '../Hooks/useFetch';
 import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import './Navbar.css'
-import useTest from '../Hooks/useTest';
-import { GoogleLogin } from '@react-oauth/google';
-import jwt_decode from "jwt-decode"
+import useFooter from '../Hooks/useFooter';
 import useUsuario from '../Hooks/useUsuario';
 import UserModal from './UserModal';
+import LogInButton from './LogInButton';
 
 function NavBar() {
     const [modalShow, setModalShow] = useState(false)
     const input = useRef()
-    const { setTest } = useTest()
+    const { setFooter } = useFooter()
     const { usuario, setUsuario } = useUsuario()
 
     const fetchData = async() => {
         if (!input.current.value) return
         try {
             const data = await useFetch(input.current.value)
-            setTest(data)
+            setFooter(data)
         }
         catch {
             input.current.placeholder = 'Error 404 😟'
         }
         input.current.value = ''
     }
-    const verUsuario = () => {
-        setTest(usuario)
-    }
-    // ----------------------------------------------
-    const handleSuccessLogin = async(credentialResponse) => {
-        const { credential } = credentialResponse
-        let decodedUser = await jwt_decode(credential)
-
-        // if (decodedUser.email.split('@')[1] !== 'est.ort.edu.ar') {
-        //     console.log('no es un mail de ort')
-        //     return
-        // }
-
-        try {
-            const dbUser = await useFetch('/usuarios/email/' + decodedUser.email)
-            setUsuario(dbUser)
-        } catch {
-            const newUser = {
-                nombre: decodedUser.given_name,
-                apellido: decodedUser.family_name,
-                email: decodedUser.email,
-                foto: decodedUser.picture,
-                esSupervisor: false,
-            }
-            const newDbUser = await useFetch('/usuarios', newUser)
-            setUsuario(newDbUser)
-        }
-    }
+    const verUsuario = () => setFooter(usuario)
 
     return (
         <>
@@ -76,7 +48,7 @@ function NavBar() {
                             usuario ? 
                             <img className='logo user-foto' src={usuario.foto} onClick={() => setModalShow(true)} />
                             : /* cambiarle el fondo al boton de google */
-                            <GoogleLogin onSuccess={credentialResponse => handleSuccessLogin(credentialResponse)} />
+                            <LogInButton />
                         }
                         {/* onError={() => console.log('Login Failed')} */}
                     </Navbar.Collapse>

@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { UsuarioContext } from "../context/usuario"
+import { UsuarioContext } from "../context/usuarioContext"
 
 export default function useUsuario() {
     try {

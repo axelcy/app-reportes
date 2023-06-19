@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import useTest from '../Hooks/useTest'
+import useFooter from '../Hooks/useFooter'
 import './Footer.css'
 
 export function Footer () {
-  const { test } = useTest()
+  const { footer } = useFooter()
   const imgId = useRef()
   const [isOnHover, setIsOnHover] = useState(false)
   useEffect(() => {
@@ -19,17 +19,17 @@ export function Footer () {
   const handleMouseLeave = () => setIsOnHover(false)
   
   const isAnImg = () => {
-    if (typeof test != 'string') return false
-    const src = test.split(import.meta.env.VITE_URL_API)[1]
+    if (typeof footer != 'string') return false
+    // const src = footer.split(import.meta.env.VITE_URL_API)[1]
     const imgPath = '/img/'
-    if (!src.startsWith(imgPath)) return false
+    if (!footer.startsWith(import.meta.env.VITE_URL_API + imgPath)) return false
     return true
   }
 
-  return (test &&
+  return (footer &&
     <footer className='test-footer'  onMouseLeave={handleMouseLeave}>
-      <img ref={imgId} src={isAnImg() ? test : '/logo.png'} onMouseEnter={handleMouseEnter} />
-      <span className='footer-text'>{JSON.stringify(test)}</span>
+      <img ref={imgId} src={isAnImg() ? footer : '/logo.png'} onMouseEnter={handleMouseEnter} />
+      <span className='footer-text'>{typeof footer == 'string' ? footer : JSON.stringify(footer)}</span>
     </footer>
   )
 }

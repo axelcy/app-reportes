@@ -8,10 +8,6 @@ h1 {
   color: #3f51b5;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   background-color: var(--bg-color);
   color: rgba(255, 255, 255, 0.87);

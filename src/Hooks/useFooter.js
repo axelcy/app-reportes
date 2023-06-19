@@ -1,11 +1,11 @@
 import { useContext } from "react"
-import { TestContext } from "../context/test"
+import { FooterContext } from "../context/footerContext"
 
-export default function useTest() {
+export default function useFooter() {
     try {
-        const { test, setTest } = useContext(TestContext)
+        const { footer, setFooter } = useContext(FooterContext)
         // if (test === undefined) throw new Error()
-        return { test, setTest }
+        return { footer, setFooter }
     }
     catch {
         throw new Error("useTest debe estar dentro del provider TestContext")

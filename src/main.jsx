@@ -5,9 +5,9 @@ import FormReportes from './pages/Form.jsx'
 import App from './App.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
-import { UsuarioProvider } from './context/usuario.jsx'
+import { UsuarioProvider } from './context/usuarioContext.jsx'
 import { Footer } from './Components/Footer.jsx'
-import { TestProvider } from './context/test.jsx'
+import { FooterProvider } from './context/footerContext.jsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 
 const routes = createBrowserRouter([{
@@ -21,13 +21,13 @@ const routes = createBrowserRouter([{
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <TestProvider>
+    <FooterProvider>
       <UsuarioProvider>
         <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
           <RouterProvider router={routes}/>
           <Footer />
         </GoogleOAuthProvider>
       </UsuarioProvider>
-    </TestProvider>
+    </FooterProvider>
   </StrictMode>,
 )
