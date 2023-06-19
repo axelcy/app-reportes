@@ -1,10 +1,11 @@
 const API = import.meta.env.VITE_URL_API
 
-const useFetch = async(endpoint, data) => {
+const useFetch = async(endpoint, data, method = 'POST') => {
     if(!endpoint) throw new Error("Endpoint no establecido!")
     let isImg = endpoint.startsWith('/img')
     if(!data) return get(endpoint, isImg)
-    return post(endpoint, data)
+
+    return post_put(endpoint, data, method.toUpperCase())
 }
 
 const get = async(endpoint, isImg) => {
@@ -22,16 +23,17 @@ const get = async(endpoint, isImg) => {
     }
 }
 
-const post = async(endpoint, newData) => {
+const post_put = async(endpoint, newData, method) => {
     try {
         const response = await fetch(`${API}${endpoint}`, {
-            method: 'POST',
+            method: method,
             headers: { "Accept": 'application/json', "Content-Type": 'application/json', },
             body: JSON.stringify(newData)
         })
+        return await response.json()
     }
     catch {
-        throw new Error("No se pudo realizar el fetch tipo POST :(")
+        throw new Error(`No se pudo realizar el fetch tipo ${method} :(`)
     }
 }
 

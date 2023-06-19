@@ -50,9 +50,8 @@ function NavBar() {
                 foto: decodedUser.picture,
                 esSupervisor: false,
             }
-            setUsuario(newUser)
-            await useFetch('/usuarios', newUser)
-            setUsuario({...newUser, id: (await useFetch('/usuarios/email/' + decodedUser.email)).id})
+            const newDbUser = await useFetch('/usuarios', newUser)
+            setUsuario(newDbUser)
         }
     }
 

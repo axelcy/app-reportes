@@ -63,7 +63,6 @@ const FormReportes = () => {
             estado: 1, // en espera
             idUsuarioSolucion: null,
         }
-        // console.log(data)
         await useFetch('/incidentes', data)
         location.reload()
     }
