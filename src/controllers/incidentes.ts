@@ -14,6 +14,12 @@ export const insert = async(_req: any, _res: any) => {
     _res.end(JSON.stringify(newIncidente))
 }
 
+export const update = async(_req: any, _res: any) => {
+    const incidente: Incidente = _req.body
+    const newIncidente: Incidente = await new IncidenteService().update(incidente)
+    _res.end(JSON.stringify(newIncidente))
+}
+
 function saveFileContentBase64Img(fileName: string, srcBase64: string) {
     try {
         var cabecera = srcBase64.substring(0, 50)

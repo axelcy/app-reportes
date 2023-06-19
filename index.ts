@@ -11,3 +11,5 @@ app.listen(app.get('port'), () => console.log(` * Example app listening on port 
 // import crypto from 'crypto'
 // type userId = `${string}-${string}-${string}-${string}-${string}`
 // readonly id: userId = crypto.randomUUID()
+
+// .delete, .put (actualizar obj entero), .patch (actualizar parcialmente)

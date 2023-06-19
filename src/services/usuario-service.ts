@@ -62,10 +62,10 @@ class UsuarioService {
         return returnArray
     }
     insert = async (usuario: Usuario) => {
-        let returnArray = null
+        let returnData = null
         try {
             let pool = await sql.connect(config);
-            let result = await pool.request()
+            await pool.request()
             .input('Nombre', sql.NChar, usuario.nombre)
             .input('Apellido', sql.NChar, usuario.apellido)
             .input('Email', sql.NChar, usuario.email)
@@ -73,12 +73,19 @@ class UsuarioService {
             .input('EsSupervisor', sql.Bit, usuario.esSupervisor)
             .query(`INSERT INTO Usuarios (nombre, apellido, email, foto, esSupervisor) 
             VALUES (@Nombre, @Apellido, @Email, @Foto, @EsSupervisor)`);
-            returnArray = result.recordsets[0]
+
+            // const selectQuery = `
+            // SELECT TOP 1 * FROM Usuarios
+            // where email = '${usuario.email}'`
+            // returnData = await sql.query(selectQuery)
+            // console.log(returnData)
+            returnData = this.getByEmail(usuario.email)
+
         } catch (error) {
-            console.log(error);
+            console.log(error)
             throw new Error("No se pudo hacer el INSERT de USUARIO")
         }
-        return returnArray;
+        return returnData
     }
 }
 

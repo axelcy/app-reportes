@@ -104,17 +104,57 @@ class IncidenteService {
             .input('Foto',              sql.NChar, incidente.foto)
             .query(`INSERT INTO Incidentes (nombre, descripcion, idUsuario, idPisoAula, fecha, importancia, estado, idUsuarioSolucion, categoria, foto) 
             VALUES (@Nombre, @Descripcion, @IdUsuario, @IdPisoAula, @Fecha, @Importancia, @Estado, @IdUsuarioSolucion, @Categoria, @Foto)`);
+            
             const selectQuery = `
-                SELECT TOP 1 * FROM Incidentes
-                where idUsuario = ${incidente.idUsuario}
-                order by id desc
-            `
-            returnData = await sql.query(selectQuery);
+            SELECT TOP 1 * FROM Incidentes
+            where idUsuario = ${incidente.idUsuario}
+            order by id desc`
+            returnData = await sql.query(selectQuery)
+
         } catch (error) {
             console.log(error);
             throw new Error("No se pudo hacer el INSERT de INCIDENTE")
         }
-        return returnData.recordset[0];
+        return returnData.recordset[0]
+    }
+    update = async (incidente: Incidente) => {
+        let returnData = null
+        try {
+            let pool = await sql.connect(config);
+            await pool.request()
+            .input('Nombre',            sql.NChar, incidente.nombre)
+            .input('Descripcion',       sql.NChar, incidente.descripcion)
+            .input('IdUsuario',         sql.Int, incidente.idUsuario)
+            .input('IdPisoAula',        sql.Int, incidente.idPisoAula)
+            .input('Fecha',             sql.Date, incidente.fecha)
+            .input('Importancia',       sql.Int, incidente.importancia)
+            .input('Estado',            sql.Int, incidente.estado)
+            .input('IdUsuarioSolucion', sql.Int, incidente.idUsuarioSolucion)
+            .input('Categoria',         sql.Int, incidente.categoria)
+            .input('Foto',              sql.NChar, incidente.foto)
+            .query(`UPDATE Incidentes 
+            SET Nombre = @Nombre,
+            Descripcion = @Descripcion,
+            IdUsuario = @IdUsuario,
+            IdPisoAula = @IdPisoAula,
+            Fecha = @Fecha,
+            Importancia = @Importancia,
+            Estado = @Estado,
+            IdUsuarioSolucion = @IdUsuarioSolucion,
+            Categoria = @Categoria,
+            Foto = @Foto
+            WHERE id = ${incidente.id}`)
+
+            const selectQuery = `
+            SELECT TOP 1 * FROM Incidentes
+            where id = ${incidente.id}`
+            returnData = await sql.query(selectQuery)
+
+        } catch (error) {
+            console.log(error);
+            throw new Error("No se pudo hacer el UPDATE de INCIDENTE")
+        }
+        return returnData.recordset[0]
     }
 }
 
