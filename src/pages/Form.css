@@ -35,8 +35,16 @@ form>.row {
     pointer-events: none;
     color: #212529;
 }
-
+label{
+    font-size: 1.1rem;
+}
 .animated-input label::after{
+    content: ' *';
+    color: red;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+.label-required:after{
     content: ' *';
     color: red;
     font-weight: bold;

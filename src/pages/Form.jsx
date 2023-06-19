@@ -30,6 +30,12 @@ const FormReportes = () => {
     }, [])
 
     useEffect(() => {
+        if (incidente.importancia) {
+            document.getElementById("label-importancia").classList.remove("label-required")
+        }
+    },[incidente.importancia])
+
+    useEffect(() => {
         if (!shoWwebcam) {
             document.getElementsByTagName("body")[0].classList.remove("overflow-hidden")
         }
@@ -38,7 +44,6 @@ const FormReportes = () => {
             window.scrollTo({
                 top: 0,
                 left: 0,
-                // behavior: 'smooth' // Esta opción animará el desplazamiento suavemente
             });
         } 
     }, [shoWwebcam])
@@ -113,7 +118,7 @@ const FormReportes = () => {
                         </Form.Group>
                     </Row>
                     <Row>
-                        <Form.Label className="label-form-reporte">Nivel de importancia</Form.Label>
+                        <Form.Label className="label-form-reporte label-required" id="label-importancia">Nivel de importancia</Form.Label>
                         <ToggleButtonGroup type="radio" name="importancia" className="importancia-group"> {/* value={incidente.importancia} */}
                             <ToggleButton id="tbg-check-1" onChange={handleChange} value={1}>Bajo </ToggleButton>
                             <ToggleButton id="tbg-check-2" onChange={handleChange} value={2}>Medio</ToggleButton>
