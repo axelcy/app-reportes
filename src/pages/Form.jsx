@@ -54,7 +54,6 @@ const FormReportes = () => {
     const handleSubmit = async(e) => {
         e.preventDefault()
         const data = {
-            categoria: 0, // 0 = no tiene categoría
             ...incidente,
             foto: image,
             idPisoAula: (await useFetch("/pisosaulas/aula/" + ubicacion.aulas.id)).id,
@@ -69,7 +68,7 @@ const FormReportes = () => {
     const handleSubmitFoto = () => {
         setShowWebcam(false)
         const imageSrc = webcamRef.current.getScreenshot()
-        console.log(imageSrc.length)
+        // console.log(imageSrc.length)
         setImage(imageSrc)
     }
     const handleShowImage = mostrar => setShowImage(mostrar)
