@@ -9,7 +9,7 @@
   border-radius: 32px;
   opacity: .95;
   backdrop-filter: blur(8px);
-  transition: .5s ease;
+  transition: all .5s ease;
   max-width: 600px;
   overflow: hidden;
   display: flex;

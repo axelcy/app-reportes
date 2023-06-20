@@ -129,6 +129,7 @@ button.btn.btn-primary:hover{
     overflow: hidden;
 }
 .inner-webcam-container{
+    max-width: 100%;
     position: relative;
     top: 8%;
     display: flex;
@@ -139,12 +140,13 @@ button.btn.btn-primary:hover{
 }
 .webcam{
     position: relative;
+    max-width: 90%;
     border-radius: 5px;
     /* background-color: rgba(0, 0, 0, 0.3); */
     background-image: url('/public/permisos_camara.png');
     background-size: cover;
     background-position: center;
-    min-height: 20rem;
+    min-height: 15rem;
     border: #20295B 5px solid;
     /* display: block; */
 }
