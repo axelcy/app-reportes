@@ -143,7 +143,7 @@ button.btn.btn-primary:hover{
     max-width: 90%;
     border-radius: 5px;
     /* background-color: rgba(0, 0, 0, 0.3); */
-    background-image: url('/public/permisos_camara.png');
+    background-image: url('/permisos_camara.png');
     background-size: cover;
     background-position: center;
     min-height: 15rem;
