@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import NavBar from "../Components/NavBar"
 import useUsuario from "../Hooks/useUsuario"
 import useFetch from "../Hooks/useFetch"
-import ReporteCard from "../Components/ReporteCard"
+import Reporte from "../Components/Reporte"
 import './MisReportes.css'
 
 const MisReportes = () => {
@@ -33,7 +33,7 @@ const MisReportes = () => {
                     {
                         !reportes.length ? <h3>Acá aparecerán tus reportes</h3> :
                         reportes.map((reporte, index) => (
-                            <ReporteCard key={index} reporte={reporte} />
+                            <Reporte key={index} reporte={reporte} />
                         ))
                     }
                 </div>
