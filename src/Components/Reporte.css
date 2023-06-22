@@ -45,7 +45,9 @@
 }
 
 .foto-reporte:hover {
-    filter: contrast(75%);
+    filter: contrast(100%);
+    opacity: 1;
+    height: 110%;
     outline: 2px solid red;
     cursor: pointer;
 }
