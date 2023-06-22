@@ -5,9 +5,14 @@ import useUsuario from '../Hooks/useUsuario';
 import './UserModal.css'
 
 function UserModal({ show, setShow }) {
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
   const { usuario, setUsuario } = useUsuario()
+
+  const handleClose = () => setShow(false)
+  const handleLogOut = () => {
+    setUsuario(null)
+    handleClose()
+    location.reload()
+  }
   if (!usuario) return null
   return (
     <>
@@ -24,10 +29,7 @@ function UserModal({ show, setShow }) {
             <p>Es supervisor: {usuario.esSupervisor ? 'Si' : 'No'}</p>
         </Modal.Body>
         <Modal.Footer>
-        <Button onClick={() => {
-          setUsuario(null)
-          handleClose()
-        }} style={{width: "fit-content"}} className='form-control' variant='outline-secondary'>Log out</Button>
+        <Button onClick={handleLogOut} style={{width: "fit-content"}} className='form-control' variant='outline-secondary'>Log out</Button>
           <Button variant="secondary" onClick={handleClose}>Close</Button>
           {/* <Button variant="primary" onClick={handleClose}>Save Changes</Button> */}
         </Modal.Footer>

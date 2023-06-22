@@ -32,6 +32,7 @@ const LogInButton = ({ onClick }) => {
             const newDbUser = await useFetch('/usuarios', newUser)
             setUsuario(newDbUser)
         }
+        location.reload()
     }
 
     return (

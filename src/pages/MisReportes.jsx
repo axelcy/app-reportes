@@ -9,9 +9,18 @@ const MisReportes = () => {
     const { usuario } = useUsuario()
     const [reportes, setReportes] = useState([])
     // no se cambian los reportes cuando se cambia de usuario, hace falta recargar la pag
-    useEffect(() => async () => setReportes(await useFetch('/incidentes/' + usuario.id)), [usuario])
+    useEffect(() => async () => {
+        console.log(usuario)
+        try {
+            console.log('usuario.id', usuario.id)
+            setReportes(await useFetch('/incidentes/' + usuario.id))
+        } catch {
+            console.log('catch')
+            setReportes([])
+        }
+    }, [usuario])
     // useEffect(() => setReportes([]), [usuario])
-    
+
     if (!usuario) return (
         <>
             <NavBar />
@@ -21,14 +30,15 @@ const MisReportes = () => {
     )
     return (
         <>
+        
             <NavBar />
             <div className="mis-reportes-container">
                 <h1>Mis Reportes</h1>
                 <div className="lista-reportes-container">
                     {
                         !reportes.length ? <h3>Acá aparecerán tus reportes</h3> :
-                        reportes.map((reporte) => (
-                            <ReporteCard reporte={reporte} />
+                        reportes.map((reporte, index) => (
+                            <ReporteCard key={index} reporte={reporte} />
                         ))
                     }
                 </div>
