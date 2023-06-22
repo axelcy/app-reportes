@@ -4,6 +4,7 @@ import useUsuario from "../Hooks/useUsuario"
 import useFetch from "../Hooks/useFetch"
 import Reporte from "../Components/Reporte"
 import './MisReportes.css'
+import { Container } from "react-bootstrap"
 
 const MisReportes = () => {
     const { usuario } = useUsuario()
@@ -27,6 +28,7 @@ const MisReportes = () => {
     return (
         <>
             <NavBar />
+            <Container>
             <div className="mis-reportes-container">
                 <h1>Mis Reportes</h1>
                 <div className="lista-reportes-container">
@@ -38,6 +40,7 @@ const MisReportes = () => {
                     }
                 </div>
             </div>
+            </Container>
         </>
     )
 }
