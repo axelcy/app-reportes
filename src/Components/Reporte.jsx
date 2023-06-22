@@ -6,10 +6,16 @@ import { IoInformationCircleSharp } from 'react-icons/io5'
 const Reporte = ({ reporte }) => {
     const [foto, setFoto] = useState('')
     const fotoContainerId = useId()
-    const newIconId = useId(null)
-    useEffect(() => async () => setFoto(await useFetch('/img/incidentes/' + reporte.foto)), [])
+    const fotoId = useId()
+    const newIconId = useId()
+    const containerId = useId()
 
-    window.addEventListener('resize', () => {
+    useEffect(() => async () => {
+        setFoto(await useFetch('/img/incidentes/' + reporte.foto))
+        resizeEvent()
+    }, [])
+
+    const resizeEvent = () => {
         const fotoContainer = document.getElementById(fotoContainerId)
         const newIcon = document.getElementById(newIconId)
         if (!fotoContainer || !newIcon) return
@@ -24,19 +30,27 @@ const Reporte = ({ reporte }) => {
             fotoContainer.classList.add('d-none')
             newIcon.classList.remove('d-none')
         }
-    })
+    }
+
+    window.addEventListener('resize', resizeEvent)
+
+    const handleOpen = e => {
+        // si es pantalla grande y el id no es el de la foto no hacer nada 
+        if (window.innerWidth > 570 && e.target.id !== fotoId) return
+        console.log('abriendo modal')
+    }
 
     return (
-        <div className='reporte-container'>
+        <div className='reporte-container' onClick={handleOpen} id={containerId}>
             <div className='reporte-body'>
                 <h4>{reporte.nombre}</h4>
                 <p>{reporte.descripcion}</p>
             </div>
-            <div className='foto-container-reporte' id={fotoContainerId}>
-                <img src={foto} alt='foto' className='foto-reporte'/>
+            <div className='foto-container-reporte d-none' id={fotoContainerId}>
+                <img src={foto} alt={reporte.foto.split('.')[0]} className='foto-reporte no-select' id={fotoId} onClick={handleOpen} draggable="false" />
                 <IoInformationCircleSharp className='icon-reporte'/>
             </div>
-            <IoInformationCircleSharp className='icon-reporte' id={newIconId} />
+            <IoInformationCircleSharp className='icon-reporte d-none' id={newIconId} />
         </div>
     )
 }
