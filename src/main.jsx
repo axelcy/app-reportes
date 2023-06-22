@@ -9,6 +9,7 @@ import { UsuarioProvider } from './context/usuarioContext.jsx'
 import { Footer } from './Components/Footer.jsx'
 import { FooterProvider } from './context/footerContext.jsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
+import MisReportes from './pages/MisReportes.jsx'
 
 const routes = createBrowserRouter([{
   path: "/",
@@ -16,6 +17,9 @@ const routes = createBrowserRouter([{
 },{
   path: "/form",
   element: <FormReportes />
+},{
+  path: "/mis-reportes",
+  element: <MisReportes />
 }])
 
 

@@ -12,7 +12,8 @@ const LogInButton = ({ onClick }) => {
         const { credential } = credentialResponse
         let decodedUser = await jwt_decode(credential)
 
-        if (decodedUser.email.split('@')[1] !== import.meta.env.VITE_DOMINIO) { // 'est.ort.edu.ar'
+        if (!import.meta.env.VITE_DOMINIO) ''
+        else if (decodedUser.email.split('@')[1] !== import.meta.env.VITE_DOMINIO) { // 'est.ort.edu.ar'
             setFooter(`el dominio del mail tiene que ser @${import.meta.env.VITE_DOMINIO}`)
             return
         }

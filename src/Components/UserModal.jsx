@@ -17,6 +17,7 @@ function UserModal({ show, setShow }) {
         </Modal.Header>
         <Modal.Body>
             <img className='user-foto-modal' src={usuario.foto} />
+            <p>ID: {usuario.id}</p>
             <p>Nombre: {usuario.nombre}</p>
             <p>Apellido: {usuario.apellido}</p>
             <p>Email: {usuario.email}</p>
