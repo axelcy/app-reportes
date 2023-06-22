@@ -7,6 +7,10 @@ export const getAll = async(_req: any, _res: any) => {
     _res.send(await new IncidenteService().getAll())
 }
 
+export const getByUsuario = async(_req: any, _res: any) => {
+    _res.send(await new IncidenteService().getByUsuario(Number(_req.params.idUsuario)))
+}
+
 export const insert = async(_req: any, _res: any) => {
     const incidente: Incidente = {..._req.body, foto: "incidente_ID.webp"}
     const newIncidente: Incidente = await new IncidenteService().insert(incidente)

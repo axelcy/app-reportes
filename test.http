@@ -1,13 +1,4 @@
 @api = http://localhost:3001
 
-### Aulas
-GET {{api}}/aulas
-
-### Usuarios
-GET {{api}}/usuarios
-
-### Usuarios/email
-GET {{api}}/usuarios/email/test2
-
-### Categoria
-GET {{api}}/categorias
+### Test
+GET {{api}}/incidentes/61
