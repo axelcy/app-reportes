@@ -7,7 +7,7 @@ type Order = 'importancia' | 'fecha' | 'edificio' | 'categoria'
 class IncidenteService {
     getAll = async (order: Order = 'fecha') => {
         let query = `
-        select i.id, i.nombre, i.descripcion, i.idUsuario, i.fecha, i.idUsuarioSolucion, i.estado, c.descripcion 'categoria', n.descripcion 'imporancia', e.descripcion 'edificio' from Incidentes i
+        select i.id, i.nombre, i.descripcion, i.idUsuario, i.fecha, i.idUsuarioSolucion, i.estado, i.foto, c.descripcion 'categoria', n.descripcion 'imporancia', e.descripcion 'edificio' from Incidentes i
 		inner join Categorias c on c.id = i.categoria
         inner join Niveles_Importancia n on n.id = i.importancia
         inner join Pisos_Aulas pa on pa.id = i.idPisoAula
