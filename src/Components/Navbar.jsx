@@ -38,6 +38,7 @@ function NavBar() {
                             <Link to={"/"}>Home</Link>
                             <Link to={"/form"}>Reportar</Link>
                             <Link to={"/mis-reportes"}>Mis reportes</Link>
+                            <Link to={"/back-reportes"}>Ver reportes</Link>
                             <form className='buscar-section' onSubmit={(e) => e.preventDefault()}>
                                 {/* hacer q con enter se envie el form pero q no se recargue la pag*/}
                                 <input className='form-control navbar-fetch-input' ref={input} autoComplete='off' placeholder='/img/el-pepe.jpg' defaultValue={'/img/el-pepe.jpg'} />
