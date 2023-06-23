@@ -54,6 +54,21 @@ class IncidenteService {
         }
         return returnArray
     }
+    getByEstado = async(idEstado: number) => {
+        let returnArray = null
+        let query = `
+        select * from Incidentes
+        where estado = @IdEstado`
+        try {
+            const pool = await sql.connect(config)
+            const result = await pool.request().input('IdEstado', sql.Int, idEstado).query(query)
+            returnArray = result.recordsets[0]
+        }
+        catch (error) {
+            console.log(error)
+        }
+        return returnArray
+    }
     getByEdificio = async(id: number) => {
         let returnArray = null
         let query = `

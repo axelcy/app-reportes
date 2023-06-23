@@ -10,6 +10,9 @@ export const getAll = async(_req: any, _res: any) => {
 export const getByUsuario = async(_req: any, _res: any) => {
     _res.send(await new IncidenteService().getByUsuario(Number(_req.params.idUsuario)))
 }
+export const getByEstado = async(_req: any, _res: any) => {
+    _res.send(await new IncidenteService().getByEstado(Number(_req.params.idEstado)))
+}
 
 export const insert = async(_req: any, _res: any) => {
     const incidente: Incidente = {..._req.body, foto: "incidente_ID.webp"}
