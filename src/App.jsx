@@ -13,7 +13,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <h1>App reportes</h1>
+      <h1>Reportes ORT</h1>
       <Container fluid>
         <Row>
           <Col xs={4}>

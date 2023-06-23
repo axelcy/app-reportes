@@ -14,7 +14,7 @@ form>.row {
 
 .ubicacion-field:disabled {
     filter: brightness(70%);
-    color: crimson;
+    color: var(--color);
     font-weight: 500;
 }
 

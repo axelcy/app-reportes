@@ -104,7 +104,7 @@ const FormReportes = () => {
         <>
             <NavBar />
             <Container>
-                <h2 className="text">Formulario reporte</h2>
+                <h2 className="text">Reportar</h2>
                 {showImage ? <img src={image} alt="foto" className="showimage" /> : null}
                 <Form onSubmit={async (e) => await handleSubmit(e)}> {/* onSubmit={async() => await handleSubmit()} */}
                     <Row>
