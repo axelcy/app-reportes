@@ -5,6 +5,7 @@
   "homepage": "http://darkapple55.github.io/app-reportes/",
   "type": "module",
   "scripts": {
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "vite build",
