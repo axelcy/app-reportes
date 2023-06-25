@@ -93,15 +93,13 @@ const FormReportes = () => {
     }
     const handleShowImage = mostrar => setShowImage(mostrar)
 
-    if (!usuario && import.meta.env.VITE_AUTH_NEEDED === 'true') {
-        return (
-            <>
-                <NavBar />
-                <h1>Acceso denegado</h1>
-                <h4>Es necesario estar logeado para poder reportar</h4>
-            </>
-        )
-    }
+    if (!usuario) return (
+        <>
+            <NavBar />
+            <h1>Acceso denegado</h1>
+            <h4>Es necesario estar logeado para poder reportar</h4>
+        </>
+    )
     return (
         <>
             <NavBar />
