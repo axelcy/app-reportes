@@ -28,7 +28,7 @@ export function Footer () {
 
   return (footer &&
     <footer className='test-footer'  onMouseLeave={handleMouseLeave}>
-      <img ref={imgId} src={isAnImg() ? footer : '/logo.png'} onMouseEnter={handleMouseEnter} />
+      <img ref={imgId} src={isAnImg() ? footer : './logo.png'} onMouseEnter={handleMouseEnter} />
       <span className='footer-text'>{typeof footer == 'string' ? footer : JSON.stringify(footer)}</span>
     </footer>
   )
