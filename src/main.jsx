@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, createHashRouter } from 'react-router-dom'
 import FormReportes from './pages/Form.jsx'
 import App from './App.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -12,7 +12,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 import MisReportes from './pages/MisReportes.jsx'
 import BackReportes from './pages/BackReportes.jsx'
 
-const routes = createBrowserRouter([{
+const router = createHashRouter([{
   path: "/",
   element: <App />
 },{
@@ -32,7 +32,7 @@ createRoot(document.getElementById('root')).render(
     <FooterProvider>
       <UsuarioProvider>
         <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-          <RouterProvider router={routes}/>
+          <RouterProvider router={router}/>
           <Footer />
         </GoogleOAuthProvider>
       </UsuarioProvider>
