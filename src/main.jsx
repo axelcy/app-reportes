@@ -10,7 +10,7 @@ import { Footer } from './Components/Footer.jsx'
 import { FooterProvider } from './context/footerContext.jsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import MisReportes from './pages/MisReportes.jsx'
-import BackReportes from './pages/backReportes.jsx'
+import BackReportes from './pages/BackReportes.jsx'
 
 const routes = createBrowserRouter([{
   path: "/",
