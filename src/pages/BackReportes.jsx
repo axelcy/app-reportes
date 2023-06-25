@@ -30,19 +30,21 @@ const BackReportes = () => {
                 <div className="mis-reportes-container">
                     <h1>Reportes</h1>
                     <Dropdown>
-                            <Dropdown.Toggle variant="info" className="toggle" id="dropdown-basic"><FaFilter /> Filtros</Dropdown.Toggle>
-                            <Dropdown.Menu className="dropdown">
-                                <Dropdown.Item name="todo" onClick={handleFilters}>Todos</Dropdown.Item>
-                                <Dropdown.Item name="importancia" onClick={handleFilters}>Importancia alta</Dropdown.Item>
-                                <Dropdown.Item name="categoria" onClick={handleFilters}>informatica</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
+                        <Dropdown.Toggle variant="info" className="toggle" id="dropdown-basic"><FaFilter /> Filtros</Dropdown.Toggle>
+                        <Dropdown.Menu className="dropdown">
+                            <Dropdown.Item name="todo" onClick={handleFilters}>Todos</Dropdown.Item>
+                            <Dropdown.Item name="importancia" onClick={handleFilters}>Importancia alta</Dropdown.Item>
+                            <Dropdown.Item name="categoria" onClick={handleFilters}>informatica</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    <label>Buscar</label>
+                    <input type='text' className="styled-input"/>
                     <div className="lista-reportes-container">
                         {
                             !reportesActivos.length ? <h3>Acá aparecerán tus reportes</h3> :
                             reportesActivos.map((reporte, index) => (
-                                    <Reporte key={index} reporte={reporte} />
-                                ))
+                                <Reporte key={index} reporte={reporte} />
+                            ))
                         }
                     </div>
                 </div>
