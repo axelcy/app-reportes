@@ -93,7 +93,7 @@ const FormReportes = () => {
     }
     const handleShowImage = mostrar => setShowImage(mostrar)
 
-    if (!usuario && Boolean(import.meta.env.VITE_AUTH_NEEDED) === 'true') {
+    if (!usuario && import.meta.env.VITE_AUTH_NEEDED === 'true') {
         return (
             <>
                 <NavBar />
