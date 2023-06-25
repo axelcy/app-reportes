@@ -2,7 +2,7 @@
   "name": "app-reportes-front",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://darkapple55.github.io/app-reportes/",
+  "homepage": "http://darkapple55.github.io/app-reportes/",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
