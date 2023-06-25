@@ -105,7 +105,7 @@ const FormReportes = () => {
             <NavBar />
             <Container>
                 <h2 className="text">Reportar</h2>
-                {showImage ? <img src={image} alt="foto" className="showimage" /> : null}
+                {showImage ? <img src={image} alt="foto-reporte" className="showimage" /> : null}
                 <Form onSubmit={async (e) => await handleSubmit(e)}> {/* onSubmit={async() => await handleSubmit()} */}
                     <Row>
                         <Form.Group className="mb-3 animated-input" controlId="exampleForm.ControlInput1">

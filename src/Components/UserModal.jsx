@@ -21,7 +21,7 @@ function UserModal({ show, setShow }) {
           <Modal.Title>Hola <b>{usuario.nombre}</b>!</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <img className='user-foto-modal' src={usuario.foto} />
+            <img className='user-foto-modal' src={usuario.foto} alt='foto-usuario' />
             <p>ID: {usuario.id}</p>
             <p>Nombre: {usuario.nombre}</p>
             <p>Apellido: {usuario.apellido}</p>

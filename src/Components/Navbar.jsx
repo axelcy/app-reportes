@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import useFetch from '../Hooks/useFetch';
-import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import './Navbar.css'
 import useFooter from '../Hooks/useFooter';
 import useUsuario from '../Hooks/useUsuario';
@@ -31,7 +31,7 @@ function NavBar() {
         <>
             <Navbar bg="light" expand="lg" className='Navbar'>
                 <Container>
-                    <Link to={"/"}><div className='navbar-brand'><img className='logo' src={'./logo.png'} /><span>Reportes ORT</span></div></Link>
+                    <Link to={"/"}><div className='navbar-brand'><img className='logo' alt='logo' src={'./logo.png'} /><span>Reportes ORT</span></div></Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse>
                         <Nav className="me-auto navbar-collapse">
@@ -48,7 +48,7 @@ function NavBar() {
                         </Nav>
                         {
                             usuario ? 
-                            <img className='logo user-foto' src={usuario.foto} onClick={() => setModalShow(true)} />
+                            <img className='logo user-foto' alt='foto-usuario' src={usuario.foto} onClick={() => setModalShow(true)} />
                             : /* cambiarle el fondo al boton de google */
                             <LogInButton />
                         }

@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { createBrowserRouter, RouterProvider, createHashRouter } from 'react-router-dom'
+import { RouterProvider, createHashRouter } from 'react-router-dom'
 import FormReportes from './pages/Form.jsx'
 import App from './App.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css'
