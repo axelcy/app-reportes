@@ -1,4 +1,4 @@
 @api = http://localhost:3001
 
 ### Test
-GET {{api}}/incidentes/61
+GET {{api}}/usuarios
