@@ -34,8 +34,8 @@ const MisReportes = () => {
                 <div className="lista-reportes-container">
                     {
                         !reportes.length ? <h3>Acá aparecerán tus reportes</h3> :
-                        reportes.map((reporte, index) => (
-                            <Reporte key={index} reporte={reporte} />
+                        reportes.map((reporte) => (
+                            <Reporte key={reporte.id} reporte={reporte} />
                         ))
                     }
                 </div>

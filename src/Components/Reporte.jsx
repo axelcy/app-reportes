@@ -47,7 +47,7 @@ const Reporte = ({ reporte }) => {
                 <p>{reporte.descripcion} - Importancia: {reporte.importancia}</p>
             </div>
             <div className='foto-container-reporte d-none' id={fotoContainerId}>
-                <img src={foto} alt={reporte.foto.split('.')[0]} className='foto-reporte no-select' id={fotoId} onClick={handleOpen} draggable="false" />
+                <img src={foto + '#' + reporte.id} alt={reporte.foto.split('.')[0]} className='foto-reporte no-select' id={fotoId} onClick={handleOpen} draggable="false" />
                 <IoInformationCircleSharp className='icon-reporte'/>
             </div>
             <IoInformationCircleSharp className='icon-reporte d-none' id={newIconId} />

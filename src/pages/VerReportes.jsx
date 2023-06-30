@@ -53,8 +53,8 @@ const VerReportes = () => {
                     <div className="lista-reportes-container">
                         {
                             !reportesActivos.length ? <h3>Acá aparecerán tus reportes</h3> :
-                                reportesActivos.map((reporte, index) => (
-                                    <Reporte key={index} reporte={reporte} />
+                                reportesActivos.map(reporte => (
+                                    <Reporte key={reporte.id} reporte={reporte} />
                                 ))
                         }
                     </div>
