@@ -15,12 +15,13 @@
 .icon-reporte-gral{
     display: none;
 }
-.toggle{
+
+.divOrder{
     display: flex;
-    align-items: center;
 }
 
 .toggle {
+    align-items: center;
     --bs-btn-bg: none;
     --bs-btn-border-color: none;
     --bs-btn-hover-bg: none;
