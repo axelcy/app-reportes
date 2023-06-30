@@ -44,7 +44,7 @@ const Reporte = ({ reporte }) => {
         <div className='reporte-container' onClick={handleOpen} id={containerId}>
             <div className='reporte-body'>
                 <h4>{reporte.nombre}</h4>
-                <p>{reporte.descripcion}</p>
+                <p>{reporte.descripcion} - Importancia: {reporte.importancia}</p>
             </div>
             <div className='foto-container-reporte d-none' id={fotoContainerId}>
                 <img src={foto} alt={reporte.foto.split('.')[0]} className='foto-reporte no-select' id={fotoId} onClick={handleOpen} draggable="false" />
