@@ -12,22 +12,17 @@ const VerReportes = () => {
     const [reportesActivos, setReportesActivos] = useState([])
 
     useEffect(() => async () => {
-        const reportes = (await useFetch('/incidentes/estado/1')).sort((a, b) => a.importancia - b.importancia) // reportes a resolver
+        const reportes = await useFetch('/incidentes/estado/1') // reportes a resolver
         setListaReportes(reportes)
         setReportesActivos(reportes)
-        // console.log(reportes)
     }, [])
-    
-    const handleReportes = data => {
-        setReportesActivos([])
-        setReportesActivos(data)
-    }
 
     const handleFilters = async (e) => {
-        if (e.target.name === 'todo') return handleReportes(listaReportes)
-        if (e.target.name === 'importancia') return handleReportes(listaReportes.sort((a, b) => a.importancia - b.importancia))
-        if (e.target.name === 'categoria') return handleReportes(listaReportes.filter(({categoria}) => categoria === 1))
+        if (e.target.name === 'todo') setReportesActivos(listaReportes)
+        else if (e.target.name === 'importancia') setReportesActivos([...listaReportes].sort((a, b) => a.importancia - b.importancia))
+        else if (e.target.name === 'categoria') setReportesActivos(listaReportes.filter(({categoria}) => categoria === 1))
     }
+
     return (
         <>
             <NavBar />
