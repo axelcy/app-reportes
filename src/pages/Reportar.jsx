@@ -1,14 +1,12 @@
 import { Container, Row, Button, ToggleButton, ToggleButtonGroup, Form } from "react-bootstrap"
-import { useEffect, useState, useCallback, useRef } from "react"
-import { Link } from 'react-router-dom'
+import { useEffect, useState, useRef } from "react"
 import useFetch from "../Hooks/useFetch"
 import NavBar from "../Components/NavBar"
-import './Form.css'
+import './Reportar.css'
 import useUsuario from "../Hooks/useUsuario"
 import Webcam from "react-webcam"
-import LogInButton from "../Components/LogInButton"
 
-const FormReportes = () => {
+const Reportar = () => {
     const { usuario } = useUsuario()
     // estados que solo cambian en el montaje
     const [categorias, setCategorias] = useState([])
@@ -213,4 +211,4 @@ const FormReportes = () => {
     )
 }   
 
-export default FormReportes
+export default Reportar

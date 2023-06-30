@@ -2,13 +2,12 @@ import { useEffect, useState } from "react"
 import NavBar from "../Components/NavBar"
 import useFetch from "../Hooks/useFetch"
 import Reporte from "../Components/Reporte"
-import './BackReportes.css'
+import './VerReportes.css'
 import { Container } from "react-bootstrap"
 import Dropdown from 'react-bootstrap/Dropdown'
 import { FaFilter } from 'react-icons/fa'
-import ButtonGroup from 'react-bootstrap/ButtonGroup'
 
-const BackReportes = () => {
+const VerReportes = () => {
     const [listaReportes, setListaReportes] = useState([])
     const [reportesActivos, setReportesActivos] = useState([])
 
@@ -53,4 +52,4 @@ const BackReportes = () => {
     )
 }
 
-export default BackReportes
+export default VerReportes
