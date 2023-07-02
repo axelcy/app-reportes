@@ -1,4 +1,7 @@
-@api = http://localhost:3001
+@api = http://localhost:25555
 
 ### Test
 GET {{api}}/usuarios
+
+### Port fowarding test
+GET http://192.168.50.164:25555/usuarios
