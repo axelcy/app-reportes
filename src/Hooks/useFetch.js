@@ -10,12 +10,7 @@ const useFetch = async(endpoint, data, method = 'POST') => {
 
 const get = async(endpoint, isImg) => {
     try {
-        const response = await fetch(`${API}${endpoint}`, {
-            method: 'GET',
-            headers: {
-                "Origin": "https://darkapple55.github.io/app-reportes",
-            }
-        })
+        const response = await fetch(`${API}${endpoint}`)
         try {
             return await response.json()
         } catch {
