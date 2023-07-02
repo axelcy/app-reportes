@@ -13,7 +13,7 @@ const get = async(endpoint, isImg) => {
         const response = await fetch(`${API}${endpoint}`, {
             method: 'GET',
             headers: {
-                "Origin": "https://darkapple55.github.io/app-reportes/",
+                "Origin": "https://darkapple55.github.io/app-reportes",
             }
         })
         try {
