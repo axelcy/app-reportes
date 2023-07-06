@@ -4,10 +4,12 @@ import useFetch from "../Hooks/useFetch"
 import NavBar from "../Components/NavBar"
 import './Reportar.css'
 import useUsuario from "../Hooks/useUsuario"
-import Webcam from "react-webcam"
+import Webcam, { Permissions } from "react-webcam"
+import useFooter from "../Hooks/useFooter"
 
 const Reportar = () => {
     const { usuario } = useUsuario()
+    const { footer, setFooter } = useFooter()
     // estados que solo cambian en el montaje
     const [categorias, setCategorias] = useState([])
     const [edificios, setEdificios] = useState([])
@@ -22,10 +24,34 @@ const Reportar = () => {
     const [image, setImage] = useState(null)
     const [showImage, setShowImage] = useState(false)
 
+    const [cameraDevices, setCameraDevices] = useState([])
+    const [selectedCamera, setSelectedCamera] = useState('')
+
     useEffect(() => async () => {
         setEdificios(await useFetch('/edificios'))
         setCategorias(await useFetch('/categorias'))
+
+        const devices = await navigator.mediaDevices.enumerateDevices()
+        const cameras = devices.filter(device => device.kind === 'videoinput')
+        setCameraDevices(cameras)
+        setSelectedCamera(cameras[0]?.deviceId || '')
     }, [])
+
+    const handleSwitchCamera = () => {
+        const currentIndex = cameraDevices.findIndex(device => device.deviceId === selectedCamera);
+        const nextIndex = (currentIndex + 1) % cameraDevices.length;
+        setSelectedCamera(cameraDevices[nextIndex].deviceId);
+    }
+
+    const checkCameraPermission = async () => {
+        try {
+            const permissionStatus = await navigator.permissions.query({ name: 'camera' });
+            return permissionStatus.state === 'granted';
+        } catch (error) {
+            console.error('Error al verificar el permiso de la cámara:', error);
+            return false;
+        }
+    }
 
     useEffect(() => {
         if (incidente.importancia) {
@@ -33,7 +59,7 @@ const Reportar = () => {
         }
     },[incidente.importancia])
 
-    useEffect(() => {
+    useEffect(() => async() => {
         if (!shoWwebcam) {
             document.getElementsByTagName("body")[0].classList.remove("overflow-hidden")
         }
@@ -43,7 +69,7 @@ const Reportar = () => {
                 top: 0,
                 left: 0,
             });
-        } 
+        }
     }, [shoWwebcam])
 
     const handleChange = (e) => {
@@ -83,7 +109,11 @@ const Reportar = () => {
         await useFetch('/incidentes', data)
         location.reload()
     }
-    const handleSubmitFoto = () => {
+    const handleSubmitFoto = async() => {
+        if (!(await checkCameraPermission())) {
+            setFooter("Es necesario dar permisos de cámara para poder sacar la foto")
+            return
+        }
         setShowWebcam(false)
         const imageSrc = webcamRef.current.getScreenshot()
         // console.log(imageSrc.length)
@@ -177,9 +207,7 @@ const Reportar = () => {
                         <div className="foto-row">
                             {image ?
                                 <>
-                                    <Button variant="success" 
-                                        onMouseEnter={() => handleShowImage(true)} 
-                                        onMouseLeave={() => handleShowImage(false)}>Ver foto</Button>
+                                    <Button variant="success" onClick={() => handleShowImage(state => !state)}>Ver foto</Button>
                                     <Button variant="outline-primary" onClick={() => setImage(null)}>Eliminar foto</Button>
                                 </>
                                 : ""
@@ -199,8 +227,9 @@ const Reportar = () => {
                             <div className="inner-webcam-container">
                                 <Webcam ref={webcamRef} className="webcam"  screenshotFormat={"image/webp"}/>
                                 <div className="webcam-buttons-container">
+                                    <Button variant="success" onClick={handleSwitchCamera}>Cambiar Cámara</Button>
                                     <Button variant="secondary" className="sacar-foto" onClick={() => setShowWebcam(false)}>Cancelar</Button>
-                                    <Button variant="primary" className="sacar-foto" onClick={handleSubmitFoto}>Sacar foto</Button>
+                                    <Button variant="primary" className="sacar-foto" onClick={handleSubmitFoto} >Sacar foto</Button>
                                 </div>
                             </div>
                         </div>
