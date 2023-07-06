@@ -91,7 +91,7 @@ const Reportar = () => {
     }
     const handleShowImage = mostrar => setShowImage(mostrar)
 
-    if (!usuario) return (
+    if (!usuario && !import.meta.env.VITE_BYPASS) return (
         <>
             <NavBar />
             <h1>Acceso denegado</h1>

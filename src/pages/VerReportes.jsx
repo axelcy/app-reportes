@@ -6,8 +6,11 @@ import './VerReportes.css'
 import { Button, Container } from "react-bootstrap"
 import Dropdown from 'react-bootstrap/Dropdown'
 import { FaFilter } from 'react-icons/fa'
+import useUsuario from "../Hooks/useUsuario"
 
 const VerReportes = () => {
+    const { usuario } = useUsuario()
+
     const [listaReportes, setListaReportes] = useState([])
     const [reportesActivos, setReportesActivos] = useState([])
     const [ascOrder, setAscOrder] = useState(true)
@@ -27,7 +30,13 @@ const VerReportes = () => {
         else if (e.target.name === 'edificio') setReportesActivos([...listaReportes].sort((a, b) => a.nombre - b.nombre))
         else if (e.target.name === 'importancia') setReportesActivos([...listaReportes].sort((a, b) => a.importancia - b.importancia))
     }
-
+    if (!usuario && !import.meta.env.VITE_BYPASS) return (
+        <>
+            <NavBar />
+            <h1>Acceso denegado</h1>
+            <h4>Es necesario estar logeado para poder ver los reportes a resolver</h4>
+        </>
+    )
     return (
         <>
             <NavBar />
@@ -52,10 +61,10 @@ const VerReportes = () => {
                     <input type='text' className="styled-input" />
                     <div className="lista-reportes-container">
                         {
-                            !reportesActivos.length ? <h3>Acá aparecerán tus reportes</h3> :
-                                reportesActivos.map(reporte => (
-                                    <Reporte key={reporte.id} reporte={reporte} />
-                                ))
+                            !reportesActivos.length ? <h3>Acá aparecerán los reportes a resolver</h3> :
+                            reportesActivos.map(reporte => (
+                                <Reporte key={reporte.id} reporte={reporte} />
+                            ))
                         }
                     </div>
                 </div>
