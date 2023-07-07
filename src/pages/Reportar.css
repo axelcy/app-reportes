@@ -182,3 +182,12 @@ button.btn.btn-primary:hover{
 .reportar-button:not(:disabled){
     outline-color: green;
 }
+.check{
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    color: green;
+    font-size: 2rem;
+    z-index: 3;
+}

@@ -15,3 +15,6 @@
 .icon-reporte-gral{
     display: none;
 }
+.divOrder{
+    display: flex;
+}
