@@ -3,7 +3,7 @@ import { useEffect, useId, useRef, useState } from 'react'
 import './Reporte.css'
 import { IoInformationCircleSharp } from 'react-icons/io5'
 
-const Reporte = ({ reporte }) => {
+const Reporte = ({ reporte, onClick }) => {
     const [foto, setFoto] = useState('')
     const fotoContainerId = useId()
     const fotoId = useId()
@@ -38,6 +38,7 @@ const Reporte = ({ reporte }) => {
         // si es pantalla grande y el id no es el de la foto no hacer nada 
         if (window.innerWidth > 570 && e.target.id !== fotoId) return
         console.log('abriendo modal')
+        if(onClick) onClick()
     }
 
     return (

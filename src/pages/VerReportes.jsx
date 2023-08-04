@@ -7,6 +7,7 @@ import { Button, Container } from "react-bootstrap"
 import Dropdown from 'react-bootstrap/Dropdown'
 import { FaFilter } from 'react-icons/fa'
 import useUsuario from "../Hooks/useUsuario"
+import ReporteModal from "../Components/ReporteModal"
 
 const VerReportes = () => {
     const { usuario } = useUsuario()
@@ -15,6 +16,8 @@ const VerReportes = () => {
     const [reportesActivos, setReportesActivos] = useState([])
     const [ascOrder, setAscOrder] = useState(true)
     const [filter, setFilter] = useState("")
+    const [modalShow, setModalShow] = useState(false)
+    const [reporteModal, setReporteModal] = useState(null)
 
     useEffect(() => async () => {
         const reportes = await useFetch('/incidentes/estado/1') // reportes a resolver
@@ -57,8 +60,13 @@ const VerReportes = () => {
             if (e.target.name === 'categoria') setReportesActivos(listaReportes.filter(({categoria}) => categoria === 1))
         }
         console.log(filter)
-
     }
+    const handleOpenModal = reporte => {
+        setReporteModal(reporte)
+        setModalShow(show => !show)
+        return true
+    }
+
     useEffect(() => {
         if (filter === "") setReportesActivos(listaReportes)
         else setReportesActivos(listaReportes.filter(({importancia}) => importancia == filter))
@@ -73,6 +81,7 @@ const VerReportes = () => {
     return (
         <>
             <NavBar />
+            <ReporteModal show={modalShow} setShow={setModalShow} reporte={reporteModal} />
             <Container>
                 <div className="mis-reportes-container">
                     <h1>Reportes</h1>
@@ -108,7 +117,7 @@ const VerReportes = () => {
                         {
                             !reportesActivos.length ? <h3>Acá aparecerán los reportes a resolver</h3> :
                             reportesActivos.map(reporte => (
-                                <Reporte key={reporte.id} reporte={reporte} />
+                                <Reporte key={reporte.id} reporte={reporte} onClick={() => handleOpenModal(reporte)} />
                             ))
                         }
                     </div>
