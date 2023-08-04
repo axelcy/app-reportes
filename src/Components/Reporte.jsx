@@ -3,7 +3,7 @@ import { useEffect, useId, useRef, useState } from 'react'
 import './Reporte.css'
 import { IoInformationCircleSharp } from 'react-icons/io5'
 
-const Reporte = ({ reporte, onClick }) => {
+const Reporte = ({ reporte, openModal }) => {
     const [foto, setFoto] = useState('')
     const fotoContainerId = useId()
     const fotoId = useId()
@@ -38,12 +38,12 @@ const Reporte = ({ reporte, onClick }) => {
         // si es pantalla grande y el id no es el de la foto no hacer nada 
         // if (window.innerWidth > 570 && e.target.id !== fotoId) return
         console.log('abriendo modal: ' + reporte.nombre)
-        if(onClick) onClick()
+        openModal(reporte)
     }
 
     return (
         <div className='reporte-container' onClick={handleOpen} id={containerId}>
-            <input type="checkbox" className='check'/>
+            {/* <input type="checkbox" className='check'/> */}
             <div className='reporte-body'>
                 <h4>{reporte.nombre}</h4>
                 <p>{reporte.descripcion} - Importancia: {reporte.importancia} - Edificio {reporte.idPisoAula}</p>

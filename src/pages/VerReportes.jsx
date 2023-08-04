@@ -62,9 +62,10 @@ const VerReportes = () => {
         console.log(filter)
     }
     const handleOpenModal = reporte => {
+        console.log('handleOpenModal()')
         setReporteModal(reporte)
         setModalShow(show => !show)
-        return true
+        // return true
     }
 
     useEffect(() => {
@@ -117,7 +118,7 @@ const VerReportes = () => {
                         {
                             !reportesActivos.length ? <h3>Acá aparecerán los reportes a resolver</h3> :
                             reportesActivos.map(reporte => (
-                                <Reporte key={reporte.id} reporte={reporte} onClick={() => handleOpenModal(reporte)} />
+                                <Reporte key={reporte.id} reporte={reporte} openModal={handleOpenModal} />
                             ))
                         }
                     </div>
