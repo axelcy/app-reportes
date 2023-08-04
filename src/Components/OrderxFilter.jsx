@@ -58,9 +58,6 @@ function OrderxFilter({listaReportes, setReportesActivos, reportesActivos}) {
     }
 
     useEffect(() => {
-        console.log(reportesActivos)
-        console.log(filterType)
-        console.log(filter)
         if (filter === "") setReportesActivos(listaReportes)
         else if (filterType === 'edificio') setReportesActivos(listaReportes.filter(({ idPisoAula }) => idPisoAula == filter))
         else if (filterType === 'fecha') setReportesActivos(listaReportes.filter(({ fecha }) => fecha == filter))
