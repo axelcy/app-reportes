@@ -16,20 +16,17 @@ function OrderxFilter({listaReportes, setReportesActivos, reportesActivos}) {
         setAscOrder(!ascOrder)
     }
     const handleOrder2 = async (e) => {
+        let newReportesActivos = [...reportesActivos]
         document.getElementById("dropdown-basic").innerHTML = `<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M487.976 0H24.028C2.71 0-8.047 25.866 7.058 40.971L192 225.941V432c0 7.831 3.821 15.17 10.237 19.662l80 55.98C298.02 518.69 320 507.493 320 487.98V225.941l184.947-184.97C520.021 25.896 509.338 0 487.976 0z"></path></svg> Ordenar por ${e.target.name}`
         if (!ascOrder) {
-            if (e.target.name === "fecha") setReportesActivos([...reportesActivos].sort((a, b) => a.fecha - b.fecha))
-            if (e.target.name === "edificio") setReportesActivos([...reportesActivos].sort((a, b) => a.idPisoAula - b.idPisoAula))
-            if (e.target.name === "importancia") setReportesActivos([...reportesActivos].sort((a, b) => a.importancia - b.importancia))
-            if (e.target.name === "categoria") setReportesActivos([...reportesActivos].sort((a, b) => a.idCategoria - b.idCategoria))
+            if (e.target.name === "fecha") newReportesActivos.sort((a, b) => a.fecha - b.fecha)
+            if (e.target.name === "edificio") newReportesActivos.sort((a, b) => a.idPisoAula - b.idPisoAula)
+            if (e.target.name === "importancia") newReportesActivos.sort((a, b) => a.importancia - b.importancia)
+            if (e.target.name === "categoria") newReportesActivos.sort((a, b) => a.idCategoria - b.idCategoria)
             console.log(reportesActivos)
         }
-        else {
-            if (e.target.name === "fecha") setReportesActivos([...reportesActivos].sort((a, b) => b.fecha - a.fecha))
-            if (e.target.name === "edificio") setReportesActivos([...reportesActivos].sort((a, b) => b.idPisoAula - a.idPisoAula))
-            if (e.target.name === "importancia") setReportesActivos([...reportesActivos].sort((a, b) => b.importancia - a.importancia))
-            if (e.target.name === "categoria") setReportesActivos([...reportesActivos].sort((a, b) => b.idCategoria - a.idCategoria))
-        }
+        if (!ascOrder) newReportesActivos.reverse()
+        setReportesActivos(newReportesActivos)
 
     }
     const handleFilters = (e) => {
