@@ -62,7 +62,6 @@ const VerReportes = () => {
         console.log(filter)
     }
     const handleOpenModal = reporte => {
-        console.log('handleOpenModal()')
         setReporteModal(reporte)
         setModalShow(show => !show)
         // return true

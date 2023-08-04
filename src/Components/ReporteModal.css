@@ -1,9 +1,12 @@
-.user-foto-modal{
-    /* height: 2rem; */
-    border-radius: 25%;
-    /* cursor: pointer; */
-    transition: .2s ease;
+.modal-reporte-foto{
+    width: 18rem;
+    outline: 2px solid var(--color);
+    outline-offset: 2px;
+    border-radius: 10px;
+    object-fit: cover;
+    aspect-ratio: 16 / 9;
 }
-.user-foto-modal:hover{
-    /* transform: scale(1.5); */
+
+.reporte-modal-body{
+    background-color: #dfdfdf;
 }
