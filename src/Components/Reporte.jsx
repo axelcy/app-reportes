@@ -36,8 +36,8 @@ const Reporte = ({ reporte, onClick }) => {
 
     const handleOpen = e => {
         // si es pantalla grande y el id no es el de la foto no hacer nada 
-        if (window.innerWidth > 570 && e.target.id !== fotoId) return
-        console.log('abriendo modal')
+        // if (window.innerWidth > 570 && e.target.id !== fotoId) return
+        console.log('abriendo modal: ' + reporte.nombre)
         if(onClick) onClick()
     }
 
