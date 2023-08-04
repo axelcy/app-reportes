@@ -7,7 +7,7 @@ import './OrderxFilter.css'
 function OrderxFilter({listaReportes, setReportesActivos, reportesActivos}) {
 
     const [ascOrder, setAscOrder] = useState(false)
-    const [inputType, setInputType] = useState("number")
+    const [inputType, setInputType] = useState("hidden")
     const [filterType, setFilterType] = useState('todo')
     const [filter, setFilter] = useState("")
 
