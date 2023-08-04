@@ -13,8 +13,6 @@ const VerReportes = () => {
 
     const [listaReportes, setListaReportes] = useState([])
     const [reportesActivos, setReportesActivos] = useState([])
-    const [modalShow, setModalShow] = useState(false)
-    const [reporteModal, setReporteModal] = useState(null)
 
     useEffect(() => async () => {
         const reportes = await useFetch('/incidentes/estado/1') // reportes a resolver
@@ -24,12 +22,6 @@ const VerReportes = () => {
         element.visibility = 'hidden'
         
     }, [])
-
-    const handleOpenModal = reporte => {
-        setReporteModal(reporte)
-        setModalShow(show => !show)
-        // return true
-    }
 
     if (!usuario && !import.meta.env.VITE_BYPASS) return (
         <>
@@ -41,7 +33,6 @@ const VerReportes = () => {
     return (
         <>
             <NavBar />
-            <ReporteModal show={modalShow} setShow={setModalShow} reporte={reporteModal} />
             <Container>
                 <div className="mis-reportes-container">
                     <h1>Reportes</h1>
@@ -54,7 +45,7 @@ const VerReportes = () => {
                         {
                             !reportesActivos.length ? <h3>Acá aparecerán los reportes a resolver</h3> :
                             reportesActivos.map(reporte => (
-                                <Reporte key={reporte.id} reporte={reporte} openModal={handleOpenModal} />
+                                <Reporte key={reporte.id} reporte={reporte} />
                             ))
                         }
                     </div>

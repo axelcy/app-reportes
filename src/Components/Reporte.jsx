@@ -2,8 +2,13 @@ import useFetch from '../Hooks/useFetch'
 import { useEffect, useId, useRef, useState } from 'react'
 import './Reporte.css'
 import { IoInformationCircleSharp } from 'react-icons/io5'
+import ReporteModal from './ReporteModal'
 
-const Reporte = ({ reporte, openModal }) => {
+const Reporte = ({ reporte }) => {
+
+    const [modalShow, setModalShow] = useState(false)
+    // const [reporteModal, setReporteModal] = useState(null)
+
     const [foto, setFoto] = useState('')
     const fotoContainerId = useId()
     const fotoId = useId()
@@ -38,22 +43,25 @@ const Reporte = ({ reporte, openModal }) => {
         // si es pantalla grande y el id no es el de la foto no hacer nada 
         // if (window.innerWidth > 570 && e.target.id !== fotoId) return
         console.log('abriendo modal: ' + reporte.nombre)
-        openModal(reporte)
+        setModalShow(show => !show)
     }
 
     return (
-        <div className='reporte-container' onClick={handleOpen} id={containerId}>
-            {/* <input type="checkbox" className='check'/> */}
-            <div className='reporte-body'>
-                <h4>{reporte.nombre}</h4>
-                <p>{reporte.descripcion} - Importancia: {reporte.importancia} - Edificio {reporte.idPisoAula}</p>
+        <>
+            <ReporteModal show={modalShow} setShow={setModalShow} reporte={reporte} />
+            <div className='reporte-container' onClick={handleOpen} id={containerId}>
+                {/* <input type="checkbox" className='check'/> */}
+                <div className='reporte-body'>
+                    <h4>{reporte.nombre}</h4>
+                    <p>{reporte.descripcion} - Importancia: {reporte.importancia} - Edificio {reporte.idPisoAula}</p>
+                </div>
+                <div className='foto-container-reporte d-none' id={fotoContainerId}>
+                    <img src={foto} alt={reporte.foto.split('.')[0]} className='foto-reporte no-select' id={fotoId} onClick={handleOpen} draggable="false" />
+                    <IoInformationCircleSharp className='icon-reporte'/>
+                </div>
+                <IoInformationCircleSharp className='icon-reporte d-none' id={newIconId} />
             </div>
-            <div className='foto-container-reporte d-none' id={fotoContainerId}>
-                <img src={foto} alt={reporte.foto.split('.')[0]} className='foto-reporte no-select' id={fotoId} onClick={handleOpen} draggable="false" />
-                <IoInformationCircleSharp className='icon-reporte'/>
-            </div>
-            <IoInformationCircleSharp className='icon-reporte d-none' id={newIconId} />
-        </div>
+        </>
     )
 }
 
