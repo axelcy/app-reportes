@@ -1,5 +1,6 @@
 .modal-reporte-foto{
-    width: 18rem;
+    /* width: 18rem; */
+    width: 100%;
     outline: 2px solid var(--color);
     outline-offset: 2px;
     border-radius: 10px;
@@ -9,4 +10,10 @@
 
 .reporte-modal-body{
     background-color: #dfdfdf;
+}
+
+.modal-reporte-importancia{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

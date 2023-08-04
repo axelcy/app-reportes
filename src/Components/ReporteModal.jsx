@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { Col, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import useFetch from '../Hooks/useFetch';
@@ -7,19 +8,13 @@ import './ReporteModal.css'
 
 function ReporteModal({ show, setShow, reporte }) {
     if (!reporte) return
-    const [foto, setFoto] = useState('')
-    const image = useRef()
-    
-    useEffect(() => async () => {
-        let imageSrc = await useFetch('/img/incidentes/' + reporte.foto)
-        // image.current.setAttribute('src', foto2)
-        let image = <img src={imageSrc} alt={reporte.nombre} className='modal-reporte-foto'/>
-        setFoto(image)
-    }, [reporte])
+
+    const [image, setImage] = useState(null)
+    useEffect(() => async () => setImage(await useFetch('/img/incidentes/' + reporte.foto)), [])
+
     const handleClose = () => setShow(false)
-    const handleCheck = () => {
-        handleClose()
-    }
+    const handleCheck = () => handleClose()
+
     return (
         <>
             <Modal show={show} onHide={handleClose} className='reporte-modal' size='lg'>
@@ -27,10 +22,16 @@ function ReporteModal({ show, setShow, reporte }) {
                     <Modal.Title>{reporte.nombre}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='reporte-modal-body'>
-                    {foto}
-                    {/* {foto && <img src={foto} alt={reporte.nombre} className='modal-reporte-foto' ref={image}/>} */}
-                    {/* <p>{reporte.foto}</p> */}
+                    <Row>
+                        <Col sm={5}>
+                            <img src={image} alt={reporte.nombre} className='modal-reporte-foto'/>
+                        </Col>
+                        <Col sm={7} className='modal-reporte-importancia'>
+                            <h3>Importancia</h3>
+                        </Col>
+                    </Row>
                     <p>{reporte.id}</p>
+                    {/* <p>{JSON.stringify(reporte)}</p> */}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Close</Button>
