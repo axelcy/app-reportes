@@ -11,3 +11,7 @@ export const getById = async(_req: any, _res: any) => {
 export const getByPiso = async(_req: any, _res: any) => {
     _res.send(await new AulaService().getByPiso(Number(_req.params.id)))
 }
+
+export const getByPisoAula = async(_req: any, _res: any) => {
+    _res.send(await new AulaService().getByPisoAula(Number(_req.params.idPisoAula)))
+}
