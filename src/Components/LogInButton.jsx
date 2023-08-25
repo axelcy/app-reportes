@@ -4,7 +4,7 @@ import useUsuario from "../Hooks/useUsuario"
 import useFetch from "../Hooks/useFetch"
 import useFooter from '../Hooks/useFooter'
 
-const LogInButton = ({ onClick }) => {
+const LogInButton = () => {
     const { usuario, setUsuario } = useUsuario()
     const { footer, setFooter } = useFooter()
 
