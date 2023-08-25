@@ -6,6 +6,7 @@
     border-radius: 10px;
     object-fit: cover;
     aspect-ratio: 16 / 9;
+    margin-bottom: 10px;
 }
 
 .reporte-modal-body{
@@ -18,5 +19,28 @@
     /* align-items: center; */
 }
 .row2-modal-reporte{
-    margin: 1rem;
+    margin-left: .3rem;
+    display: flex;
+    align-items: flex-start;
+}
+.row2-modal-reporte > span{
+    display: flex;
+    align-items: flex-start;
+}
+.row3-modal-reporte > h4{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.row3-modal-reporte{
+    margin: .3rem;
+    display: flex;
+    justify-content: center;
+}
+.importancia-modal-texto{
+    display: flex;
+    justify-content: space-between;
+}
+.range-modal-reporte{
+    width: 85%;
 }
