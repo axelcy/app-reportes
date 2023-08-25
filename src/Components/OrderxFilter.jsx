@@ -11,6 +11,9 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
     const [inputType2, setInputType2] = useState("hidden")
     const [filterType, setFilterType] = useState('todo')
     const [filter, setFilter] = useState("")
+    const [minDate, setMinDate] = useState('');
+    const [maxDate, setMaxDate] = useState('');
+
 
     const handleOrder = () => {
         setReportesActivos([...reportesActivos].reverse())
@@ -31,7 +34,11 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
 
     }
     const handleFilters = (e) => {
-
+        // if (e.target.name === 'inputFiltrosMin') {
+        //     setMinDate(e.target.value);
+        // } else if (e.target.name === 'inputFiltrosMax') {
+        //     setMaxDate(e.target.value);
+        // }
         if (e.target.name === 'inputFiltros') setFilter(e.target.value)
         else {
             document.getElementById("dropdown-basic2").innerHTML = `<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M487.976 0H24.028C2.71 0-8.047 25.866 7.058 40.971L192 225.941V432c0 7.831 3.821 15.17 10.237 19.662l80 55.98C298.02 518.69 320 507.493 320 487.98V225.941l184.947-184.97C520.021 25.896 509.338 0 487.976 0z"></path></svg> Ordenar por ${e.target.name}`
@@ -66,16 +73,21 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
             }
         }
         console.log(reportesActivos)
-        console.log(filter)
     }
 
     useEffect(() => {
         if (filter === "") setReportesActivos(listaReportes)
         else if (filterType === 'edificio') setReportesActivos(listaReportes.filter(({ idPisoAula }) => idPisoAula == filter))
+        // else if (filterType === 'fecha') {
+        //     if (minDate && maxDate) setReportesActivos(listaReportes.filter(({ fecha }) => fecha.slice(0, 10) >= minDate && fecha.slice(0, 10) <= maxDate))
+        //     else if (minDate) setReportesActivos(listaReportes.filter(({ fecha }) => fecha.slice(0, 10) >= minDate))
+        //     else if (maxDate) setReportesActivos(listaReportes.filter(({ fecha }) => fecha.slice(0, 10)  <= maxDate))
+        // }
         else if (filterType === 'fecha') setReportesActivos(listaReportes.filter(({ fecha }) => fecha.slice(0, 10) == filter))
         else if (filterType === 'importancia') setReportesActivos(listaReportes.filter(({ importancia }) => importancia == filter))
         else if (filterType === 'categoria') setReportesActivos(listaReportes.filter(({ categoria }) => categoria == filter))
-    }, [filter])
+        console.log(minDate, maxDate)
+    }, [filter, minDate, maxDate])
 
     return (
         <>
@@ -96,6 +108,28 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
                     <Dropdown.Toggle variant="info" className="toggle" id="dropdown-basic2"><FaFilter /> Filtrar por </Dropdown.Toggle>
                     <input name="inputFiltros" onChange={handleFilters} type={inputType} />
                     <input name="inputFiltros" onChange={handleFilters} type={inputType2} />
+                    {/* <input
+                        name="inputFiltrosMin"
+                        onChange={(e) => {
+                            if (filterType === 'fecha') {
+                                setMinDate(e.target.value);
+                            }
+                            handleFilters(e);
+                        }}
+                        type={inputType}
+                        value={minDate}
+                    />
+                    <input
+                        name="inputFiltrosMax"
+                        onChange={(e) => {
+                            if (filterType === 'fecha') {
+                                setMaxDate(e.target.value);
+                            }
+                            handleFilters(e);
+                        }}
+                        type={inputType2}
+                        value={maxDate}
+                    /> */}
                 </div>
                 <Dropdown.Menu className="dropdown">
                     <Dropdown.Item className="Dropdown-item" name="todo" onClick={handleFilters}>Todo</Dropdown.Item>
