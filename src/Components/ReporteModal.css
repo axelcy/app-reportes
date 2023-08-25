@@ -12,8 +12,11 @@
     background-color: #dfdfdf;
 }
 
-.modal-reporte-importancia{
+.modal-reporte-ubicacion{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
+}
+.row2-modal-reporte{
+    margin: 1rem;
 }
