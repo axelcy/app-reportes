@@ -1,4 +1,5 @@
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import NavBar from "../Components/NavBar";
 import './PantallaVerde.css'
 
@@ -8,8 +9,8 @@ export default function PantallaVerde() {
         <>
         <NavBar />
         <main className="pantalla-verde">
-            <Button>Volver a reportar</Button>
-            <Button>Ver mis reportes</Button>
+            <Button><Link to={'/reportar'} className='link-pverde'>Volver a reportar</Link></Button>
+            <Button><Link to={'/mis-reportes'} className='link-pverde'>Ver mis reportes</Link></Button>
         </main>
         </>
     )

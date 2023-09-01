@@ -28,7 +28,7 @@ const MisReportes = () => {
         <>
             <NavBar />
             <h1>Acceso denegado</h1>
-            <h4>Es necesario estar logeado para poder ver tus reportes</h4>
+            <h4>Es necesario estar logeado para poder ver tus reportes.</h4>
         </>
     )
     return (

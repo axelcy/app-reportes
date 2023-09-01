@@ -27,7 +27,7 @@ const VerReportes = () => {
         <>
             <NavBar />
             <h1>Acceso denegado</h1>
-            <h4>Es necesario estar logeado para poder ver los reportes a resolver</h4>
+            <h4>Es necesario estar logeado para poder ver los reportes a resolver.</h4>
         </>
     )
     return (
@@ -35,7 +35,7 @@ const VerReportes = () => {
             <NavBar />
             <Container>
                 <div className="mis-reportes-container">
-                    <h1>Reportes</h1>
+                    <h1>Reportes a resolver</h1>
                     <header className="">
                         <OrderxFilter listaReportes={listaReportes} setReportesActivos={setReportesActivos} reportesActivos={reportesActivos} />
                     </header>

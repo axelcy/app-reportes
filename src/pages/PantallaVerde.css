@@ -1,18 +1,21 @@
-body{
-    animation: fondo-verde 1.5s ease;
+.pantalla-verde{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4rem;
+    height: 50vh;
 }
-
-@keyframes fondo-verde {
-    0%{
-        background-color: #DCDCDC;
-    }
-    25%{
-        background-color: #7bd869;
-    }
-    75%{
-        background-color: #7bd869;
-    }
-    100%{
-        background-color: #DCDCDC;
-    }
+.pantalla-verde > button{
+    width: 30rem;
+    padding: 2rem;
+    /* height: 15rem; */
+    font-size: 50px;
+}
+.link-pverde{
+    text-decoration: none;
+    color: white;
+}
+.link-pverde:hover{
+    color: #7bd869;
 }

@@ -127,12 +127,11 @@ const Reportar = () => {
         <>
             <NavBar />
             <h1>Acceso denegado</h1>
-            <h4>Es necesario estar logeado para poder reportar</h4>
+            <h4>Es necesario estar logeado para poder reportar.</h4>
         </>
     )
     return (
         <>
-            <Link to={'/pantalla-verde'} className='d-none' id="reporte-green-screen-button"></Link>
             <NavBar />
             <Container>
                 <h2 className="text">Reportar</h2>
