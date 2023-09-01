@@ -108,7 +108,8 @@ const Reportar = () => {
             idUsuarioSolucion: null,
         }
         await useFetch('/incidentes', data)
-        location.reload()
+        document.getElementById('reporte-green-screen-button').click()
+        // location.reload()
     }
     const handleSubmitFoto = async() => {
         if (!(await checkCameraPermission())) {
@@ -131,7 +132,7 @@ const Reportar = () => {
     )
     return (
         <>
-            {/* <Link to={'/pantalla-verde'}></Link> */}
+            <Link to={'/pantalla-verde'} className='d-none' id="reporte-green-screen-button"></Link>
             <NavBar />
             <Container>
                 <h2 className="text">Reportar</h2>
