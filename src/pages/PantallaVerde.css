@@ -1,0 +1,18 @@
+body{
+    animation: fondo-verde 1.5s ease;
+}
+
+@keyframes fondo-verde {
+    0%{
+        background-color: #DCDCDC;
+    }
+    25%{
+        background-color: #7bd869;
+    }
+    75%{
+        background-color: #7bd869;
+    }
+    100%{
+        background-color: #DCDCDC;
+    }
+}
