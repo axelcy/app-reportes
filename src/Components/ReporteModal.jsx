@@ -13,20 +13,21 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
     const [editMode, setEditMode] = useState(false)
 
     useEffect(() => async () => {
+        setImage(await useFetch('/img/incidentes/' + reporteProp.foto))
         setReporte({
             ...reporteProp,
-            foto: setImage(await useFetch('/img/incidentes/' + reporteProp.foto)),
-            fecha: reporteProp.fecha.split('T')[0].replace(/-/g, '/'),
+            foto: reporteProp.foto,
             usuario: await useFetch('/usuarios/' + reporteProp.idUsuario),
             aula: await useFetch('/aula/pisoaula/' + reporteProp.idPisoAula),
         })
-        console.log(await useFetch('/usuarios/' + reporteProp.idUsuario))
+        // console.log(await useFetch('/usuarios/' + reporteProp.idUsuario))
     }, [])
-    useEffect(() => console.log(reporteProp), [])
-
+    // useEffect(() => console.log(reporteProp), [])
+    const handleChange = e => setReporte(reporte => ({...reporte, [e.target.name]: e.target.value}))
     const handleClose = () => setShow(false)
-    const handleSave = () => {
-        // useFetch('/incidente', {...reporte}, 'PUT')
+    const handleSave = async() => {
+        console.log({...reporte, foto: reporteProp.foto})
+        await useFetch('/incidentes', {...reporte, foto: reporteProp.foto}, 'PUT')
         handleClose()
     }
 
@@ -34,14 +35,14 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
         <>
             <Modal show={show} onHide={handleClose} className='reporte-modal' size='lg'>
                 <Modal.Header closeButton>
-                    <Modal.Title>{reporte.nombre}</Modal.Title>
+                    <Modal.Title>{reporteProp.nombre}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='reporte-modal-body'>
                     <Row>
                         <Col sm={5}>
-                            <img src={image} alt={reporte.nombre} className='modal-reporte-foto'/>
+                            <img src={image} alt={reporteProp.nombre} className='modal-reporte-foto'/>
                             <Row className='row2-modal-reporte'>
-                                <span>Fecha: {reporte.fecha}</span>
+                                <span>Fecha: {reporte.fecha?.split('T')[0].replace(/-/g, '/')}</span>
                                 <span>Usuario: {reporte?.usuario?.nombre}</span>
                             </Row>
                             <Row className='row3-modal-reporte'>
@@ -57,14 +58,14 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
                         <Col sm={7} className='modal-reporte-ubicacion'>
                             <Row>
                                 <Form.Group className="mb-3 animated-input" controlId="exampleForm.ControlInput1">
-                                    <Form.Control type="text" autoComplete="off" required name="nombre" defaultValue={reporte.nombre} /> {/* value={incidente.nombre} */}
+                                    <Form.Control type="text" autoComplete="off" required name="nombre" defaultValue={reporte.nombre} onChange={handleChange} /> {/* value={incidente.nombre} */}
                                     <Form.Label>Nombre</Form.Label>
                                 </Form.Group>
                             </Row>
                             <Row>
                                 {/* <Form.Control as="textarea" placeholder="Descripción" defaultValue={reporte.descripcion}/> */}
                                 <Form.Group className="mb-3 animated-input" autoComplete="off" controlId="exampleForm.ControlTextarea1">
-                                    <Form.Control as="textarea" rows={3} required name="descripcion" defaultValue={reporte.descripcion} /> {/* value={incidente.descripcion} */}
+                                    <Form.Control as="textarea" rows={3} required name="descripcion" defaultValue={reporte.descripcion} onChange={handleChange} /> {/* value={incidente.descripcion} */}
                                     <Form.Label>Descripción</Form.Label>
                                 </Form.Group>
                             </Row>
