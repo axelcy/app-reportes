@@ -62,3 +62,16 @@
     border-radius: 50%;
     filter: saturate(150%);
 }
+
+.reporte-texto-id{
+    position: absolute;
+    top: 2px;
+    left: calc(100% - 270px);
+    border-radius: 3px;
+}
+.reporte-texto-id2{
+    position: absolute;
+    top: 2px;
+    left: calc(100% - 100px);
+    border-radius: 3px;
+}

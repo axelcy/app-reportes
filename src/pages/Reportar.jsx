@@ -6,6 +6,7 @@ import './Reportar.css'
 import useUsuario from "../Hooks/useUsuario"
 import Webcam, { Permissions } from "react-webcam"
 import useFooter from "../Hooks/useFooter"
+import { Link } from "react-router-dom"
 
 const Reportar = () => {
     const { usuario } = useUsuario()
@@ -130,6 +131,7 @@ const Reportar = () => {
     )
     return (
         <>
+            {/* <Link to={'/pantalla-verde'}></Link> */}
             <NavBar />
             <Container>
                 <h2 className="text">Reportar</h2>

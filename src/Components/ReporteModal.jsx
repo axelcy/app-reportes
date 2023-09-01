@@ -42,12 +42,13 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
                         <Col sm={5}>
                             <img src={image} alt={reporteProp.nombre} className='modal-reporte-foto'/>
                             <Row className='row2-modal-reporte'>
+                                <span>Reporte #{reporte.id}</span>
                                 <span>Fecha: {reporte.fecha?.split('T')[0].replace(/-/g, '/')}</span>
                                 <span>Usuario: {reporte?.usuario?.nombre}</span>
                             </Row>
                             <Row className='row3-modal-reporte'>
                                 <h4>Importancia</h4>
-                                <Form.Range step={1} max={3} min={1} defaultValue={reporte.importancia} className='range-modal-reporte' />
+                                <Form.Range step={1} max={3} min={1} name='importancia' onChange={handleChange} defaultValue={reporte.importancia} className='range-modal-reporte' />
                                 <div className='importancia-modal-texto'>
                                     <span>Baja</span> 
                                     <span>Media</span> 
