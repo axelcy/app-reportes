@@ -28,7 +28,7 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
     const handleSave = async() => {
         console.log({...reporte, foto: reporteProp.foto})
         await useFetch('/incidentes', {...reporte, foto: reporteProp.foto}, 'PUT')
-        handleClose()
+        window.location.reload()
     }
 
     return (
