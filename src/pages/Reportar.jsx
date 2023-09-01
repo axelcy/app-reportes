@@ -132,6 +132,7 @@ const Reportar = () => {
     )
     return (
         <>
+            <Link to={'/pantalla-verde'} className='d-none' id="reporte-green-screen-button"></Link>
             <NavBar />
             <Container>
                 <h2 className="text">Reportar</h2>
