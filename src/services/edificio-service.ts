@@ -32,7 +32,7 @@ class EdificioService {
     getByPisoAula = async(idPisoAula: number) => {
         let returnArray = null
         let query = `
-        select * from Pisos_Aulas pa
+        select e.* from Pisos_Aulas pa
         inner join Edificios_Pisos ep on ep.id = pa.idEdificioPiso
         inner join Edificios e on e.id = ep.idEdificio
         where pa.id = @Id`
