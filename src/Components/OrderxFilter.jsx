@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Button } from "react-bootstrap"
 import Dropdown from 'react-bootstrap/Dropdown'
 import { FaFilter } from 'react-icons/fa'
+import useFetch from "../Hooks/useFetch"
 import './OrderxFilter.css'
 
 function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
@@ -10,11 +11,31 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
     const [inputType, setInputType] = useState("hidden")
     const [inputTypeFecha1, setInputFecha1] = useState("hidden")
     const [inputTypeFecha2, setInputFecha2] = useState("hidden")
+    const [FilterEdificios, setFilterEdificios] = useState("toggle d-none")
     const [filterType, setFilterType] = useState('todo')
     const [filter, setFilter] = useState("")
-    const [minDate, setMinDate] = useState('');
-    const [maxDate, setMaxDate] = useState('');
+    const [minDate, setMinDate] = useState('')
+    const [maxDate, setMaxDate] = useState('')
+    const [edificios, setEdificios] = useState([])
+    const [pisos, setPisos] = useState([])
+    const [aulas, setAulas] = useState([])
 
+
+    useEffect(() => async () => {
+        setEdificios(await useFetch('/edificios'))
+    }, [])
+
+    const handleUbicacionChange = async (e) => {
+        if (e.target.name === 'edificio-dropdown') {
+            setPisos([])
+            setAulas([])
+            setPisos(await useFetch('/pisos/edificio/' + e.target.value))
+        }
+        if (e.target.name === 'piso-dropdown') {
+            setAulas([])
+            setAulas(await useFetch('/aulas/piso/' + e.target.value))
+        }
+    }
 
     const handleOrder = () => {
         setReportesActivos([...reportesActivos].reverse())
@@ -38,24 +59,25 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
         if (e.target.name === 'inputFiltros') setFilter(e.target.value)
         else if (e.target.name === 'inputFiltrosMin') {
             setMinDate(e.target.value);
-        } 
+        }
         else if (e.target.name === 'inputFiltrosMax') {
             setMaxDate(e.target.value);
         }
         else {
-            document.getElementById("dropdown-basic2").innerHTML = `<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M487.976 0H24.028C2.71 0-8.047 25.866 7.058 40.971L192 225.941V432c0 7.831 3.821 15.17 10.237 19.662l80 55.98C298.02 518.69 320 507.493 320 487.98V225.941l184.947-184.97C520.021 25.896 509.338 0 487.976 0z"></path></svg> Ordenar por ${e.target.name}`
             if (e.target.name === 'todo') {
                 setReportesActivos(listaReportes)
                 setInputType('hidden')
                 setInputFecha1('hidden')
                 setInputFecha2('hidden')
+                setFilterEdificios("toggle d-none")
             }
             if (e.target.name === 'edificio') {
                 setReportesActivos(listaReportes)
                 setFilterType('edificio')
-                setInputType('number')
+                setInputType('hidden')
                 setInputFecha1('hidden')
                 setInputFecha2('hidden')
+                setFilterEdificios("toggle")
             }
             if (e.target.name === 'fecha') {
                 setReportesActivos(listaReportes)
@@ -63,6 +85,8 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
                 setInputType('hidden')
                 setInputFecha1('date')
                 setInputFecha2('date')
+                setFilterEdificios("toggle d-none")
+
             }
             if (e.target.name === 'importancia') {
                 setReportesActivos(listaReportes)
@@ -70,6 +94,8 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
                 setInputType('number')
                 setInputFecha1('hidden')
                 setInputFecha2('hidden')
+                setFilterEdificios("toggle d-none")
+
             }
             if (e.target.name === 'categoria') {
                 setReportesActivos(listaReportes)
@@ -77,6 +103,8 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
                 setInputType('number')
                 setInputFecha1('hidden')
                 setInputFecha2('hidden')
+                setFilterEdificios("toggle d-none")
+
             }
         }
         console.log(reportesActivos)
@@ -88,9 +116,8 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
         if (filterType === 'fecha') {
             if (minDate && maxDate) setReportesActivos(listaReportes.filter(({ fecha }) => fecha.slice(0, 10) >= minDate && fecha.slice(0, 10) <= maxDate))
             else if (minDate) setReportesActivos(listaReportes.filter(({ fecha }) => fecha.slice(0, 10) >= minDate))
-            else if (maxDate) setReportesActivos(listaReportes.filter(({ fecha }) => fecha.slice(0, 10)  <= maxDate))
+            else if (maxDate) setReportesActivos(listaReportes.filter(({ fecha }) => fecha.slice(0, 10) <= maxDate))
         }
-        // else if (filterType === 'fecha') setReportesActivos(listaReportes.filter(({ fecha }) => fecha.slice(0, 10) == filter))
         if (filterType === 'importancia') setReportesActivos(listaReportes.filter(({ importancia }) => importancia == filter))
         if (filterType === 'categoria') setReportesActivos(listaReportes.filter(({ categoria }) => categoria == filter))
         console.log(minDate, maxDate)
@@ -136,6 +163,42 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
                         type={inputTypeFecha2}
                         value={maxDate}
                     />
+                    <Dropdown>
+                        <div className="divOrder">
+                            <Dropdown.Toggle variant="info" className={FilterEdificios} id="dropdown-basic">Edificio</Dropdown.Toggle>
+                        </div>
+                        <Dropdown.Menu className="dropdown">
+                            {
+                                edificios?.map((edificios) =>
+                                    <Dropdown.Item name='edificio-dropdown' className="option-form-reporte" onClick={async (e) => await handleUbicacionChange(e)} key={edificios.id} value={edificios.id}>{edificios.descripcion}</Dropdown.Item>
+                                )
+                            }
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    <Dropdown>
+                        <div className="divOrder">
+                            <Dropdown.Toggle variant="info" className={FilterEdificios} id="dropdown-basic">Piso</Dropdown.Toggle>
+                        </div>
+                        <Dropdown.Menu className="dropdown">
+                            {
+                                pisos?.map((pisos) =>
+                                    <Dropdown.Item name='piso-dropdown' className="option-form-reporte" onClick={async (e) => await handleUbicacionChange(e)} key={pisos.id} value={pisos.id}>{pisos.descripcion}</Dropdown.Item>
+                                )
+                            }
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    <Dropdown>
+                        <div className="divOrder">
+                            <Dropdown.Toggle variant="info" className={FilterEdificios} id="dropdown-basic">Aula</Dropdown.Toggle>
+                        </div>
+                        <Dropdown.Menu className="dropdown">
+                            {
+                                aulas?.map((aulas) =>
+                                    <Dropdown.Item name='aula-dropdown' className="option-form-reporte" onClick={async (e) => await handleUbicacionChange(e)} key={aulas.id} value={aulas.id}>{aulas.descripcion}</Dropdown.Item>
+                                )
+                            }
+                        </Dropdown.Menu>
+                    </Dropdown>
                 </div>
                 <Dropdown.Menu className="dropdown">
                     <Dropdown.Item className="Dropdown-item" name="todo" onClick={handleFilters}>Todo</Dropdown.Item>
