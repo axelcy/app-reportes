@@ -4,9 +4,10 @@ import './Reporte.css'
 import { IoInformationCircleSharp } from 'react-icons/io5'
 import ReporteModal from './ReporteModal'
 
-const Reporte = ({ reporte }) => {
+const Reporte = ({ reporte: reporteProp }) => {
 
     const [modalShow, setModalShow] = useState(false)
+    const [reporte, setReporte] = useState({reporte: reporteProp})
     // const [reporteModal, setReporteModal] = useState(null)
 
     const [foto, setFoto] = useState('')
@@ -17,8 +18,12 @@ const Reporte = ({ reporte }) => {
     const [pantallaGrande, setPantallaGrande] = useState(null)
 
     useEffect(() => async () => {
-        setFoto(await useFetch('/img/incidentes/' + reporte.foto))
+        let idimp = reporteProp.importancia
+        let importancia = idimp === 1 ? 'Baja' : idimp === 2 ? 'Media' : 'Alta'
+        const edificio = await useFetch(`/edificios/pisoaula/${reporte.idPisoAula}`)
+        setReporte(reporte => ({...reporte, edificio: edificio, importancia: importancia}))
         resizeEvent()
+        setFoto(await useFetch('/img/incidentes/' + reporteProp.foto))
     }, [])
 
     const resizeEvent = () => {
@@ -46,21 +51,21 @@ const Reporte = ({ reporte }) => {
         // si es pantalla grande y el id no es el de la foto no hacer nada 
         // if (window.innerWidth > 570 && e.target.id !== fotoId) return
         // if (checkScreen === true && pantallaGrande) return null
-        console.log('abriendo modal: ' + reporte.nombre)
+        console.log('abriendo modal: ' + reporteProp.nombre)
         setModalShow(show => !show)
     }
 
     return (
         <>
-            <ReporteModal show={modalShow} setShow={setModalShow} reporte={reporte} />
+            <ReporteModal show={modalShow} setShow={setModalShow} reporte={reporteProp} />
             <div className='reporte-container' onClick={() => handleOpen(true)} id={containerId}>
-                {pantallaGrande ? <span className='reporte-texto-id'>Reporte #{reporte.id}</span> : <span className='reporte-texto-id2'>Reporte #{reporte.id}</span>}
+                {pantallaGrande ? <span className='reporte-texto-id'>Reporte #{reporteProp.id}</span> : <span className='reporte-texto-id2'>Reporte #{reporteProp.id}</span>}
                 <div className='reporte-body'>
-                    <h4>{reporte.nombre}</h4>
+                    <h4>{reporteProp.nombre}</h4>
                     <p>Importancia <b>{reporte.importancia}</b> - Edificio <b>{reporte.idPisoAula}</b></p>
                 </div>
                 <div className='foto-container-reporte d-none' id={fotoContainerId} onClick={handleOpen}>
-                    <img src={foto} alt={reporte.foto.split('.')[0]} className='foto-reporte no-select' id={fotoId} draggable="false" />
+                    <img src={foto} alt={reporteProp.foto.split('.')[0]} className='foto-reporte no-select' id={fotoId} draggable="false" />
                     <IoInformationCircleSharp className='icon-reporte'/>
                 </div>
                 <IoInformationCircleSharp className='icon-reporte d-none' id={newIconId} />
