@@ -43,7 +43,8 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
                             <img src={image} alt={reporteProp.nombre} className='modal-reporte-foto'/>
                             <Row className='row2-modal-reporte'>
                                 <span>Reporte #{reporte.id}</span>
-                                <span>Fecha: {reporte.fecha?.split('T')[0].replace(/-/g, '/')}</span>
+                                {/* <span>Fecha: {reporte.fecha?.split('T')[0].replace(/-/g, '/')}</span> */}
+                                <span>Fecha: {reporte.fecha?.split('T')[0].split('-').reverse().join('/')}</span>
                                 <span>Usuario: {reporte?.usuario?.nombre}</span>
                             </Row>
                             <Row className='row3-modal-reporte'>
