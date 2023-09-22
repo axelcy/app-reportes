@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Button } from "react-bootstrap"
+import { Button, Row, Form, ToggleButtonGroup, ToggleButton } from "react-bootstrap"
 import Dropdown from 'react-bootstrap/Dropdown'
 import { FaFilter } from 'react-icons/fa'
 import useFetch from "../Hooks/useFetch"
@@ -11,7 +11,8 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
     const [inputType, setInputType] = useState("hidden")
     const [inputTypeFecha1, setInputFecha1] = useState("hidden")
     const [inputTypeFecha2, setInputFecha2] = useState("hidden")
-    const [FilterEdificios, setFilterEdificios] = useState("toggle d-none")
+    const [filterEdificios, setFilterEdificios] = useState("toggle d-none")
+    const [filterImportancia, setFIlterImportancia] = useState("toggle d-none")
     const [filterType, setFilterType] = useState('todo')
     const [filter, setFilter] = useState("")
     const [minDate, setMinDate] = useState('')
@@ -25,13 +26,25 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
         setEdificios(await useFetch('/edificios'))
     }, [])
 
+    // const handleUbicacionChange = async (e) => {
+    //     if (e.target.name === 'edificio-dropdown') {
+    //         setPisos([])
+    //         setAulas([])
+    //         setPisos(await useFetch('/pisos/edificio/' + e.target.value))
+    //     }
+    //     if (e.target.name === 'piso-dropdown') {
+    //         setAulas([])
+    //         setAulas(await useFetch('/aulas/piso/' + e.target.value))
+    //     }
+    // }
+
     const handleUbicacionChange = async (e) => {
-        if (e.target.name === 'edificio-dropdown') {
+        if (e.target.name === 'edificios') {
             setPisos([])
             setAulas([])
             setPisos(await useFetch('/pisos/edificio/' + e.target.value))
         }
-        if (e.target.name === 'piso-dropdown') {
+        if (e.target.name === 'pisos') {
             setAulas([])
             setAulas(await useFetch('/aulas/piso/' + e.target.value))
         }
@@ -55,8 +68,22 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
         setReportesActivos(newReportesActivos)
 
     }
+    const handleChange = (e) => {
+        if (e.target.name !== "inputFiltros") return
+        let arrayElementos = Array.from(document.getElementsByClassName("form-button-active"))
+        if (arrayElementos.length > 0) {
+            for (let i = 0; i < arrayElementos.length; i++) {
+                document.getElementsByClassName("form-button-active")[i].classList.remove('form-button-active')
+            }
+        }
+        e.target.classList.add('form-button-active')
+    }
     const handleFilters = (e) => {
-        if (e.target.name === 'inputFiltros') setFilter(e.target.value)
+        handleChange(e)
+        if (e.target.name === 'inputFiltros') {
+            setFilter(e.target.value)
+            console.log(e.target.value)
+        }
         else if (e.target.name === 'inputFiltrosMin') {
             setMinDate(e.target.value);
         }
@@ -70,6 +97,7 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
                 setInputFecha1('hidden')
                 setInputFecha2('hidden')
                 setFilterEdificios("toggle d-none")
+                setFIlterImportancia("toggle d-none")
             }
             if (e.target.name === 'edificio') {
                 setReportesActivos(listaReportes)
@@ -78,6 +106,7 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
                 setInputFecha1('hidden')
                 setInputFecha2('hidden')
                 setFilterEdificios("toggle")
+                setFIlterImportancia("toggle d-none")
             }
             if (e.target.name === 'fecha') {
                 setReportesActivos(listaReportes)
@@ -86,15 +115,16 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
                 setInputFecha1('date')
                 setInputFecha2('date')
                 setFilterEdificios("toggle d-none")
+                setFIlterImportancia("toggle d-none")
 
             }
             if (e.target.name === 'importancia') {
                 setReportesActivos(listaReportes)
                 setFilterType('importancia')
-                setInputType('number')
                 setInputFecha1('hidden')
                 setInputFecha2('hidden')
                 setFilterEdificios("toggle d-none")
+                setFIlterImportancia("toggle")
 
             }
             if (e.target.name === 'categoria') {
@@ -104,10 +134,10 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
                 setInputFecha1('hidden')
                 setInputFecha2('hidden')
                 setFilterEdificios("toggle d-none")
+                setFIlterImportancia("toggle d-none")
 
             }
         }
-        console.log(reportesActivos)
     }
 
     useEffect(() => {
@@ -141,6 +171,13 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
                 <div className="divOrder">
                     <Dropdown.Toggle variant="info" className="toggle" id="dropdown-basic2"><FaFilter /> Filtrar por </Dropdown.Toggle>
                     <input name="inputFiltros" onChange={handleFilters} type={inputType} />
+                    <Row className={`${filterImportancia} row-filtros`} >
+                        <ToggleButtonGroup type="radio" name="inputFiltros" className="importancia-group"> {/* value={incidente.importancia} */}
+                            <ToggleButton id="tbg-check-1" onChange={handleFilters} value={1}>Bajo </ToggleButton>
+                            <ToggleButton id="tbg-check-2" onChange={handleFilters} value={2}>Medio</ToggleButton>
+                            <ToggleButton id="tbg-check-3" onChange={handleFilters} value={3}>Alto</ToggleButton>
+                        </ToggleButtonGroup>
+                    </Row>
                     <input
                         name="inputFiltrosMin"
                         onChange={(e) => {
@@ -163,7 +200,7 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
                         type={inputTypeFecha2}
                         value={maxDate}
                     />
-                    <Dropdown>
+                    {/* <Dropdown>
                         <div className="divOrder">
                             <Dropdown.Toggle variant="info" className={FilterEdificios} id="dropdown-basic">Edificio</Dropdown.Toggle>
                         </div>
@@ -198,7 +235,52 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
                                 )
                             }
                         </Dropdown.Menu>
-                    </Dropdown>
+                        <Form.Group>
+                                <Form.Select required className="ubicacion-field" onChange={async (e) => await handleUbicacionChange(e)} name="aula-dropdown" disabled={!Boolean(aulas?.length)}>
+                                    <option>~ Aula ~</option>
+                                    {aulas?.map((aula) =>
+                                        <option key={aula.id} value={aula.id} >{aula.descripcion}</option>
+                                    )}
+                                </Form.Select>
+                        </Form.Group>
+                        
+                    </Dropdown> */}
+
+
+                    <Row className={`form-epa row-filtros ${filterEdificios}`} >
+                        <div>
+                            <Form.Group>
+                                <Form.Select required className="ubicacion-field" onChange={async(e) => await handleUbicacionChange(e)} name="edificios">
+                                <option className="option-form-reporte">~ Edificio ~</option>
+                                    {
+                                        edificios?.map((edificio) =>
+                                            <option className="option-form-reporte" key={edificio.id} value={edificio.id}>{edificio.descripcion}</option>
+                                        )
+                                    }
+                                </Form.Select>
+                            </Form.Group>
+                        </div>
+                        <div>
+                            <Form.Group>
+                                <Form.Select required className="ubicacion-field" onChange={async (e) => await handleUbicacionChange(e)} name="pisos" disabled={!Boolean(pisos?.length)}>
+                                    <option>~ Piso ~</option>
+                                    {pisos?.map((piso) =>
+                                        <option key={piso.id} value={piso.id}>{piso.descripcion}</option>
+                                    )}
+                                </Form.Select>
+                            </Form.Group>
+                        </div>
+                        <div>
+                            <Form.Group>
+                                <Form.Select required className="ubicacion-field" onChange={async (e) => await handleUbicacionChange(e)} name="aulas" disabled={!Boolean(aulas?.length)}>
+                                    <option>~ Aula ~</option>
+                                    {aulas?.map((aula) =>
+                                        <option key={aula.id} value={aula.id} >{aula.descripcion}</option>
+                                    )}
+                                </Form.Select>
+                            </Form.Group>
+                        </div>
+                    </Row>
                 </div>
                 <Dropdown.Menu className="dropdown">
                     <Dropdown.Item className="Dropdown-item" name="todo" onClick={handleFilters}>Todo</Dropdown.Item>

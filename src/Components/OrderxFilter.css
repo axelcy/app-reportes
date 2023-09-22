@@ -11,3 +11,6 @@
     --bs-btn-disabled-bg: none;
     --bs-btn-disabled-border-color: none;
 }
+.row-filtros{
+    width: 40%;
+}
