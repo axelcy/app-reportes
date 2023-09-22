@@ -22,12 +22,12 @@ const VerReportes = () => {
         element.visibility = 'hidden'
         
     }, [])
-
-    if (!usuario && !import.meta.env.VITE_BYPASS) return (
+    // !import.meta.env.VITE_BYPASS
+    if (!usuario.esSupervisor) return (
         <>
             <NavBar />
             <h1>Acceso denegado</h1>
-            <h4>Es necesario estar logeado para poder ver los reportes a resolver.</h4>
+            <h4>Es necesario ser supervisor ver los reportes a resolver.</h4>
         </>
     )
     return (

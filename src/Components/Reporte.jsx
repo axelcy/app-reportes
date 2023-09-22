@@ -52,7 +52,7 @@ const Reporte = ({ reporte: reporteProp }) => {
         // si es pantalla grande y el id no es el de la foto no hacer nada 
         // if (window.innerWidth > 570 && e.target.id !== fotoId) return
         // if (checkScreen === true && pantallaGrande) return null
-        console.log('abriendo modal: ' + reporteProp.nombre)
+        // console.log('abriendo modal: ' + reporteProp.nombre)
         setModalShow(show => !show)
     }
 

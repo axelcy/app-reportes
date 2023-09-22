@@ -80,6 +80,7 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
     }
     const handleFilters = (e) => {
         handleChange(e)
+        handleUbicacionChange(e)
         if (e.target.name === 'inputFiltros') {
             setFilter(e.target.value)
             console.log(e.target.value)
@@ -250,7 +251,7 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
                     <Row className={`form-epa row-filtros ${filterEdificios}`} >
                         <div>
                             <Form.Group>
-                                <Form.Select required className="ubicacion-field" onChange={async(e) => await handleUbicacionChange(e)} name="edificios">
+                                <Form.Select required className="ubicacion-field" onChange={handleFilters} name="inputFiltros">
                                 <option className="option-form-reporte">~ Edificio ~</option>
                                     {
                                         edificios?.map((edificio) =>
@@ -262,7 +263,7 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
                         </div>
                         <div>
                             <Form.Group>
-                                <Form.Select required className="ubicacion-field" onChange={async (e) => await handleUbicacionChange(e)} name="pisos" disabled={!Boolean(pisos?.length)}>
+                                <Form.Select required className="ubicacion-field" onChange={handleFilters} name="inputFiltros" disabled={!Boolean(pisos?.length)}>
                                     <option>~ Piso ~</option>
                                     {pisos?.map((piso) =>
                                         <option key={piso.id} value={piso.id}>{piso.descripcion}</option>
@@ -272,7 +273,7 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
                         </div>
                         <div>
                             <Form.Group>
-                                <Form.Select required className="ubicacion-field" onChange={async (e) => await handleUbicacionChange(e)} name="aulas" disabled={!Boolean(aulas?.length)}>
+                                <Form.Select required className="ubicacion-field" onChange={async (e) => handleFilters} name="inputFiltros" disabled={!Boolean(aulas?.length)}>
                                     <option>~ Aula ~</option>
                                     {aulas?.map((aula) =>
                                         <option key={aula.id} value={aula.id} >{aula.descripcion}</option>
