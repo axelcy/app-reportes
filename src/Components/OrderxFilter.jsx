@@ -15,6 +15,7 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
     const [filterImportancia, setFIlterImportancia] = useState("toggle d-none")
     const [filterType, setFilterType] = useState('todo')
     const [filter, setFilter] = useState("")
+    const [filterUbicacion, setFilterUbicacion] = useState([])
     const [minDate, setMinDate] = useState('')
     const [maxDate, setMaxDate] = useState('')
     const [edificios, setEdificios] = useState([])
@@ -78,9 +79,28 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
         }
         e.target.classList.add('form-button-active')
     }
-    const handleFilters = (e) => {
+    const handleFilters = async (e) => {
         handleChange(e)
         handleUbicacionChange(e)
+        if (e.target.name === 'edificios'){
+            setFilter(e.target.value)
+            edificios.forEach(element => {
+                if(element.id.toString() === e.target.value) setFilterUbicacion(element)
+            })
+        }
+        else if(e.target.name === 'pisos'){
+            setFilter(e.target.value)
+            pisos.forEach(element => {
+                if(element.id.toString() === e.target.value) setFilterUbicacion(element)
+            })
+        }
+        else if(e.target.name === 'aulas'){
+            setFilter(e.target.value)
+            aulas.forEach(element => {
+                if(element.id.toString() === e.target.value) setFilterUbicacion(element)
+            })
+            console.log(filterUbicacion)
+        }
         if (e.target.name === 'inputFiltros') {
             setFilter(e.target.value)
             console.log(e.target.value)
@@ -122,6 +142,7 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
             if (e.target.name === 'importancia') {
                 setReportesActivos(listaReportes)
                 setFilterType('importancia')
+                setInputType('hidden')
                 setInputFecha1('hidden')
                 setInputFecha2('hidden')
                 setFilterEdificios("toggle d-none")
@@ -251,7 +272,7 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
                     <Row className={`form-epa row-filtros ${filterEdificios}`} >
                         <div>
                             <Form.Group>
-                                <Form.Select required className="ubicacion-field" onChange={handleFilters} name="inputFiltros">
+                                <Form.Select required className="ubicacion-field" onChange={handleFilters} name="edificios">
                                 <option className="option-form-reporte">~ Edificio ~</option>
                                     {
                                         edificios?.map((edificio) =>
@@ -263,7 +284,7 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
                         </div>
                         <div>
                             <Form.Group>
-                                <Form.Select required className="ubicacion-field" onChange={handleFilters} name="inputFiltros" disabled={!Boolean(pisos?.length)}>
+                                <Form.Select required className="ubicacion-field" onChange={handleFilters} name="pisos" disabled={!Boolean(pisos?.length)}>
                                     <option>~ Piso ~</option>
                                     {pisos?.map((piso) =>
                                         <option key={piso.id} value={piso.id}>{piso.descripcion}</option>
@@ -273,7 +294,7 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
                         </div>
                         <div>
                             <Form.Group>
-                                <Form.Select required className="ubicacion-field" onChange={async (e) => handleFilters} name="inputFiltros" disabled={!Boolean(aulas?.length)}>
+                                <Form.Select required className="ubicacion-field" onChange={async (e) => handleFilters} name="aulas" disabled={!Boolean(aulas?.length)}>
                                     <option>~ Aula ~</option>
                                     {aulas?.map((aula) =>
                                         <option key={aula.id} value={aula.id} >{aula.descripcion}</option>
