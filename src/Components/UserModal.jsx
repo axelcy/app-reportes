@@ -1,11 +1,18 @@
 import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import useFetch from '../Hooks/useFetch';
 import useUsuario from '../Hooks/useUsuario';
 import './UserModal.css'
 
 function UserModal({ show, setShow }) {
   const { usuario, setUsuario } = useUsuario()
+
+  const handleSupervisor = async() => {
+    const newUsuario = await useFetch('/usuarios', {...usuario, esSupervisor: !usuario.esSupervisor}, 'PUT')
+    setUsuario(newUsuario)
+    console.log('newUsuario', newUsuario)
+  }
 
   const handleClose = () => setShow(false)
   const handleLogOut = () => {
@@ -13,7 +20,7 @@ function UserModal({ show, setShow }) {
     handleClose()
     location.reload()
   }
-  useEffect(() => console.log(usuario), [])
+  // useEffect(() => console.log(usuario), [])
   if (!usuario) return null
   return (
     <>
@@ -28,7 +35,7 @@ function UserModal({ show, setShow }) {
             <p>Apellido: {usuario.apellido}</p>
             <p>Email: {usuario.email}</p>
             <p>Es supervisor: {usuario.esSupervisor ? 'Si' : 'No'}</p>
-            <button onClick={() => setUsuario(user => ({...user, esSupervisor: !user.esSupervisor}))}>Switch supervisor</button>
+            <button onClick={async() => await handleSupervisor()}>Switch supervisor</button>
         </Modal.Body>
         <Modal.Footer>
         <Button onClick={handleLogOut} style={{width: "fit-content"}} className='form-control' variant='outline-secondary'>Log out</Button>
