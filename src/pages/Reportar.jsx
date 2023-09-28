@@ -230,8 +230,10 @@ const Reportar = () => {
                             <div className="inner-webcam-container">
                                 <Webcam ref={webcamRef} className="webcam"  screenshotFormat={"image/webp"}/>
                                 <div className="webcam-buttons-container">
-                                    <Button variant="success" onClick={handleSwitchCamera}>Cambiar Cámara</Button>
-                                    <Button variant="secondary" className="sacar-foto" onClick={() => setShowWebcam(false)}>Cancelar</Button>
+                                    <div className="webcam-buttons-container-2">
+                                        <Button variant="success" onClick={handleSwitchCamera}>Cambiar Cámara</Button>
+                                        <Button variant="secondary" className="sacar-foto" onClick={() => setShowWebcam(false)}>Cancelar</Button>
+                                    </div>
                                     <Button variant="primary" className="sacar-foto" onClick={handleSubmitFoto} >Sacar foto</Button>
                                 </div>
                             </div>
