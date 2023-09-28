@@ -23,7 +23,7 @@ const VerReportes = () => {
         
     }, [])
     // !import.meta.env.VITE_BYPASS
-    if (!usuario.esSupervisor) return (
+    if (usuario === null || !usuario.esSupervisor) return (
         <>
             <NavBar />
             <h1>Acceso denegado</h1>
