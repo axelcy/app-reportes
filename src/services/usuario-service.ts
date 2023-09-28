@@ -87,6 +87,35 @@ class UsuarioService {
         }
         return returnData
     }
+    update = async (usuario: Usuario) => {
+        let returnData = null
+        try {
+            let pool = await sql.connect(config);
+            await pool.request()
+
+            .input('Nombre', sql.NChar, usuario.nombre)
+            .input('Apellido', sql.NChar, usuario.apellido)
+            .input('Email', sql.NChar, usuario.email)
+            .input('Foto', sql.NChar, usuario.foto)
+            .input('EsSupervisor', sql.Bit, usuario.esSupervisor)
+            .query(`UPDATE Usuarios SET
+            Nombre = @Nombre,
+            Apellido = @Apellido,
+            Email = @Email,
+            Foto = @Foto,
+            EsSupervisor = @EsSupervisor
+            WHERE id = ${usuario.id}`)
+            const selectQuery = `
+            SELECT TOP 1 * FROM Usuarios
+            where id = ${usuario.id}`
+            returnData = await sql.query(selectQuery)
+
+        } catch (error) {
+            console.log(error);
+            throw new Error("No se pudo hacer el UPDATE de USUARIO")
+        }
+        return returnData.recordset[0]
+    }
 }
 
 export default UsuarioService

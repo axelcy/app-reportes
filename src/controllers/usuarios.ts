@@ -21,3 +21,9 @@ export const insert = async(_req: any, _res: any) => {
     const results = await new UsuarioService().insert(usuario)
     _res.end(JSON.stringify(results))
 }
+
+export const update = async(_req: any, _res: any) => {
+    const usuario: Usuario = _req.body
+    const newUsuario: Usuario = await new UsuarioService().update(usuario)
+    _res.end(JSON.stringify(newUsuario))
+}
