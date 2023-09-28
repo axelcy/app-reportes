@@ -9,8 +9,13 @@ export default function PantallaVerde() {
         <>
         <NavBar />
         <main className="pantalla-verde">
-            <Button><Link to={'/reportar'} className='link-pverde'>Volver a reportar</Link></Button>
-            <Button><Link to={'/mis-reportes'} className='link-pverde'>Ver mis reportes</Link></Button>
+            <div>
+            <img src="/tick-verde.png" className="tick-verde"/>
+            </div>
+            <div className="buttons-pantalla-verde">
+            <Button className="button-pverde"><Link to={'/reportar'} className='link-pverde'>Volver a reportar</Link></Button>
+            <Button className="button-pverde"><Link to={'/mis-reportes'} className='link-pverde'>Ver mis reportes</Link></Button>
+            </div>
         </main>
         </>
     )
