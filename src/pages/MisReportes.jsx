@@ -37,7 +37,9 @@ const MisReportes = () => {
             <Container>
                 <div className="mis-reportes-container">
                     <h1>Mis Reportes</h1>
+                    <div>
                     <OrderxFilter listaReportes={reportes} setReportesActivos={setReportesActivos} reportesActivos={reportesActivos} />
+                    </div>
                     <div className="lista-reportes-container">
                         {
                             !reportesActivos.length ? <h3>Acá aparecerán tus reportes</h3> :

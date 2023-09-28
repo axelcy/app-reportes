@@ -180,7 +180,7 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
             <Dropdown>
                 <div className="divOrder">
                     <Dropdown.Toggle variant="info" className="toggle" id="dropdown-basic"><FaFilter /> Ordenar por fecha</Dropdown.Toggle>
-                    <Button variant="info" className="toggle" onClick={handleOrder}>{ascOrder ? 'Asc' : 'Desc'}</Button>
+                    <Button variant="outline-dark" onClick={handleOrder}>{ascOrder ? 'Asc' : 'Desc'}</Button>
                 </div>
                 <Dropdown.Menu className="dropdown">
                     <Dropdown.Item className="Dropdown-item" name="fecha" onClick={handleOrder2}>Fecha</Dropdown.Item>
