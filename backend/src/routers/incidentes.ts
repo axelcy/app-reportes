@@ -1,6 +1,5 @@
 import { Router } from 'express'
-import { getByPiso } from '../controllers/aulas'
-import { getAll, getByUsuario, getByEstado, insert, update, getByEdificio, getByAula, deleteById } from '../controllers/incidentes'
+import { getAll, getByUsuario, getByEstado, insert, update, getByEdificio, getByAula, deleteById, getByPiso } from '../controllers/incidentes'
 
 const routerIncidentes = Router()
 
