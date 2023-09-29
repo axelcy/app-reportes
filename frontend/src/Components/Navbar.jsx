@@ -31,7 +31,7 @@ function NavBar() {
         <>
             <Navbar bg="light" expand="lg" className='Navbar'>
                 <Container>
-                    <Link to={"/"}><div className='navbar-brand'><img className='logo' alt='logo' src={'./logo.png'} /><span>Reportes ORT</span></div></Link>
+                    <Link to={"/"}><div className='navbar-brand'><img className='logo' alt='logo' src={'./logo-resuelve.png'} /></div></Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse>
                         <Nav className="me-auto navbar-collapse">
