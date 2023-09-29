@@ -20,7 +20,6 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
             usuario: await useFetch('/usuarios/' + reporteProp.idUsuario),
             aula: await useFetch('/aula/pisoaula/' + reporteProp.idPisoAula),
         })
-        // console.log(await useFetch('/usuarios/' + reporteProp.idUsuario))
     }, [])
     // useEffect(() => console.log(reporteProp), [])
     const handleChange = e => setReporte(reporte => ({...reporte, [e.target.name]: e.target.value}))
@@ -46,6 +45,7 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
                                 {/* <span>Fecha: {reporte.fecha?.split('T')[0].replace(/-/g, '/')}</span> */}
                                 <span>Fecha: {reporte.fecha?.split('T')[0].split('-').reverse().join('/')}</span>
                                 <span>Usuario: {reporte?.usuario?.nombre}</span>
+                                <span>Ubicación: {reporte?.aula?.descripcion}</span>
                             </Row>
                             <Row className='row3-modal-reporte'>
                                 <h4>Importancia</h4>
