@@ -1,0 +1,35 @@
+.pantalla-verde{
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    flex-direction: column;
+    gap: 2rem;
+    height: 50vh;
+    padding: 1rem;
+    margin-top: 20px;
+}
+
+.link-pverde{
+    text-decoration: none;
+    color: white;
+}
+.link-pverde:hover{
+    color: #7bd869;
+}
+
+.tick-verde{
+    height: 18rem;
+}
+.buttons-pantalla-verde{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    height: 50vh;
+}
+
+.buttons-pantalla-verde > button{
+    max-width: 20rem;
+    padding: 2rem;
+    /* height: 8rem; */
+    font-size: 20px;
+}

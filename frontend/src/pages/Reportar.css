@@ -1,0 +1,199 @@
+form>.row {
+    padding-bottom: 1rem;
+}
+
+.form-epa {
+    display: flex;
+    flex-direction: row;
+}
+
+.form-epa>div {
+    width: 0;
+    flex-grow: 1;
+}
+
+.ubicacion-field:disabled {
+    filter: brightness(70%);
+    color: var(--color);
+    font-weight: 500;
+}
+
+.animated-input{
+    position: relative;
+    margin-top: 25px !important;
+}
+.animated-input input,
+.animated-input textarea{
+    padding-left: 8px;
+}
+.animated-input label{
+    position: absolute;
+    left: 20px;
+    top: 18px;
+    transform: translateY(-50%);
+    transition: all .4s ease;
+    pointer-events: none;
+    color: #212529;
+}
+label{
+    font-size: 1.1rem;
+}
+.animated-input label::after{
+    content: ' *';
+    color: red;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+.label-required:after{
+    content: ' *';
+    color: red;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.animated-input input:focus + label,
+.animated-input input:valid + label,
+.animated-input textarea:focus + label,
+.animated-input textarea:valid + label {
+    color: #3f51b5;
+    font-size: 15px;
+    font-weight: 700;
+    top: -20px;
+    left: 15px;
+}
+
+.animated-input input:focus + label:after,
+.animated-input input:valid + label:after,
+.animated-input textarea:focus + label:after,
+.animated-input textarea:valid + label:after {
+    content: '';
+}
+
+.label-form-reporte{
+    font-weight: 500;
+}
+.option-form-reporte{
+    font-weight: 500;
+}
+
+
+/* .label-form-reporte:after{
+    content: ' *';
+    color: red;
+    font-weight: bold;
+    font-size: 1.1rem;
+} */
+.label-form-reporte:valid::after{
+    content: '';
+}
+
+label.btn.btn-primary{
+    background-color: #3f51b5 ;
+    border-color: #3f51b5 ;
+}
+.form-button-active + label{
+    background-color: #20295B !important;
+    border-color: #20295B !important;
+}
+label.btn.btn-primary:hover{
+    background-color: #5264C9;
+    border-color: #5264C9;
+}
+button.btn.btn-primary{
+    background-color: #3f51b5 ;
+    border-color: #3f51b5 ;
+}
+button.btn.btn-primary:hover{
+    background-color: #5264C9 !important;
+    border-color: #5264C9 !important;
+}
+.foto-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+}
+
+.webcam-container{
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    overflow-y: auto;
+}
+.overflow-hidden{
+    overflow: hidden;
+}
+.inner-webcam-container{
+    max-width: 100%;
+    position: relative;
+    top: 8%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.webcam{
+    position: relative;
+    max-width: 90%;
+    border-radius: 5px;
+    /* background-color: rgba(0, 0, 0, 0.3); */
+    background-image: url('/permisos_camara.png');
+    background-size: cover;
+    background-position: center;
+    min-height: 15rem;
+    border: #20295B 5px solid;
+    /* display: block; */
+}
+.sacar-foto{
+    position: relative;
+    /* display: block; */
+}
+.showimage{
+    position: absolute;
+    z-index: 2;
+    top: 10px;
+    right: 10px;
+    border-radius: 5px;
+    height: 15rem;
+    object-fit: cover;
+    border: #20295B 5px solid;
+}
+.webcam-buttons-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 1rem;
+    margin-top: 3rem;
+    transform: scale(1.5);
+}
+.webcam-buttons-container-2{
+    display: flex;
+    gap: .5rem;
+}
+
+.reportar-button{
+    transform: scale(1.3);
+    width: 100px;
+    outline-color: #20295B;
+    outline-width: 2px;
+    outline-style: solid;
+    outline-offset: 2px;
+}
+.reportar-button:not(:disabled){
+    outline-color: green;
+}
+.check{
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    color: green;
+    font-size: 2rem;
+    z-index: 3;
+}
