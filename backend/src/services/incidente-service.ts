@@ -69,17 +69,52 @@ class IncidenteService {
         }
         return returnArray
     }
-    getByEdificio = async(id: number) => {
+    getByEdificio = async(idEdificio: number) => {
         let returnArray = null
         let query = `
-        select i.id, i.nombre, i.descripcion, i.fecha, i.nivel from Incidentes i
+        select i.id, i.nombre, i.descripcion, i.fecha, i.importancia from Incidentes i
         inner join Pisos_Aulas pa on pa.id = i.idPisoAula
         inner join Edificios_Pisos ep on ep.id = pa.idEdificioPiso
         inner join Edificios e on e.id = ep.idEdificio
         where e.id = @Id`
         try {
             const pool = await sql.connect(config)
-            const result = await pool.request().input('Id', sql.Int, id).query(query)
+            const result = await pool.request().input('Id', sql.Int, idEdificio).query(query)
+            returnArray = result.recordsets[0]
+        }
+        catch (error) {
+            console.log(error)
+        }
+        return returnArray
+    }
+    getByPiso = async(idPiso: number) => {
+        let returnArray = null
+        let query = `
+        select i.id, i.nombre, i.descripcion, i.fecha, i.importancia from Incidentes i
+        inner join Pisos_Aulas pa on pa.id = i.idPisoAula
+        inner join Edificios_Pisos ep on ep.id = pa.idEdificioPiso
+        inner join Pisos p on p.id = ep.idPiso
+        where p.id = @Id`
+        try {
+            const pool = await sql.connect(config)
+            const result = await pool.request().input('Id', sql.Int, idPiso).query(query)
+            returnArray = result.recordsets[0]
+        }
+        catch (error) {
+            console.log(error)
+        }
+        return returnArray
+    }
+    getByAula = async(idAula: number) => {
+        let returnArray = null
+        let query = `
+        select i.id, i.nombre, i.descripcion, i.fecha, i.importancia from Incidentes i
+        inner join Pisos_Aulas pa on pa.id = i.idPisoAula
+        inner join Aulas a on a.id = pa.idAula
+        where a.id = @Id`
+        try {
+            const pool = await sql.connect(config)
+            const result = await pool.request().input('Id', sql.Int, idAula).query(query)
             returnArray = result.recordsets[0]
         }
         catch (error) {

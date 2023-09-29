@@ -14,6 +14,19 @@ export const getByEstado = async(_req: any, _res: any) => {
     _res.send(await new IncidenteService().getByEstado(Number(_req.params.idEstado)))
 }
 
+export const getByEdificio = async(_req: any, _res: any) => {
+    _res.send(await new IncidenteService().getByEdificio(Number(_req.params.idEdificio)))
+}
+
+export const getByPiso = async(_req: any, _res: any) => {
+    _res.send(await new IncidenteService().getByPiso(Number(_req.params.idPiso)))
+}
+
+export const getByAula = async(_req: any, _res: any) => {
+    _res.send(await new IncidenteService().getByAula(Number(_req.params.idAula)))
+}
+
+
 export const insert = async(_req: any, _res: any) => {
     const incidente: Incidente = {..._req.body, foto: "incidente_ID.webp"}
     const newIncidente: Incidente = await new IncidenteService().insert(incidente)
