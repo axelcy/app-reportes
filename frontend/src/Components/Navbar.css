@@ -33,7 +33,7 @@
     transition: .2s ease;
 }
 .user-foto:hover{
-    animation: rotarUsuario 1s linear;
+    animation: rotarUsuario 1s infinite;
     /* transform: scale(1.5); */
 }
 

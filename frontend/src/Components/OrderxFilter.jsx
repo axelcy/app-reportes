@@ -15,7 +15,6 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
     const [filterImportancia, setFIlterImportancia] = useState("toggle d-none")
     const [filterType, setFilterType] = useState('todo')
     const [filter, setFilter] = useState("")
-    const [filterUbicacion, setFilterUbicacion] = useState([])
     const [minDate, setMinDate] = useState('')
     const [maxDate, setMaxDate] = useState('')
     const [edificios, setEdificios] = useState([])
@@ -82,35 +81,9 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
     const handleFilters = async (e) => {
         handleChange(e)
         handleUbicacionChange(e)
-        if (e.target.name === 'edificios'){
-            setFilter(e.target.value)
-            edificios.forEach(element => {
-                if(element.id.toString() === e.target.value) setFilterUbicacion(element)
-            })
-        }
-        else if(e.target.name === 'pisos'){
-            setFilter(e.target.value)
-            pisos.forEach(element => {
-                if(element.id.toString() === e.target.value) setFilterUbicacion(element)
-            })
-        }
-        else if(e.target.name === 'aulas'){
-            setFilter(e.target.value)
-            aulas.forEach(element => {
-                if(element.id.toString() === e.target.value) setFilterUbicacion(element)
-            })
-            // console.log(filterUbicacion)
-        }
-        if (e.target.name === 'inputFiltros') {
-            setFilter(e.target.value)
-            // console.log(e.target.value)
-        }
-        else if (e.target.name === 'inputFiltrosMin') {
-            setMinDate(e.target.value);
-        }
-        else if (e.target.name === 'inputFiltrosMax') {
-            setMaxDate(e.target.value);
-        }
+        if (e.target.name === 'inputFiltros' || e.target.name === 'edificios' || e.target.name === 'pisos' || e.target.name === 'aulas') setFilter(e.target.value)
+        else if (e.target.name === 'inputFiltrosMin') setMinDate(e.target.value);
+        else if (e.target.name === 'inputFiltrosMax') setMaxDate(e.target.value);
         else {
             if (e.target.name === 'todo') {
                 setReportesActivos(listaReportes)
@@ -161,10 +134,12 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
             }
         }
     }
-
     useEffect(() => {
         if (filter === "") setReportesActivos(listaReportes)
-        if (filterType === 'edificio') setReportesActivos(listaReportes.filter(({ idPisoAula }) => idPisoAula == filter))
+        if (filterType === 'edificio'){
+            setReportesActivos( "/incidentes/edificio/" + filter)
+            console.log(reportesActivos)
+        }
         if (filterType === 'fecha') {
             if (minDate && maxDate) setReportesActivos(listaReportes.filter(({ fecha }) => fecha.slice(0, 10) >= minDate && fecha.slice(0, 10) <= maxDate))
             else if (minDate) setReportesActivos(listaReportes.filter(({ fecha }) => fecha.slice(0, 10) >= minDate))
@@ -172,7 +147,6 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
         }
         if (filterType === 'importancia') setReportesActivos(listaReportes.filter(({ importancia }) => importancia == filter))
         if (filterType === 'categoria') setReportesActivos(listaReportes.filter(({ categoria }) => categoria == filter))
-        // console.log(minDate, maxDate)
     }, [filter, minDate, maxDate])
 
     return (
@@ -273,7 +247,7 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
                         <div>
                             <Form.Group>
                                 <Form.Select required className="ubicacion-field" onChange={handleFilters} name="edificios">
-                                <option className="option-form-reporte">~ Edificio ~</option>
+                                    <option className="option-form-reporte">~ Edificio ~</option>
                                     {
                                         edificios?.map((edificio) =>
                                             <option className="option-form-reporte" key={edificio.id} value={edificio.id}>{edificio.descripcion}</option>
