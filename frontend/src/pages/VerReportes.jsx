@@ -24,17 +24,15 @@ const VerReportes = () => {
     const [reportesActivos, setReportesActivos] = useState([])
 
     useEffect(() => async () => {
-        console.log(estadoReportes)
         const reportes = await useFetch('/incidentes/estado/' + estadoReportes) // reportes a resolver
-        console.log(reportes)
         setListaReportes(reportes)
         setReportesActivos(reportes)
         var element = document.getElementsByName("inputFiltros")
         element.visibility = 'hidden'
-        
     }, [estadoReportes])
 
     const handleSwitchType = () => {
+        console.log(estadoReportes)
         if (estadoReportes === 1) return setEstadoReportes(2)
         else return setEstadoReportes(1)
     }
