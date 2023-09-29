@@ -10,19 +10,6 @@ import OrderxFilter from "../Components/OrderxFilter"
 
 const VerReportes = () => {
     const { usuario } = useUsuario()
-
-    const [listaReportes, setListaReportes] = useState([])
-    const [reportesActivos, setReportesActivos] = useState([])
-
-    useEffect(() => async () => {
-        const reportes = await useFetch('/incidentes/estado/1') // reportes a resolver
-        setListaReportes(reportes)
-        setReportesActivos(reportes)
-        var element = document.getElementsByName("inputFiltros")
-        element.visibility = 'hidden'
-        
-    }, [])
-    // !import.meta.env.VITE_BYPASS
     if (usuario === null || !usuario.esSupervisor) return (
         <>
             <NavBar />
@@ -30,6 +17,29 @@ const VerReportes = () => {
             <h4>Es necesario ser supervisor ver los reportes a resolver.</h4>
         </>
     )
+
+    const [estadoReportes, setEstadoReportes] = useState(1)
+
+    const [listaReportes, setListaReportes] = useState([])
+    const [reportesActivos, setReportesActivos] = useState([])
+
+    useEffect(() => async () => {
+        console.log(estadoReportes)
+        const reportes = await useFetch('/incidentes/estado/' + estadoReportes) // reportes a resolver
+        console.log(reportes)
+        setListaReportes(reportes)
+        setReportesActivos(reportes)
+        var element = document.getElementsByName("inputFiltros")
+        element.visibility = 'hidden'
+        
+    }, [estadoReportes])
+
+    const handleSwitchType = () => {
+        if (estadoReportes === 1) return setEstadoReportes(2)
+        else return setEstadoReportes(1)
+    }
+    // !import.meta.env.VITE_BYPASS
+    
     return (
         <>
             <NavBar />
@@ -41,6 +51,9 @@ const VerReportes = () => {
                     </header>
                     <label>Buscar</label>
                     <input type='text' className="styled-input" />
+                    <div>
+                    <Button onClick={handleSwitchType}>Switch tipo reporte</Button>
+                    </div>
                     <div className="lista-reportes-container">
                         {
                             !reportesActivos.length ? <h3>Acá aparecerán los reportes a resolver</h3> :

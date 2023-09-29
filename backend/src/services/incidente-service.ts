@@ -19,7 +19,7 @@ class IncidenteService {
                 query += " order by i.importancia desc"
                 break
             case 'fecha':
-                query += " order by i.fecha asc"
+                query += " order by i.fecha desc"
                 break
             case 'edificio':
                 query += " order by ep.idEdificio asc"
@@ -205,6 +205,21 @@ class IncidenteService {
             throw new Error("No se pudo hacer el UPDATE de INCIDENTE")
         }
         return returnData.recordset[0]
+    }
+    deleteById = async(id: number) => {
+        let returnArray = null
+        let query = `
+        DELETE FROM Incidentes
+        WHERE id = @Id`
+        try {
+            const pool = await sql.connect(config)
+            const result = await pool.request().input('Id', sql.Int, id).query(query)
+            returnArray = result.recordsets[0][0]
+        }
+        catch (error) {
+            console.log(error)
+        }
+        return returnArray
     }
 }
 

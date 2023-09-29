@@ -22,8 +22,13 @@ export const getByPiso = async(_req: any, _res: any) => {
     _res.send(await new IncidenteService().getByPiso(Number(_req.params.idPiso)))
 }
 
+export const deleteById = async(_req: any, _res: any) => {
+    _res.send(await new IncidenteService().deleteById(Number(_req.params.idPiso)))
+}
+
+
 export const getByAula = async(_req: any, _res: any) => {
-    _res.send(await new IncidenteService().getByAula(Number(_req.params.idAula)))
+    _res.send(await new IncidenteService().getByAula(Number(_req.params.id)))
 }
 
 

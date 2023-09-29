@@ -25,9 +25,19 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
     const handleChange = e => setReporte(reporte => ({...reporte, [e.target.name]: e.target.value}))
     const handleClose = () => setShow(false)
     const handleSave = async() => {
-        console.log({...reporte, foto: reporteProp.foto})
-        await useFetch('/incidentes', {...reporte, foto: reporteProp.foto}, 'PUT')
+        // console.log({...reporte, foto: reporteProp.foto})
+        await useFetch('/incidentes', {...reporte}, 'PUT')
         window.location.reload()
+    }
+    const handleDelete = async() => {
+        return
+        await useFetch('/incidentes', null , 'Delete')
+        window.location.reload()
+    }
+    const handleSolucionado = async() => {
+        console.log({...reporte})
+        await useFetch('/incidentes',  {...reporte, estado: 2 } , 'PUT')
+        // window.location.reload()
     }
 
     return (
@@ -76,6 +86,8 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Close</Button>
+                    <Button variant="danger" onClick={handleDelete}>Cerrar reporte</Button>
+                    <Button variant="danger" onClick={handleSolucionado}>Solucionado</Button>
                     <Button variant="success" onClick={handleSave}>Guardar</Button>
                 </Modal.Footer>
             </Modal>

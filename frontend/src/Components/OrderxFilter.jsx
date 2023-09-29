@@ -63,7 +63,7 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
             if (e.target.name === "edificio") newReportesActivos.sort((a, b) => a.idPisoAula - b.idPisoAula)
             if (e.target.name === "importancia") newReportesActivos.sort((a, b) => a.importancia - b.importancia)
             if (e.target.name === "categoria") newReportesActivos.sort((a, b) => a.idCategoria - b.idCategoria)
-            console.log(reportesActivos)
+            // console.log(reportesActivos)
         }
         if (!ascOrder) newReportesActivos.reverse()
         setReportesActivos(newReportesActivos)
@@ -99,11 +99,11 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
             aulas.forEach(element => {
                 if(element.id.toString() === e.target.value) setFilterUbicacion(element)
             })
-            console.log(filterUbicacion)
+            // console.log(filterUbicacion)
         }
         if (e.target.name === 'inputFiltros') {
             setFilter(e.target.value)
-            console.log(e.target.value)
+            // console.log(e.target.value)
         }
         else if (e.target.name === 'inputFiltrosMin') {
             setMinDate(e.target.value);
@@ -172,7 +172,7 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
         }
         if (filterType === 'importancia') setReportesActivos(listaReportes.filter(({ importancia }) => importancia == filter))
         if (filterType === 'categoria') setReportesActivos(listaReportes.filter(({ categoria }) => categoria == filter))
-        console.log(minDate, maxDate)
+        // console.log(minDate, maxDate)
     }, [filter, minDate, maxDate])
 
     return (

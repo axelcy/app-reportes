@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { getByPiso } from '../controllers/aulas'
-import { getAll, getByUsuario, getByEstado, insert, update, getByEdificio, getByAula } from '../controllers/incidentes'
+import { getAll, getByUsuario, getByEstado, insert, update, getByEdificio, getByAula, deleteById } from '../controllers/incidentes'
 
 const routerIncidentes = Router()
 
@@ -13,5 +13,7 @@ routerIncidentes.put('/incidentes', update)
 routerIncidentes.get('/incidentes/edificio/:idEdificio', getByEdificio)
 routerIncidentes.get('/incidentes/piso/:idPiso', getByPiso)
 routerIncidentes.get('/incidentes/aula/:idAula', getByAula)
+
+routerIncidentes.delete('/incidentes/:id', deleteById)
 
 export default routerIncidentes
