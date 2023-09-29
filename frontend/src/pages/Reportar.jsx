@@ -58,6 +58,7 @@ const Reportar = () => {
         if (incidente.importancia) {
             document.getElementById("label-importancia").classList.remove("label-required")
         }
+        // console.log(new Date().toISOString())
     },[incidente.importancia])
 
     useEffect(() => async() => {
@@ -102,7 +103,8 @@ const Reportar = () => {
             ...incidente,
             foto: image,
             idPisoAula: (await useFetch("/pisosaulas/aula/" + ubicacion.aulas.id)).id,
-            fecha: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`, // falta la hora
+            // fecha: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`, // falta la hora
+            fecha: `${new Date().toISOString()}`,
             idUsuario: usuario.id,
             estado: 1, // en espera
             idUsuarioSolucion: null,
