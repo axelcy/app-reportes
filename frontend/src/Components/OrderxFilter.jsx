@@ -81,7 +81,11 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
     const handleFilters = async (e) => {
         handleChange(e)
         handleUbicacionChange(e)
-        if (e.target.name === 'inputFiltros' || e.target.name === 'edificios' || e.target.name === 'pisos' || e.target.name === 'aulas') setFilter(e.target.value)
+        if (e.target.name === 'inputFiltros' || e.target.name === 'edificios' || e.target.name === 'pisos' || e.target.name === 'aulas') {
+            setFilter(e.target.value)
+            if( e.target.name === 'pisos') setFilterType('piso')
+            if(e.target.name === 'aulas') setFilterType('aula')
+        }
         else if (e.target.name === 'inputFiltrosMin') setMinDate(e.target.value);
         else if (e.target.name === 'inputFiltrosMax') setMaxDate(e.target.value);
         else {
@@ -134,20 +138,35 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
             }
         }
     }
+    console.log(filterType)
     useEffect(() => {
-        if (filter === "") setReportesActivos(listaReportes)
-        if (filterType === 'edificio'){
-            setReportesActivos( "/incidentes/edificio/" + filter)
-            console.log(reportesActivos)
+        const PRUEBAXD = async () => {
+            if (filter === "") setReportesActivos(listaReportes)
+            if (filterType === 'edificio') {
+                setReportesActivos(await useFetch("/incidentes/edificio/" + filter) || [])
+                console.log(await useFetch("/incidentes/edificio/" + filter))
+                console.log("reportes: " +  reportesActivos[0].foto)
+            }
+            if (filterType === 'piso') {
+                setReportesActivos(await useFetch("/incidentes/piso/" + filter) || [])
+                console.log(await useFetch("/incidentes/piso/" + filter))
+                console.log("reportes: " +  reportesActivos[0].foto)
+            }
+            if (filterType === 'aula') {
+                setReportesActivos(await useFetch("/incidentes/aula/" + filter) || [])
+                console.log(await useFetch("/incidentes/aula/" + filter))
+                console.log("reportes: " +  reportesActivos[0].foto)
+            }
+            if (filterType === 'fecha') {
+                if (minDate && maxDate) setReportesActivos(listaReportes.filter(({ fecha }) => fecha.slice(0, 10) >= minDate && fecha.slice(0, 10) <= maxDate))
+                else if (minDate) setReportesActivos(listaReportes.filter(({ fecha }) => fecha.slice(0, 10) >= minDate))
+                else if (maxDate) setReportesActivos(listaReportes.filter(({ fecha }) => fecha.slice(0, 10) <= maxDate))
+            }
+            if (filterType === 'importancia') setReportesActivos(listaReportes.filter(({ importancia }) => importancia == filter))
+            if (filterType === 'categoria') setReportesActivos(listaReportes.filter(({ categoria }) => categoria == filter))
         }
-        if (filterType === 'fecha') {
-            if (minDate && maxDate) setReportesActivos(listaReportes.filter(({ fecha }) => fecha.slice(0, 10) >= minDate && fecha.slice(0, 10) <= maxDate))
-            else if (minDate) setReportesActivos(listaReportes.filter(({ fecha }) => fecha.slice(0, 10) >= minDate))
-            else if (maxDate) setReportesActivos(listaReportes.filter(({ fecha }) => fecha.slice(0, 10) <= maxDate))
-        }
-        if (filterType === 'importancia') setReportesActivos(listaReportes.filter(({ importancia }) => importancia == filter))
-        if (filterType === 'categoria') setReportesActivos(listaReportes.filter(({ categoria }) => categoria == filter))
-    }, [filter, minDate, maxDate])
+        PRUEBAXD()
+    }, [filter, filterType, minDate, maxDate])
 
     return (
         <>
@@ -196,53 +215,6 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
                         type={inputTypeFecha2}
                         value={maxDate}
                     />
-                    {/* <Dropdown>
-                        <div className="divOrder">
-                            <Dropdown.Toggle variant="info" className={FilterEdificios} id="dropdown-basic">Edificio</Dropdown.Toggle>
-                        </div>
-                        <Dropdown.Menu className="dropdown">
-                            {
-                                edificios?.map((edificios) =>
-                                    <Dropdown.Item name='edificio-dropdown' className="option-form-reporte" onClick={async (e) => await handleUbicacionChange(e)} key={edificios.id} value={edificios.id}>{edificios.descripcion}</Dropdown.Item>
-                                )
-                            }
-                        </Dropdown.Menu>
-                    </Dropdown>
-                    <Dropdown>
-                        <div className="divOrder">
-                            <Dropdown.Toggle variant="info" className={FilterEdificios} id="dropdown-basic">Piso</Dropdown.Toggle>
-                        </div>
-                        <Dropdown.Menu className="dropdown">
-                            {
-                                pisos?.map((pisos) =>
-                                    <Dropdown.Item name='piso-dropdown' className="option-form-reporte" onClick={async (e) => await handleUbicacionChange(e)} key={pisos.id} value={pisos.id}>{pisos.descripcion}</Dropdown.Item>
-                                )
-                            }
-                        </Dropdown.Menu>
-                    </Dropdown>
-                    <Dropdown>
-                        <div className="divOrder">
-                            <Dropdown.Toggle variant="info" className={FilterEdificios} id="dropdown-basic">Aula</Dropdown.Toggle>
-                        </div>
-                        <Dropdown.Menu className="dropdown">
-                            {
-                                aulas?.map((aulas) =>
-                                    <Dropdown.Item name='aula-dropdown' className="option-form-reporte" onClick={async (e) => await handleUbicacionChange(e)} key={aulas.id} value={aulas.id}>{aulas.descripcion}</Dropdown.Item>
-                                )
-                            }
-                        </Dropdown.Menu>
-                        <Form.Group>
-                                <Form.Select required className="ubicacion-field" onChange={async (e) => await handleUbicacionChange(e)} name="aula-dropdown" disabled={!Boolean(aulas?.length)}>
-                                    <option>~ Aula ~</option>
-                                    {aulas?.map((aula) =>
-                                        <option key={aula.id} value={aula.id} >{aula.descripcion}</option>
-                                    )}
-                                </Form.Select>
-                        </Form.Group>
-                        
-                    </Dropdown> */}
-
-
                     <Row className={`form-epa row-filtros ${filterEdificios}`} >
                         <div>
                             <Form.Group>
@@ -268,7 +240,7 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
                         </div>
                         <div>
                             <Form.Group>
-                                <Form.Select required className="ubicacion-field" onChange={async (e) => handleFilters} name="aulas" disabled={!Boolean(aulas?.length)}>
+                                <Form.Select required className="ubicacion-field" onChange={handleFilters} name="aulas" disabled={!Boolean(aulas?.length)}>
                                     <option>~ Aula ~</option>
                                     {aulas?.map((aula) =>
                                         <option key={aula.id} value={aula.id} >{aula.descripcion}</option>

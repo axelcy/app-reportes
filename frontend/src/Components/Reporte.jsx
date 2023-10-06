@@ -25,7 +25,7 @@ const Reporte = ({ reporte: reporteProp }) => {
         setReporte(initialState => ({...initialState, edificio: edificio, importancia: importancia}))
         resizeEvent()
         setFoto(await useFetch('/img/incidentes/' + reporteProp.foto))
-    }, [])
+    }, [])  
 
     const resizeEvent = () => {
         const fotoContainer = document.getElementById(fotoContainerId)
@@ -66,7 +66,7 @@ const Reporte = ({ reporte: reporteProp }) => {
                     <p>Importancia <b>{reporte.importancia}</b> - Edificio <b>{reporte?.edificio?.descripcion ?? reporteProp.idPisoAula}</b></p>
                 </div>
                 <div className='foto-container-reporte d-none' id={fotoContainerId} onClick={handleOpen}>
-                    <img src={foto} alt={reporteProp.foto.split('.')[0]} className='foto-reporte no-select' id={fotoId} draggable="false" />
+                    <img src={foto} alt={reporteProp?.foto?.split('.')[0]} className='foto-reporte no-select' id={fotoId} draggable="false" />
                     <IoInformationCircleSharp className='icon-reporte'/>
                 </div>
                 <IoInformationCircleSharp className='icon-reporte d-none' id={newIconId} />

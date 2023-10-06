@@ -72,7 +72,7 @@ class IncidenteService {
     getByEdificio = async(idEdificio: number) => {
         let returnArray = null
         let query = `
-        select i.id, i.nombre, i.descripcion, i.fecha, i.importancia from Incidentes i
+        select i.id, i.nombre, i.descripcion, i.fecha, i.importancia, i.foto from Incidentes i
         inner join Pisos_Aulas pa on pa.id = i.idPisoAula
         inner join Edificios_Pisos ep on ep.id = pa.idEdificioPiso
         inner join Edificios e on e.id = ep.idEdificio
