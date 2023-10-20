@@ -1,6 +1,6 @@
 import useFetch from '../Hooks/useFetch'
 import { useEffect, useState } from 'react'
-import './Reporte.css'
+import './Usuario.css'
 
 const Usuario = ({ usuario }) => {
 
@@ -32,7 +32,8 @@ const Usuario = ({ usuario }) => {
         <>
             <div className='reporte-container' >
                 {pantallaGrande ? <span className='reporte-texto-id'>Usuario #{usuario.id}</span> : <span className='reporte-texto-id2'>Usuario #{usuario.id}</span>}
-                <div className='reporte-body'>
+                <div className='usuario-body'>
+                    <img className='logo user-foto' alt='foto-usuario' src={usuario.foto} />
                     <h4>{usuario.nombre}</h4>
                 </div>
             </div>
