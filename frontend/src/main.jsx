@@ -12,6 +12,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 import MisReportes from './pages/MisReportes.jsx'
 import VerReportes from './pages/VerReportes.jsx'
 import PantallaVerde from './pages/PantallaVerde.jsx'
+import VerUsuarios from './pages/VerUsuarios.jsx'
 
 const router = createHashRouter([{
   path: "/",
@@ -25,6 +26,9 @@ const router = createHashRouter([{
 },{
   path: "/ver-reportes",
   element: <VerReportes />
+},{
+  path: "/usuarios",
+  element: <VerUsuarios />
 },{
   path: "/pantalla-verde",
   element: <PantallaVerde />

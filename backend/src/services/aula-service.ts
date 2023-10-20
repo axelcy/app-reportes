@@ -1,5 +1,6 @@
 import sql from 'mssql'
 import config from '../../dbconfig-env'
+import Aula from '../models/Aula'
 
 class AulaService {
     getAll = async () => {
@@ -62,6 +63,41 @@ class AulaService {
             console.log(error)
         }
         return returnArray
+    }
+    insert = async (aula: Aula) => {
+        let returnData = null
+        try {
+            let pool = await sql.connect(config);
+            await pool.request()
+            .input('Descripcion', sql.NChar, aula.descripcion)
+            .query(`INSERT INTO Aulas (descripcion) VALUES (@Descripcion) `);
+            
+            const selectQuery = ` SELECT TOP 1 * FROM Aulas WHERE id = ${aula.id} order by id desc`
+            returnData = await sql.query(selectQuery)
+
+        } catch (error) {
+            console.log(error);
+            throw new Error("No se pudo hacer el INSERT de AULA")
+        }
+        return returnData.recordset[0]
+    }
+    update = async (aula: Aula) => {
+        // tambien hay que hacer que actualice el campo habilitado true / false
+        let returnData = null
+        try {
+            let pool = await sql.connect(config);
+            await pool.request()
+            .input('Descripcion', sql.NChar, aula.descripcion)
+            .query(`UPDATE Aulas SET Descripcion = @Descripcion WHERE id = ${aula.id}`)
+
+            const selectQuery = ` SELECT TOP 1 * FROM Aulas WHERE id = ${aula.id} order by id desc`
+            returnData = await sql.query(selectQuery)
+
+        } catch (error) {
+            console.log(error);
+            throw new Error("No se pudo hacer el UPDATE de AULA")
+        }
+        return returnData.recordset[0]
     }
 }
 
