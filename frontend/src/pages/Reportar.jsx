@@ -176,7 +176,7 @@ const Reportar = () => {
                             <Form.Label className="label-form-reporte">Edificio</Form.Label>
                             <Form.Group>
                                 <Form.Select required className="ubicacion-field" onChange={async(e) => await handleUbicacionChange(e)} name="edificios">
-                                <option className="option-form-reporte">~ Edificio ~</option>
+                                <option className="option-form-reporte">Edificio</option>
                                     {
                                         edificios?.map((edificio) =>
                                             <option className="option-form-reporte" key={edificio.id} value={edificio.id}>{edificio.descripcion}</option>
@@ -189,7 +189,7 @@ const Reportar = () => {
                             <Form.Label className="label-form-reporte">Piso</Form.Label>
                             <Form.Group>
                                 <Form.Select required className="ubicacion-field" onChange={async (e) => await handleUbicacionChange(e)} name="pisos" disabled={!Boolean(pisos?.length)}>
-                                    <option>~ Piso ~</option>
+                                    <option>Piso</option>
                                     {pisos?.map((piso) =>
                                         <option key={piso.id} value={piso.id}>{piso.descripcion}</option>
                                     )}
@@ -200,7 +200,7 @@ const Reportar = () => {
                             <Form.Label className="label-form-reporte">Aula</Form.Label>
                             <Form.Group>
                                 <Form.Select required className="ubicacion-field" onChange={async (e) => await handleUbicacionChange(e)} name="aulas" disabled={!Boolean(aulas?.length)}>
-                                    <option>~ Aula ~</option>
+                                    <option>Aula</option>
                                     {aulas?.map((aula) =>
                                         <option key={aula.id} value={aula.id} >{aula.descripcion}</option>
                                     )}

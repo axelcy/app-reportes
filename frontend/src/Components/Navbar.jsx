@@ -39,17 +39,16 @@ function NavBar() {
                             <Link to={"/reportar"}>Reportar</Link>
                             <Link to={"/mis-reportes"}>Mis reportes</Link>
                             <Link to={"/ver-reportes"}>Ver reportes</Link>
-                            <Link to={"/usuarios"}>Ver usuarios</Link>
-                            <form className='buscar-section' onSubmit={(e) => e.preventDefault()}>
-                                {/* hacer q con enter se envie el form pero q no se recargue la pag*/}
+                            {/* <Link to={"/usuarios"}>Ver usuarios</Link> */}
+                            {/* <form className='buscar-section' onSubmit={(e) => e.preventDefault()}>
                                 <input className='form-control navbar-fetch-input' ref={input} autoComplete='off' placeholder='/img/el-pepe.jpg' defaultValue={'/img/el-pepe.jpg'} />
                                 <Button onClick={fetchData} className='form-control navbar-fetch-button' variant='outline-secondary'>Fetch data</Button>
                                 <Button onClick={verUsuario} className='form-control navbar-fetch-button' variant='outline-secondary'>Ver usuario</Button>
-                            </form>
+                            </form> */}
                         </Nav>
                         {
                             usuario ? 
-                            <img className='logo user-foto' alt='foto-usuario' src={usuario.foto} onClick={() => setModalShow(true)} />
+                            <img className='logo user-foto img-user-nav' alt='foto-usuario' src={usuario.foto} onClick={() => setModalShow(true)} />
                             : /* cambiarle el fondo al boton de google */
                             <LogInButton />
                         }
