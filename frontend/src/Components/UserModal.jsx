@@ -46,8 +46,10 @@ function UserModal({ show, setShow }) {
             <p>Email: {usuario.email}</p>
             <p>Es supervisor: {usuario.esSupervisor === 1 ? 'Si' : 'No'}</p>
             <p>Es admin: {usuario.esSupervisor === 2 ? 'Si' : 'No'}</p>
-            <button onClick={async() => await handleSupervisor()}>Set supervisor</button>
-            <button onClick={async() => await handleAdmin()}>Set admin</button>
+            <div className='buttons-user-modal'>
+              <Button onClick={async() => await handleSupervisor()}>Hacerse supervisor</Button>
+              <Button onClick={async() => await handleAdmin()}>Hacerse administrador</Button>
+            </div>
         </Modal.Body>
         <Modal.Footer>
         <Button onClick={handleLogOut} style={{width: "fit-content"}} className='form-control' variant='outline-secondary'>Log out</Button>
