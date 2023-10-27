@@ -19,9 +19,12 @@ const VerReportes = () => {
     )
 
     const [estadoReportes, setEstadoReportes] = useState(1)
-
     const [listaReportes, setListaReportes] = useState([])
     const [reportesActivos, setReportesActivos] = useState([])
+
+    const [busqueda, setBusqueda] = useState('')
+
+    const handleChange = e => setBusqueda(e.target.value)
 
     useEffect(() => async () => {
         const reportes = await useFetch('/incidentes/estado/' + estadoReportes) // reportes a resolver
@@ -30,6 +33,8 @@ const VerReportes = () => {
         var element = document.getElementsByName("inputFiltros")
         element.visibility = 'hidden'
     }, [estadoReportes])
+
+    useEffect(() => setReportesActivos(listaReportes.filter(e => new RegExp(busqueda, 'gi').test(e.nombre))), [busqueda]) // letal flitrar
 
     const handleSwitchType = () => {
         console.log(estadoReportes)
@@ -48,7 +53,7 @@ const VerReportes = () => {
                         <OrderxFilter listaReportes={listaReportes} setReportesActivos={setReportesActivos} reportesActivos={reportesActivos} />
                     </header>
                     <label>Buscar</label>
-                    <input type='text' className="styled-input" />
+                    <input type='text' className="styled-input" onChange={handleChange} />
                     <div>
                     <Button onClick={handleSwitchType}>Switch tipo reporte</Button>
                     </div>

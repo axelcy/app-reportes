@@ -47,8 +47,8 @@ function UserModal({ show, setShow }) {
             <p>Es supervisor: {usuario.esSupervisor === 1 ? 'Si' : 'No'}</p>
             <p>Es admin: {usuario.esSupervisor === 2 ? 'Si' : 'No'}</p>
             <div className='buttons-user-modal'>
-              <Button onClick={async() => await handleSupervisor()}>Hacerse supervisor</Button>
-              <Button onClick={async() => await handleAdmin()}>Hacerse administrador</Button>
+              <Button onClick={async() => await handleSupervisor()}>Switch supervisor</Button>
+              <Button onClick={async() => await handleAdmin()}>Switch administrador</Button>
             </div>
         </Modal.Body>
         <Modal.Footer>
