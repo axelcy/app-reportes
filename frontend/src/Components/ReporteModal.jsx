@@ -37,7 +37,7 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
     const handleSolucionado = async() => {
         console.log({...reporte})
         await useFetch('/incidentes',  {...reporte, estado: 2 } , 'PUT')
-        // window.location.reload()
+        window.location.reload()
     }
 
     return (
@@ -81,13 +81,21 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
                                     <Form.Label>Descripción</Form.Label>
                                 </Form.Group>
                             </Row>
+                            <Row className='row-cierre-reporte'>
+                                {/* <Form.Control as="textarea" placeholder="Descripción" defaultValue={reporte.descripcion}/> */}
+                                <h4>¿Querés cerrar el reporte?</h4>
+                                <Form.Group className="mb-3 animated-input animated-input-2" autoComplete="off" controlId="exampleForm.ControlTextarea1">
+                                    <Form.Control as="textarea" rows={3} required name="razon" defaultValue={''} onChange={handleChange} /> {/* value={incidente.descripcion} */}
+                                    <Form.Label>Razón de cierre</Form.Label>
+                                </Form.Group>
+                                <Button variant="danger" onClick={handleDelete} className='button-cerrar-reporte'>Cerrar reporte</Button>
+                            </Row>
                         </Col>
                     </Row>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Close</Button>
-                    <Button variant="danger" onClick={handleDelete}>Cerrar reporte</Button>
-                    <Button variant="danger" onClick={handleSolucionado}>Solucionado</Button>
+                    <Button variant="info" onClick={handleSolucionado}>Solucionado</Button>
                     <Button variant="success" onClick={handleSave}>Guardar</Button>
                 </Modal.Footer>
             </Modal>

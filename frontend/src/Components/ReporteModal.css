@@ -44,3 +44,12 @@
 .range-modal-reporte{
     width: 85%;
 }
+
+.button-cerrar-reporte{
+    width: fit-content;
+    margin-right: 1rem;
+}
+
+.row-cierre-reporte{
+    justify-content: flex-end;
+}

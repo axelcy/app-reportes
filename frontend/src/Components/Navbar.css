@@ -31,6 +31,7 @@
     cursor: pointer;
     filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.7)); 
     transition: .2s ease;
+    margin: auto;
 }
 .user-foto:hover{
     /* animation: rotarUsuario 1s infinite; */
