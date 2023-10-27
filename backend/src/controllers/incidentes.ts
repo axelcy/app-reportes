@@ -28,7 +28,7 @@ export const getByAula = async(_req: any, _res: any) => {
 
 export const deleteById = async(_req: any, _res: any) => {
     console.log('DELETE BY ID')
-    _res.send(await new IncidenteService().deleteById(Number(_req.params.idPiso)))
+    _res.send(await new IncidenteService().deleteById(Number(_req.params.id)))
 }
 
 

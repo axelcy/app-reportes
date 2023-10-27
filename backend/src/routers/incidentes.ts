@@ -13,6 +13,6 @@ routerIncidentes.get('/incidentes/edificio/:idEdificio', getByEdificio)
 routerIncidentes.get('/incidentes/piso/:idPiso', getByPiso)
 routerIncidentes.get('/incidentes/aula/:idAula', getByAula)
 
-routerIncidentes.delete('/incidentes/:id', deleteById)
+routerIncidentes.post('/incidentes/:id', deleteById)
 
 export default routerIncidentes
