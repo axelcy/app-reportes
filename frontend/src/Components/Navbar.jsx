@@ -37,9 +37,11 @@ function NavBar() {
                         <Nav className="me-auto navbar-collapse">
                             <Link to={"/"}>Home</Link>
                             <Link to={"/reportar"}>Reportar</Link>
-                            <Link to={"/mis-reportes"}>Mis reportes</Link>
+                            { (!usuario && !import.meta.env.VITE_BYPASS) && <Link to={"/mis-reportes"}>Mis reportes</Link> }
+                            {/* { (usuario === null || usuario.esSupervisor === 0) ?? <Link to={"/ver-reportes"}>Ver reportes</Link> } */}
                             <Link to={"/ver-reportes"}>Ver reportes</Link>
-                            {/* <Link to={"/usuarios"}>Ver usuarios</Link> */}
+                            {/* { (usuario === null || usuario.esSupervisor === 0) ?? <Link to={"/usuarios"}>Usuarios</Link> } */}
+                            <Link to={"/usuarios"}>Usuarios</Link>
                             {/* <form className='buscar-section' onSubmit={(e) => e.preventDefault()}>
                                 <input className='form-control navbar-fetch-input' ref={input} autoComplete='off' placeholder='/img/el-pepe.jpg' defaultValue={'/img/el-pepe.jpg'} />
                                 <Button onClick={fetchData} className='form-control navbar-fetch-button' variant='outline-secondary'>Fetch data</Button>

@@ -18,6 +18,7 @@
     height: 100%;
     flex-direction: row;
     align-items: baseline;
+    width: 100%;
 }
 
 .reporte-body > p{
@@ -63,15 +64,37 @@
     filter: saturate(150%);
 }
 
-.reporte-texto-id{
+.user-texto-id{
     position: absolute;
     top: 2px;
-    left: calc(100% - 270px);
+    left: calc(100% - 110px);
     border-radius: 3px;
 }
-.reporte-texto-id2{
+.user-texto-id2{
     position: absolute;
     top: 2px;
     left: calc(100% - 100px);
     border-radius: 3px;
 }
+
+
+.range-modal-user{
+    width: 85%;
+}
+
+.range-usuario{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.range-container{
+    width: 30%;
+}
+@media (width < 570) {
+    .range-container{
+        width: 100%;
+    }
+}
+
+

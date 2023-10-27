@@ -70,7 +70,7 @@ class UsuarioService {
             .input('Apellido', sql.NChar, usuario.apellido)
             .input('Email', sql.NChar, usuario.email)
             .input('Foto', sql.NChar, usuario.foto)
-            .input('EsSupervisor', sql.Bit, usuario.esSupervisor)
+            .input('EsSupervisor', sql.Int, usuario.esSupervisor)
             .query(`INSERT INTO Usuarios (nombre, apellido, email, foto, esSupervisor) 
             VALUES (@Nombre, @Apellido, @Email, @Foto, @EsSupervisor)`);
 
@@ -97,7 +97,7 @@ class UsuarioService {
             .input('Apellido', sql.NChar, usuario.apellido)
             .input('Email', sql.NChar, usuario.email)
             .input('Foto', sql.NChar, usuario.foto)
-            .input('EsSupervisor', sql.Bit, usuario.esSupervisor)
+            .input('EsSupervisor', sql.Int, usuario.esSupervisor)
             .query(`UPDATE Usuarios SET
             Nombre = @Nombre,
             Apellido = @Apellido,

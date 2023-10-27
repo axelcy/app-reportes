@@ -11,11 +11,11 @@ import Usuario from "../Components/Usuario"
 
 const VerUsuarios = () => {
     const { usuario } = useUsuario()
-    if (usuario === null || !usuario.esSupervisor) return (
+    if (usuario === null || usuario.esSupervisor !== 2) return (
         <>
             <NavBar />
             <h1>Acceso denegado</h1>
-            <h4>Es necesario ser supervisor (ADMIN) ver los reportes a resolver.</h4>
+            <h4>Es necesario ser administrador ver los reportes a resolver.</h4>
         </>
     )
 

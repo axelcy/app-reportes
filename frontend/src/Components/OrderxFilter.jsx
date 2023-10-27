@@ -138,7 +138,7 @@ function OrderxFilter({ listaReportes, setReportesActivos, reportesActivos }) {
             }
         }
     }
-    console.log(filterType)
+    // console.log(filterType)
     useEffect(() => {
         const PRUEBAXD = async () => {
             if (filter === "") setReportesActivos(listaReportes)

@@ -10,7 +10,7 @@ import OrderxFilter from "../Components/OrderxFilter"
 
 const VerReportes = () => {
     const { usuario } = useUsuario()
-    if (usuario === null || !usuario.esSupervisor) return (
+    if (usuario === null || usuario.esSupervisor === 0) return (
         <>
             <NavBar />
             <h1>Acceso denegado</h1>

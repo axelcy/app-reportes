@@ -25,7 +25,7 @@ function Tabla() {
           <td>{key + 1}</td>
           <td>{usuario.nombre}</td>
           <td>{usuario.apellido}</td>
-          <td>{usuario.esSupervisor ? 'Sí' : 'No'}</td>
+          <td>{usuario.esSupervisor === 1 ? 'Sí' : 'No'}</td>
         </tr>)}
       </tbody>
     </Table>

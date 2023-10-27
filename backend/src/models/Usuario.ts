@@ -2,7 +2,7 @@ class Usuario {
     id: number
     nombre: string
     apellido: string
-    esSupervisor: boolean
+    esSupervisor: number
     email: string
     foto: string
     constructor(nombre: string, apellido: string, email: string, foto: string){
