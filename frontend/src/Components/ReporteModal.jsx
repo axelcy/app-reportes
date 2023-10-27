@@ -94,8 +94,10 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
                     </Row>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>Close</Button>
-                    <Button variant="info" onClick={handleSolucionado}>Solucionado</Button>
+                    <Button onClick={handleSolucionado}>Solucionado</Button>
+                    <div className='separacion-modal-reporte'></div>
+                    <Button variant="secondary" onClick={handleClose}>Cerrar</Button>
+                    {/* <Button variant="info" onClick={handleSolucionado}>Solucionado</Button> */}
                     <Button variant="success" onClick={handleSave}>Guardar</Button>
                 </Modal.Footer>
             </Modal>

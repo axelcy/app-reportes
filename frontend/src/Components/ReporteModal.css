@@ -53,3 +53,7 @@
 .row-cierre-reporte{
     justify-content: flex-end;
 }
+
+.separacion-modal-reporte{
+    width: 30px;
+}
