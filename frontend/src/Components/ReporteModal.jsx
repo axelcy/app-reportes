@@ -83,7 +83,7 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
                             </Row>
                             <Row className='row-cierre-reporte'>
                                 {/* <Form.Control as="textarea" placeholder="Descripción" defaultValue={reporte.descripcion}/> */}
-                                <h4>¿Querés cerrar el reporte?</h4>
+                                <h4>¿Querés eliminar el reporte?</h4>
                                 <Form.Group className="mb-3 animated-input animated-input-2" autoComplete="off" controlId="exampleForm.ControlTextarea1">
                                     <Form.Control as="textarea" rows={3} required name="razon" defaultValue={''} onChange={handleChange} /> {/* value={incidente.descripcion} */}
                                     <Form.Label>Razón de cierre</Form.Label>
