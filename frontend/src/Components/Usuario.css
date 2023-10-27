@@ -91,10 +91,3 @@
 .range-container{
     width: 30%;
 }
-@media (width < 570) {
-    .range-container{
-        width: 100%;
-    }
-}
-
-
