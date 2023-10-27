@@ -11,7 +11,6 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
     const [reporte, setReporte] = useState({})
     const [image, setImage] = useState(null)
     const [editMode, setEditMode] = useState(false)
-
     useEffect(() => async () => {
         setImage(await useFetch('/img/incidentes/' + reporteProp.foto))
         setReporte({
@@ -30,9 +29,10 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
         window.location.reload()
     }
     const handleDelete = async() => {
-        return
-        await useFetch('/incidentes', null , 'Delete')
-        window.location.reload()
+        // return
+        console.log('/incidentes/' + reporteProp.id)
+        await useFetch('/incidentes/' + reporteProp.id, null , 'DELETE')
+        // window.location.reload()
     }
     const handleSolucionado = async() => {
         console.log({...reporte})
