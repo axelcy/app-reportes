@@ -124,6 +124,14 @@ const Reportar = () => {
         setImage(imageSrc)
     }
     const handleShowImage = mostrar => setShowImage(mostrar)
+
+    if (!usuario && !import.meta.env.VITE_BYPASS) return (
+        <>
+            <NavBar />
+            <h1>Acceso denegado</h1>
+            <h4>Es necesario estar logeado para poder reportar.</h4>
+        </>
+    )
     return (
         <>
             <Link to={'/pantalla-verde'} className='d-none' id="reporte-green-screen-button"></Link>
