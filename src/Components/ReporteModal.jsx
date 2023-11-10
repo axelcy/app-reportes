@@ -44,6 +44,12 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
         window.location.reload()
     }
 
+    const handleReAbrir = async() => {
+        // console.log({...reporte})
+        await useFetch('/incidentes',  {...reporte, estado: 1 } , 'PUT')
+        window.location.reload()
+    }
+
     return (
         <>
             <Modal show={show} onHide={handleClose} className='reporte-modal' size='lg'>
@@ -98,8 +104,8 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
                                 </Form.Group>
                                 {
                                     reporteProp.estado !== 3 ?
-                                    <Button variant="danger" onClick={handleDelete} className='button-cerrar-reporte'>Cerrar reporte</Button> : ''
-                                    // <Button variant="info" onClick={handleDelete} className='button-cerrar-reporte'>Re-abrir reporte</Button> 
+                                    <Button variant="danger" onClick={handleDelete} className='button-cerrar-reporte'>Cerrar reporte</Button> :
+                                    <Button variant="info" onClick={handleReAbrir} className='button-cerrar-reporte'>Re-abrir reporte</Button> 
                                 }
                             </Row>
                         </Col>
@@ -107,7 +113,7 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
                 </Modal.Body>
                 <Modal.Footer>
                     {
-                        reporteProp.estado !== 2 || reporteProp.estado !== 3 &&
+                        reporteProp.estado === 1 &&
                         <Button onClick={handleSolucionado}>Solucionado</Button>
                     }
                     <div className='separacion-modal-reporte'></div>
