@@ -3,7 +3,7 @@ import NavBar from "../Components/NavBar"
 import useFetch from "../Hooks/useFetch"
 import Reporte from "../Components/Reporte"
 import './VerReportes.css'
-import { Button, Container } from "react-bootstrap"
+import { Button, Container, Form, ToggleButtonGroup, ToggleButton, Row } from "react-bootstrap"
 import useUsuario from "../Hooks/useUsuario"
 import ReporteModal from "../Components/ReporteModal"
 import OrderxFilter from "../Components/OrderxFilter"
@@ -26,20 +26,28 @@ const VerReportes = () => {
 
     const handleChange = e => setBusqueda(e.target.value)
 
-    useEffect(() => async () => {
-        const reportes = await useFetch('/incidentes/estado/' + estadoReportes) // reportes a resolver
+    useEffect(() => async() => {
+        await start(1)
+    }, [])
+
+    const start = async(estado) => {
+        const reportes = await useFetch('/incidentes/estado/' + estado) // reportes a resolver
+        // console.log(estado)
+        // console.log(await useFetch('/incidentes/estado/' + estado))
         setListaReportes(reportes)
         setReportesActivos(reportes)
         var element = document.getElementsByName("inputFiltros")
         element.visibility = 'hidden'
-    }, [estadoReportes])
-
+    }
     useEffect(() => setReportesActivos(listaReportes.filter(e => new RegExp(busqueda, 'gi').test(e.nombre))), [busqueda]) // letal flitrar
 
-    const handleSwitchType = () => {
-        console.log(estadoReportes)
-        if (estadoReportes === 1) return setEstadoReportes(2)
-        else return setEstadoReportes(1)
+    const handleSwitchType = async(e) => {
+        // console.log(estadoReportes)
+        // console.log(Number(e.target.value))
+        setEstadoReportes(Number(e.target.value))
+        await start(Number(e.target.value))
+        // if (estadoReportes === 1) return setEstadoReportes(2)
+        // else return setEstadoReportes(1)
     }
     // !import.meta.env.VITE_BYPASS
     
@@ -54,8 +62,17 @@ const VerReportes = () => {
                     </header>
                     <label>Buscar</label>
                     <input type='text' className="styled-input" onChange={handleChange} />
-                    <div>
-                    <Button onClick={handleSwitchType}>Switch tipo reporte</Button>
+                    <div className="switch-tipo-reporte-container">
+                    {/* <Button onClick={handleSwitchType}>Switch Solucionados</Button> */}
+                    <Row>
+                        <Form.Label className="label-form-reporte" id="label-tipo-reporte">Tipo de reporte</Form.Label>
+                            <div style={{display: 'flex', gap: '10px', justifyContent: 'center'}}>
+                                <Button id="tbg-check-1" onClick={handleSwitchType} value={1}>A resolver </Button>
+                                <Button id="tbg-check-2" onClick={handleSwitchType} value={2}>Solucionados</Button>
+                                <Button id="tbg-check-3" onClick={handleSwitchType} value={3}>Cerrados</Button>
+                            </div>
+                    </Row>
+                    {/* <span>{estadoReportes === 1 ? 'A resolver' : 'Solucionados'}</span> */}
                     </div>
                     <div className="lista-reportes-container">
                         {

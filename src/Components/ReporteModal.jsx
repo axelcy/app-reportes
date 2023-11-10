@@ -12,6 +12,7 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
     const [image, setImage] = useState(null)
     const [editMode, setEditMode] = useState(false)
     useEffect(() => async () => {
+        // console.log(reporteProp)
         setImage(await useFetch('/img/incidentes/' + reporteProp.foto))
         setReporte({
             ...reporteProp,
@@ -28,14 +29,17 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
         await useFetch('/incidentes', {...reporte}, 'PUT')
         window.location.reload()
     }
+    useEffect(() => console.log(reporte.razonCierre), [reporte.razonCierre])
+
     const handleDelete = async() => {
-        // return
-        console.log('/incidentes/' + reporteProp.id)
-        await useFetch('/incidentes/' + reporteProp.id, null , 'DELETE')
-        // window.location.reload()
+        // console.log('/incidentes/' + reporteProp.id)
+        
+        // console.log({...reporte, estado: 3, razonCierre: reporte.razonCierre })
+        await useFetch('/incidentes',  {...reporte, estado: 3, razonCierre: reporte.razonCierre } , 'PUT')
+        window.location.reload()
     }
     const handleSolucionado = async() => {
-        console.log({...reporte})
+        // console.log({...reporte})
         await useFetch('/incidentes',  {...reporte, estado: 2 } , 'PUT')
         window.location.reload()
     }
@@ -85,7 +89,7 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
                                 {/* <Form.Control as="textarea" placeholder="Descripción" defaultValue={reporte.descripcion}/> */}
                                 <h4>¿Querés eliminar el reporte?</h4>
                                 <Form.Group className="mb-3 animated-input animated-input-2" autoComplete="off" controlId="exampleForm.ControlTextarea1">
-                                    <Form.Control as="textarea" rows={3} required name="razon" defaultValue={''} onChange={handleChange} /> {/* value={incidente.descripcion} */}
+                                    <Form.Control as="textarea" rows={3} required name="razonCierre" defaultValue={reporte.razonCierre} onChange={handleChange} /> {/* value={incidente.descripcion} */}
                                     <Form.Label>Razón de cierre</Form.Label>
                                 </Form.Group>
                                 <Button variant="danger" onClick={handleDelete} className='button-cerrar-reporte'>Cerrar reporte</Button>
@@ -94,7 +98,10 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
                     </Row>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={handleSolucionado}>Solucionado</Button>
+                    {
+                        reporteProp.estado !== 2 &&
+                        <Button onClick={handleSolucionado}>Solucionado</Button>
+                    }
                     <div className='separacion-modal-reporte'></div>
                     <Button variant="secondary" onClick={handleClose}>Cerrar</Button>
                     {/* <Button variant="info" onClick={handleSolucionado}>Solucionado</Button> */}

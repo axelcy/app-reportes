@@ -39,7 +39,7 @@ const Usuario = ({ usuario: usuarioProp }) => {
     window.addEventListener('resize', resizeEvent)
     const handleUserState = async(e) => {
         const user = await useFetch('/usuarios/' + usuarioProp.id)
-        console.log(user)
+        // console.log(user)
         const newUsuario = await useFetch('/usuarios', {...user, esSupervisor: Number(e.target.value)}, 'PUT')
     }
 

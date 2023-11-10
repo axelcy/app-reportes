@@ -18,6 +18,7 @@ const Reporte = ({ reporte: reporteProp }) => {
     const [pantallaGrande, setPantallaGrande] = useState(null)
 
     useEffect(() => async () => {
+        // console.log(reporteProp)
         let idimp = reporteProp.importancia
         let importancia = idimp === 1 ? 'Baja' : idimp === 2 ? 'Media' : 'Alta'
         const edificio = await useFetch(`/edificios/pisoaula/${reporteProp.idPisoAula}`)
@@ -63,7 +64,7 @@ const Reporte = ({ reporte: reporteProp }) => {
                 {pantallaGrande ? <span className='reporte-texto-id'>Reporte #{reporteProp.id}</span> : <span className='reporte-texto-id2'>Reporte #{reporteProp.id}</span>}
                 <div className='reporte-body'>
                     <h4>{reporte.nombre}</h4>
-                    <p>Importancia <b>{reporte.importancia}</b> - Edificio <b>{reporte?.edificio?.descripcion ?? reporteProp.idPisoAula}</b></p>
+                    <p>Importancia <b>{reporte.importancia}</b> - Edificio <b>{reporte?.edificio?.descripcion ?? reporteProp.idPisoAula}</b>{reporteProp.estado === 2 && <> - ¡<b>Solucionado</b>!</> }</p>
                 </div>
                 <div className='foto-container-reporte d-none' id={fotoContainerId} onClick={handleOpen}>
                     <img src={foto} alt={reporteProp?.foto?.split('.')[0]} className='foto-reporte no-select' id={fotoId} draggable="false" />

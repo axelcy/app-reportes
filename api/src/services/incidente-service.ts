@@ -7,7 +7,7 @@ type Order = 'importancia' | 'fecha' | 'edificio' | 'categoria'
 class IncidenteService {
     getAll = async (order: Order = 'fecha') => {
         let query = `
-        select i.id, i.nombre, i.descripcion, i.idUsuario, i.fecha, i.idUsuarioSolucion, i.estado, i.foto, c.descripcion 'categoria', n.descripcion 'imporancia', e.descripcion 'edificio' from Incidentes i
+        select i.id, i.razonCierre, i.nombre, i.descripcion, i.idUsuario, i.fecha, i.idUsuarioSolucion, i.estado, i.foto, c.descripcion 'categoria', n.descripcion 'imporancia', e.descripcion 'edificio' from Incidentes i
 		inner join Categorias c on c.id = i.categoria
         inner join Niveles_Importancia n on n.id = i.importancia
         inner join Pisos_Aulas pa on pa.id = i.idPisoAula
@@ -72,7 +72,7 @@ class IncidenteService {
     getByEdificio = async(idEdificio: number) => {
         let returnArray = null
         let query = `
-        select i.id, i.nombre, i.descripcion, i.fecha, i.importancia, i.foto from Incidentes i
+        select i.id, i.razonCierre, i.nombre, i.descripcion, i.fecha, i.importancia, i.foto from Incidentes i
         inner join Pisos_Aulas pa on pa.id = i.idPisoAula
         inner join Edificios_Pisos ep on ep.id = pa.idEdificioPiso
         inner join Edificios e on e.id = ep.idEdificio
@@ -90,7 +90,7 @@ class IncidenteService {
     getByPiso = async(idPiso: number) => {
         let returnArray = null
         let query = `
-        select i.id, i.nombre, i.descripcion, i.fecha, i.importancia from Incidentes i
+        select i.id, i.razonCierre, i.nombre, i.descripcion, i.fecha, i.importancia from Incidentes i
         inner join Pisos_Aulas pa on pa.id = i.idPisoAula
         inner join Edificios_Pisos ep on ep.id = pa.idEdificioPiso
         inner join Pisos p on p.id = ep.idPiso
@@ -108,7 +108,7 @@ class IncidenteService {
     getByAula = async(idAula: number) => {
         let returnArray = null
         let query = `
-        select i.id, i.nombre, i.descripcion, i.fecha, i.importancia from Incidentes i
+        select i.id, i.razonCierre, i.nombre, i.descripcion, i.fecha, i.importancia from Incidentes i
         inner join Pisos_Aulas pa on pa.id = i.idPisoAula
         inner join Aulas a on a.id = pa.idAula
         where a.id = @Id`
@@ -152,8 +152,9 @@ class IncidenteService {
             .input('IdUsuarioSolucion', sql.Int, incidente.idUsuarioSolucion)
             .input('Categoria',         sql.Int, incidente.categoria)
             .input('Foto',              sql.NChar, incidente.foto)
-            .query(`INSERT INTO Incidentes (nombre, descripcion, idUsuario, idPisoAula, fecha, importancia, estado, idUsuarioSolucion, categoria, foto) 
-            VALUES (@Nombre, @Descripcion, @IdUsuario, @IdPisoAula, @Fecha, @Importancia, @Estado, @IdUsuarioSolucion, @Categoria, @Foto)`);
+            .input('RazonCierre',       sql.NChar, incidente.razonCierre)
+            .query(`INSERT INTO Incidentes (nombre, descripcion, idUsuario, idPisoAula, fecha, importancia, estado, idUsuarioSolucion, categoria, foto, razonCierre) 
+            VALUES (@Nombre, @Descripcion, @IdUsuario, @IdPisoAula, @Fecha, @Importancia, @Estado, @IdUsuarioSolucion, @Categoria, @Foto, @RazonCierre)`);
             
             const selectQuery = `
             SELECT TOP 1 * FROM Incidentes
@@ -182,6 +183,7 @@ class IncidenteService {
             .input('IdUsuarioSolucion', sql.Int, incidente.idUsuarioSolucion)
             .input('Categoria',         sql.Int, incidente.categoria)
             .input('Foto',              sql.NChar, incidente.foto)
+            .input('RazonCierre',       sql.NChar, incidente.razonCierre)
             .query(`UPDATE Incidentes 
             SET Nombre = @Nombre,
             Descripcion = @Descripcion,
@@ -192,7 +194,8 @@ class IncidenteService {
             Estado = @Estado,
             IdUsuarioSolucion = @IdUsuarioSolucion,
             Categoria = @Categoria,
-            Foto = @Foto
+            Foto = @Foto,
+            RazonCierre = @RazonCierre
             WHERE id = ${incidente.id}`)
 
             const selectQuery = `
