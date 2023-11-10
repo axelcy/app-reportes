@@ -87,19 +87,27 @@ function ReporteModal({ show, setShow, reporte: reporteProp }) {
                             </Row>
                             <Row className='row-cierre-reporte'>
                                 {/* <Form.Control as="textarea" placeholder="Descripción" defaultValue={reporte.descripcion}/> */}
-                                <h4>¿Querés eliminar el reporte?</h4>
+                                {
+                                    reporteProp.estado !== 3 ?
+                                    <h4>¿Querés eliminar el reporte?</h4> :
+                                    <h4 style={{color: '#ff3838'}}>Reporte cerrado</h4>
+                                }
                                 <Form.Group className="mb-3 animated-input animated-input-2" autoComplete="off" controlId="exampleForm.ControlTextarea1">
-                                    <Form.Control as="textarea" rows={3} required name="razonCierre" defaultValue={reporte.razonCierre} onChange={handleChange} /> {/* value={incidente.descripcion} */}
+                                    <Form.Control as="textarea" rows={3} required name="razonCierre" defaultValue={reporte.razonCierre} onChange={handleChange} />
                                     <Form.Label>Razón de cierre</Form.Label>
                                 </Form.Group>
-                                <Button variant="danger" onClick={handleDelete} className='button-cerrar-reporte'>Cerrar reporte</Button>
+                                {
+                                    reporteProp.estado !== 3 ?
+                                    <Button variant="danger" onClick={handleDelete} className='button-cerrar-reporte'>Cerrar reporte</Button> : ''
+                                    // <Button variant="info" onClick={handleDelete} className='button-cerrar-reporte'>Re-abrir reporte</Button> 
+                                }
                             </Row>
                         </Col>
                     </Row>
                 </Modal.Body>
                 <Modal.Footer>
                     {
-                        reporteProp.estado !== 2 &&
+                        reporteProp.estado !== 2 || reporteProp.estado !== 3 &&
                         <Button onClick={handleSolucionado}>Solucionado</Button>
                     }
                     <div className='separacion-modal-reporte'></div>
